@@ -459,8 +459,8 @@ header .intro-text {
 }
 /* Contact Section */
 #contact {
-  padding: 100px 0 60px;
-  background: linear-gradient(#0047A0 0%, #f4f5f5 100%);
+  padding: 10px 0 10px;
+  background-color: #0047A0;
   color: rgba(255, 255, 255, 0.75);
 }
 #contact .section-title {
@@ -472,8 +472,9 @@ header .intro-text {
 #contact h2 {
   color: #fff;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   padding-bottom: 15px;
+  text-align: center;
 }
 #contact .section-title h2::after {
   position: absolute;
@@ -583,6 +584,31 @@ label {
   color: #608dfd;
   background: #fff;
 }
+/*#LKMA-building {
+  width: 100%;
+  z-index: 1;
+  opacity: 0.5;
+  height: 650px;
+  margin: auto;
+  margin-top: 0px;
+  background-image: url("file:///C:/Users/donny/Documents/GitHub/LKMA_Site/public/img/leeskoreanmartialarts_sacramento.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 750px;
+  background-attachment: fixed;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+  font-weight: 800;
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+}*/
+#contact-info {
+  text-align: center;
+}
+#google-map {
+  bottom: 0;
+}
+
 /* Footer Section*/
 #footer {
   background: #f6f6f6;
