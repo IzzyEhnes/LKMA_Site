@@ -289,7 +289,7 @@ header .intro-text {
   padding: 0;
 }
 #about .about-text li:before {
-  content: "\f00c";
+  content: "\f0da";
   font-family: "FontAwesome";
   color: #5ca9fb;
   font-size: 11px;
