@@ -311,7 +311,7 @@ header .intro-text {
 /* Programs Section */
 #programs {
   padding: 100px 0;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  background: rgb(32, 33, 36);
   color: #fff;
 }
 #programs .container {
