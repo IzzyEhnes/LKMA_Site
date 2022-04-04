@@ -18,16 +18,16 @@ h2 {
   margin: 0 0 20px;
   font-weight: 800;
   font-size: 36px;
-  color: #333;
+  color: rgb(255, 255, 255);
 }
 h3 {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: rgb(255, 255, 255);
 }
 h4 {
   font-size: 18px;
-  color: #333;
+  color: rgb(255, 255, 255);
   font-weight: 600;
 }
 h5 {
@@ -76,26 +76,26 @@ hr {
   transition: all 0.8s;
 }
 #menu.navbar-default {
-  background-color: #fff;
-  border-color: rgba(231, 231, 231, 0);
+  background-color: rgb(32, 33, 36);
+  border-color: rgba(17, 17, 17, 0);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 #menu a.navbar-brand {
   font-family: "Raleway", sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: #333;
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
 }
 #menu.navbar-default .navbar-nav > li > a {
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
-  color: #555;
+  color: rgb(255, 255, 255)
   font-size: 15px;
   font-weight: 400;
   padding: 8px 2px;
   border-radius: 0;
-  margin: 9px 20px 0;
+  margin: 9px 8px 0;
 }
 #menu.navbar-default .navbar-nav > li > a:after {
   display: block;
@@ -246,7 +246,7 @@ header .intro-text {
 }
 /* Features Section */
 #features {
-  background: #f6f6f6;
+  background: rgb(32, 33, 36);
 }
 #features i.fa {
   font-size: 38px;
@@ -263,6 +263,7 @@ header .intro-text {
 /* About Section */
 #about {
   padding: 100px 0;
+  background: rgb(32, 33, 36);
 }
 #about h3 {
   font-size: 22px;
@@ -367,6 +368,7 @@ header .intro-text {
 /* Portfolio Section */
 #portfolio {
   padding: 100px 0;
+  background: rgb(32, 33, 36);
 }
 .portfolio-item {
   margin: 1px -15px 0 -14px;
@@ -416,7 +418,7 @@ header .intro-text {
 /* Testimonials Section */
 #testimonials {
   padding: 100px 0;
-  background: #f6f6f6;
+  background: rgb(32, 33, 36);
 }
 #testimonials i {
   color: #e6e6e6;
@@ -456,6 +458,7 @@ header .intro-text {
 /* Team Section */
 #team {
   padding: 100px 0;
+  background: rgb(32, 33, 36);
 }
 #team h4 {
   margin: 5px 0;
