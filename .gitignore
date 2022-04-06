@@ -38,3 +38,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 node_modules
+/.vs/LKMA_Site2/v17/.suo
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
