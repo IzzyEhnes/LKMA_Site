@@ -8,9 +8,6 @@ export const Gallery_Image = ({ title, largeImage, smallImage }) => {
           title={title}
           data-lightbox-gallery='gallery1'
         >
-          <div className='hover-text'>
-            <h4>{title}</h4>
-          </div>
           <img
             src={smallImage}
             className='img-responsive'
