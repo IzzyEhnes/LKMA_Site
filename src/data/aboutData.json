@@ -1,0 +1,24 @@
+{
+  "Instructors": [
+    {
+      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
+      "image": "img/instructors/imgFileNameHere.jpg",
+      "paragraph": "Description of Instructor Here"
+    },
+    {
+      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
+      "image": "img/instructors/imgFileNameHere.jpg",
+      "paragraph": "Description of Instructor Here"
+    },
+    {
+      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
+      "image": "img/instructors/imgFileNameHere.jpg",
+      "paragraph": "Description of Instructor Here"
+    },
+    {
+      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
+      "image": "img/instructors/imgFileNameHere.jpg",
+      "paragraph": "Description of Instructor Here"
+    },
+  ]
+}
