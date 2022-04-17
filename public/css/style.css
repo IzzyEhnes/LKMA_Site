@@ -470,6 +470,48 @@ header .intro-text {
   padding: 10px 0 0;
   color: #888;
 }
+/* Instructors Section */
+#instructors {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+#instructors h3 {
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+#instructors h2 {
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+#instructors hr {
+  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+}
+#instructors .instructor-item {
+  width: 100%;
+  padding-bottom: 10px;
+}
+#instructors .instructor-img {
+  width: 240px;
+}
+#instructors .instructor-paragraph {
+  overflow: auto;
+  display: block;
+  margin-left: 20%;
+margin-right: 20%;
+  white-space: pre-line;
+}
+#instructors img {
+  width: 300px;
+  margin-top: 10px;
+  background: #fff;
+  border-right: 0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+}
+#instructors p {
+  line-height: 24px;
+  margin: 30px 0;
+}
 /* Contact Section */
 #contact {
   padding: 10px 0 10px;
