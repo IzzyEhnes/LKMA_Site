@@ -308,6 +308,9 @@ header .intro-text {
   line-height: 24px;
   margin: 30px 0;
 }
+#page-top{
+  background: rgb(32, 33, 36);
+}
 /* Programs Section */
 #programs {
   padding: 100px 0;
