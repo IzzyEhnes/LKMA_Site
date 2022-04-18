@@ -1,8 +1,11 @@
 export const Navigation = (props) => {
   return (
     <nav id='menu' className='navbar navbar-default navbar-fixed-top'>
+        
       <div className='container'>
+
         <div className='navbar-header'>
+
           <button
             type='button'
             className='navbar-toggle collapsed'
@@ -15,9 +18,13 @@ export const Navigation = (props) => {
             <span className='icon-bar'></span>{' '}
             <span className='icon-bar'></span>{' '}
           </button>
+
           <a className='navbar-brand page-scroll' href='#page-top'>
-            Lee's Korean Martial Arts
+          <img src='/img/logo.png' width="50" height="50" />
+          
+          Lee's Korean Martial Arts
           </a>{' '}
+
         </div>
 
         <div

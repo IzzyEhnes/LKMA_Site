@@ -71,9 +71,11 @@ hr {
   border: 0;
 }
 /* Navigation */
+
 #menu {
-  padding: 15px;
+  padding: 5px;
   transition: all 0.8s;
+
 }
 #menu.navbar-default {
   background-color: rgb(32, 33, 36);
@@ -81,12 +83,22 @@ hr {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 #menu a.navbar-brand {
+  text-align: justify;
   font-family: "Raleway", sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: rgb(255, 255, 255);
   text-transform: uppercase;
+  margin: 0px 0px 0;
 }
+
+.navbar-brand>img {
+  float: left !important;
+  margin-top: -15px !important;
+  padding: 5px 5px;
+  margin: 0px 0px 0;
+}
+
 #menu.navbar-default .navbar-nav > li > a {
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
@@ -96,6 +108,7 @@ hr {
   padding: 8px 2px;
   border-radius: 0;
   margin: 9px 8px 0;
+
 }
 #menu.navbar-default .navbar-nav > li > a:after {
   display: block;
