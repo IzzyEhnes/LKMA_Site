@@ -1,9 +1,11 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 export const Navigation = (props) => {
   return (
     <nav id='menu' className='navbar navbar-default navbar-fixed-top'>
         
       <div className='container'>
-
         <div className='navbar-header'>
 
           <button
@@ -19,11 +21,10 @@ export const Navigation = (props) => {
             <span className='icon-bar'></span>{' '}
           </button>
 
-          <a className='navbar-brand page-scroll' href='#page-top'>
+          <NavLink className='nav-link navbar-brand page-scroll' to="/">
           <img src='/img/logo.png' width="50" height="50" />
-          
           Lee's Korean Martial Arts
-          </a>{' '}
+          </NavLink>{' '}
 
         </div>
 
@@ -33,28 +34,23 @@ export const Navigation = (props) => {
         >
           <ul className='nav navbar-nav navbar-right'>
             <li>
-              <a href='#features' className='page-scroll'>
-                Features
-              </a>
-            </li>
-            <li>
-              <a href='#about' className='page-scroll'>
+              <NavLink className="nav-link" to="/about">
                 About
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href='#programs' className='page-scroll'>
+              <NavLink className="nav-link" to="/faq">
+                FAQ
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-link" to="/programs">
                 Programs
-              </a>
+              </NavLink>
             </li>
             <li>
               <a href='#portfolio' className='page-scroll'>
                 Gallery
-              </a>
-            </li>
-            <li>
-              <a href='#Profile' className='page-scroll'>
-                Profile
               </a>
             </li>
             <li>
@@ -68,13 +64,13 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href='#login' className='page-scroll'>
-                Log In
+              <a href='#contact' className='page-scroll'>
+                Contact
               </a>
             </li>
             <li>
-              <a href='#contact' className='page-scroll'>
-                Contact
+              <a href='#Profile' className='page-scroll'>
+                Profile / Log In
               </a>
             </li>
           </ul>

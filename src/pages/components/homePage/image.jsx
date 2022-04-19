@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export const Gallery_Image = ({ title, largeImage, smallImage }) => {
   return (
     <div className='portfolio-item'>
@@ -24,8 +26,7 @@ export const Program_Image = ({ title, largeImage, smallImage }) => {
     <div className='program-item'>
       <div className='hover-bg'>
         {' '}
-        <a
-          href={largeImage}
+        <NavLink className="nav-link" to="/programs"
           title={title}
           data-lightbox-gallery='gallery1'
         >
@@ -37,7 +38,7 @@ export const Program_Image = ({ title, largeImage, smallImage }) => {
             className='img-responsive'
             alt={title}
           />{' '}
-        </a>{' '}
+        </NavLink>{' '}
       </div>
     </div>
   )
