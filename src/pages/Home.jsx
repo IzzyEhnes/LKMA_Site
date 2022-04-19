@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
-import { Navigation } from "./components/navigation";
-import { Header } from "./components/header";
-import { Features } from "./components/features";
-import { About } from "./components/about";
-import { Programs } from "./components/programs";
-import { Gallery } from "./components/gallery";
-import { Team } from "./components/Team";
+import { Header } from "./components/homePage/header";
+import { Features } from "./components/homePage/features";
+import { About } from "./components/homePage/about";
+import { Programs } from "./components/homePage/programs";
+import { Gallery } from "./components/homePage/gallery";
+import { Team } from "./components/homePage/Team";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
-import "./App.css";
+import "./Home.css";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
 });
 
-const App = () => {
+const Home = () => {
   const [landingPageData, setLandingPageData] = useState({});
   useEffect(() => {
     setLandingPageData(JsonData);
@@ -23,7 +22,6 @@ const App = () => {
 
   return (
     <div>
-      <Navigation />
       <Header data={landingPageData.Header} />
       <Features data={landingPageData.Features} />
       <About data={landingPageData.About} />
@@ -34,4 +32,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
