@@ -1,24 +1,34 @@
 {
   "Instructors": [
     {
-      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
-      "image": "img/instructors/imgFileNameHere.jpg",
-      "paragraph": "Description of Instructor Here"
+      "img": "img/aboutPage/instructors/temp-1.png",
+      "name": "Temp Instructor 1",
+      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula et diam ut eleifend. Fusce hendrerit fermentum eros, nec mollis felis viverra mattis. Cras porta interdum tortor a feugiat.\n\n Donec molestie, ipsum ut vehicula mollis, nulla nisl porta quam, et condimentum neque justo vitae leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur id orci at ante venenatis auctor ac id nulla. Suspendisse auctor elit id orci eleifend ultrices. Ut interdum nisi ac consequat finibus."
     },
     {
-      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
-      "image": "img/instructors/imgFileNameHere.jpg",
-      "paragraph": "Description of Instructor Here"
+      "img": "img/aboutPage/instructors/temp-2.png",
+      "name": "Temp Instructor 2",
+      "paragraph": "Nullam molestie turpis et consectetur faucibus. Donec a sapien ipsum. Suspendisse elementum aliquam tellus, id viverra mauris fringilla eget. Curabitur erat nisi, pharetra vestibulum nibh in, sagittis ultricies dolor. Donec sed tortor felis. Donec vitae lorem condimentum, volutpat nunc in, semper enim. Nunc tellus augue, cursus ac nunc et, dapibus pellentesque lectus. Sed sodales ornare rhoncus. \n\nDonec sed suscipit mi. Sed pretium velit nibh, nec lacinia ipsum ultrices tincidunt. Fusce rhoncus justo ut nulla congue scelerisque. Cras a lorem quam. Vestibulum porta luctus velit, ac eleifend nibh imperdiet id. Suspendisse maximus fringilla diam, ut fringilla quam. Sed fermentum neque risus, sed congue enim luctus sit amet. Vivamus egestas egestas maximus. Quisque maximus a lorem ut faucibus. Etiam elementum ornare augue, sit amet facilisis lectus blandit id. Nullam dictum metus eget elementum euismod. Nam blandit augue ipsum, a pretium urna eleifend sed."
     },
     {
-      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
-      "image": "img/instructors/imgFileNameHere.jpg",
-      "paragraph": "Description of Instructor Here"
+      "img": "img/aboutPage/instructors/temp-3.png",
+      "name": "Temp Instructor 3",
+      "paragraph": "Maecenas tincidunt augue sit amet massa mollis, non aliquet nunc posuere. Cras dui neque, lobortis et arcu ut, dapibus eleifend diam. \n\nPhasellus leo neque, lobortis at euismod ut, rhoncus nec metus. Fusce a tempus lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. \n\nVestibulum vulputate turpis ut orci pulvinar condimentum in eget mauris. Cras ante diam, porttitor a fermentum nec, euismod sodales orci. Proin a leo at diam rhoncus commodo imperdiet in quam. Suspendisse massa orci, interdum in eros vitae, pulvinar consequat ex. Nulla facilisi. Nullam lobortis enim ac nunc volutpat, at vehicula lorem iaculis."
     },
     {
-      "title": "Name & Title Here (ex: Grandmaster Kidong Lee)",
-      "image": "img/instructors/imgFileNameHere.jpg",
-      "paragraph": "Description of Instructor Here"
+      "img": "img/aboutPage/instructors/temp-4.png",
+      "name": "Temp Instructor 4",
+      "paragraph": "In hac habitasse platea dictumst. Ut condimentum eleifend rutrum. Morbi ultrices urna in felis accumsan, id dignissim urna lobortis."
     },
+    {
+      "img": "img/aboutPage/instructors/temp-5.png",
+      "name": "Temp Instructor 5",
+      "paragraph": "Vestibulum eu luctus risus, sed aliquam ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed aliquam, augue ut finibus viverra, leo erat hendrerit lorem, quis tempor ipsum lorem eu mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "
+    },
+    {
+      "img": "img/aboutPage/instructors/temp-6.png",
+      "name": "Temp Instructor 6",
+      "paragraph": "Fusce vel nulla quis dui placerat fermentum. Mauris gravida et turpis at malesuada. Nulla elementum mi nisl, nec imperdiet eros interdum sit amet. Suspendisse ultrices mauris vitae consectetur suscipit. Sed arcu nibh, congue ac convallis ac, pulvinar vel nibh. Fusce vitae augue ligula. Nullam tincidunt lacus sed leo laoreet accumsan. Nunc metus metus, faucibus in dictum ut, placerat quis ipsum. Suspendisse vel lobortis dolor. \n\nDuis arcu metus, efficitur ut enim sed, sagittis accumsan ipsum. Nunc accumsan a dui at tempor. Aliquam semper nibh quis nisi bibendum rhoncus. Mauris vehicula, justo id vehicula tristique, lectus neque luctus velit, eget consectetur urna risus gravida nibh. Duis mattis maximus orci cursus faucibus. Nulla sit amet eros dictum, posuere purus a, ultricies dui. Vivamus sed nibh hendrerit, posuere lorem eget, tristique nunc. Nullam felis lectus, faucibus vitae arcu eu, finibus viverra dui. Aenean porta ligula aliquam blandit tempor. Aliquam leo dolor, lacinia at mattis vel, iaculis id felis. Praesent convallis quis enim nec malesuada. Suspendisse scelerisque pharetra urna, sit amet pharetra urna gravida et. Pellentesque commodo, enim at venenatis consequat, orci ipsum posuere nibh, vel rhoncus arcu nulla at erat."
+    }
   ]
 }

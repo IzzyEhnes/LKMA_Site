@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Instructors } from "./components/aboutPage/instructors";
-import JsonData from "./data/data.json";
+import JsonData from "./data/aboutData.json";
 import SmoothScroll from "smooth-scroll";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -16,7 +16,7 @@ const About = () => {
 
   return (
     <div>
-      <Instructors data={setAboutPageData.Instructors} />
+      <Instructors data={aboutPageData.Instructors} />
     </div>
   );
 };
