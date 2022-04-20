@@ -10,9 +10,19 @@ export const Features = (props) => {
             ? props.data.map((d, i) => (
                 <div key={`${d.title}-${i}`} className='col-xs-6 col-md-3'>
                   {' '}
+
                   <i className={d.icon}></i>
-                  <h3>{d.title}</h3>
+                  <h3>
+
+                <a
+                  href={d.ref}
+                  className='btn btn-custom btn-lg page-scroll'
+                >
+                  {d.title}
+                </a></h3>{' '}{' '}
+
                   <p>{d.text}</p>
+                  
                 </div>
               ))
             : 'Loading...'}
