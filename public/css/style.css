@@ -344,16 +344,25 @@ header .intro-text {
   bottom: 0;
   left: 0;
 }
+#location h3 {
+  font-size: 22px;
+  padding-top: 10px;
+  margin-bottom: -10px;
+  margin: 0 0 10px;
+  font-weight: 500;
+  color: #fff;
+}
+#location img {
+    background-color: transparent;
+    position: relative;
+}
 #location .section-title {
   margin-bottom: 20px;
-  /*padding-left: 260px;*/
   display: block;
   max-width: 100%;
   text-align: left;
-  margin-top: -100px;
+  margin-top: -20px;
   margin-left: -75px;
-  
-  /*padding: 0;*/
   padding-left: 30%;
 }
 #location .address {
@@ -364,18 +373,20 @@ header .intro-text {
   white-space: pre-line;
   padding-bottom: 10px;
 }
-/*#location .container {
-  margin-top: -40px;
-  margin-bottom: 0px;
-  width: 100%;
-}*/
-/*#location .col-md-6 {
+#location .follow-us {
+  margin-left: -15px;
+}
+#location .twitter {
   position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 0px;
-  margin-left: -55px;
-}*/
+  margin-left: -50px;
+}
+#location .facebook {
+  margin-left: 30px;
+  position: relative;
+}
+#location .google-map {
+  border: 0;
+}
 #location p {
   line-height: 24px;
   margin: 30px 0;
@@ -742,8 +753,44 @@ label {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   #location p {
-    margin: 50px 0;
+    text-align: left;
+  }
+  #location h2 {
+    text-align: left;
+  }
+  #location h2::after {
+    padding-left: 0px;
+    margin-left: 40%;
+  }
+  #location .follow-us {
+    margin-left: -15px;
+  }
+  #location .twitter {
+    padding-left: 160px;
+  }
+  #location img {
+    margin-top: -50px;
   }
 }
+
+@media (max-width: 1182px) {
+  #location h2 {
+    text-align: left;
+  }
+  #location h2::after {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+  #location h3 {
+    text-align: left;
+  }
+  #location .twitter {
+    margin-left: -20px;
+  }
+  #location .facebook {
+    margin-left: 30px;
+  }
+}
+
