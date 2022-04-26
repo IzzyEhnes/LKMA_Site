@@ -5,14 +5,13 @@
   }
   #about,
   #services,
-  #testimonials,
   #team,
   #contact,
   #footer {
     width: 111%;
   }
 
-  #portfolio {
+  #gallery {
     width: 110%;
   }
 }
