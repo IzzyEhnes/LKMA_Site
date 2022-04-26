@@ -587,10 +587,16 @@ header .intro-text {
   white-space: pre-line;
   overflow: auto;
   display: block;
-  margin-left: 15%;
-  margin-right: 15%;
   white-space: pre-line;
   padding: 10px;
+}
+#program-details img {
+  max-width: 100%;
+  height: auto;
+}
+#program-details .programs-title p {
+  margin-left: 15%;
+  margin-right: 15%;
 }
 #program-details .programs-title h2 {
   position: relative;
@@ -788,6 +794,15 @@ label {
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;
+  }
+  #program-details .programs-title p 
+  {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #program-details .subprogram-details-item {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
