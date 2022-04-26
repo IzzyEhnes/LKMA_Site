@@ -326,13 +326,14 @@ header .intro-text {
 }
 /* Location Section */
 #location {
-  padding: 100px 0;
+  padding: 50px 0;
   background: rgb(32, 33, 36);
 }
 #location h2 {
   position: relative;
   margin-bottom: 15px;
   padding-bottom: 15px;
+  margin-top: -50px;
 }
 #location h2::after {
   position: absolute;
