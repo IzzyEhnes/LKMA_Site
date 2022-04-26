@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Header } from "./components/homePage/header";
 import { Features } from "./components/homePage/features";
 import { About } from "./components/homePage/about";
+import { Location } from "./components/homePage/location";
 import { Programs } from "./components/homePage/programs";
 import { Gallery } from "./components/homePage/gallery";
 import { Team } from "./components/homePage/Team";
@@ -25,6 +26,7 @@ const Home = () => {
       <Header data={landingPageData.Header} />
       <Features data={landingPageData.Features} />
       <About data={landingPageData.About} />
+      <Location data={landingPageData.Location} />      
       <Programs data={landingPageData.Programs} />
       <Gallery data={landingPageData.Gallery}/>
       <Team data={landingPageData.Team} />
