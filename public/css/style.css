@@ -78,16 +78,15 @@ hr {
 
 }
 #menu.navbar-default {
-  background-color: rgb(32, 33, 36);
-  border-color: rgba(17, 17, 17, 0);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  background-color: rgb(255, 255, 255);
+  border-bottom: solid #CD2E3A;
 }
 #menu a.navbar-brand {
   text-align: justify;
   font-family: "Raleway", sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: rgb(255, 255, 255);
+  color: rgb(0,71,160);
   text-transform: uppercase;
   margin: 0px 0px 0;
 }
@@ -117,7 +116,7 @@ hr {
   bottom: -1px;
   width: 0;
   height: 2px;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   content: "";
   transition: width 0.2s;
 }
@@ -132,7 +131,7 @@ hr {
 .navbar-default .navbar-nav > .active > a:after,
 .navbar-default .navbar-nav > .active > a:hover:after,
 .navbar-default .navbar-nav > .active > a:focus:after {
-  display: block !important;
+/*display: block !important;
   position: absolute !important;
   left: 0 !important;
   bottom: -1px !important;
@@ -140,7 +139,7 @@ hr {
   height: 2px !important;
   background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%) !important;
   content: "" !important;
-  transition: width 0.2s !important;
+  transition: width 0.2s !important;*/
 }
 .navbar-toggle {
   border-radius: 0;
@@ -158,14 +157,14 @@ hr {
 }
 .section-title h2 {
   position: relative;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 15px;
   padding-bottom: 15px;
 }
 .section-title h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -180,7 +179,7 @@ hr {
   text-transform: uppercase;
   color: #fff;
   background-color: #5ca9fb;
-  background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background-image: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   padding: 14px 34px;
   letter-spacing: 1px;
   margin: 0;
@@ -261,6 +260,7 @@ header .intro-text {
 #features {
   background: rgb(32, 33, 36);
 }
+/* Features Section Buttons */
 #features i.fa {
   font-size: 38px;
   margin-bottom: 20px;
@@ -270,12 +270,12 @@ header .intro-text {
   height: 100px;
   padding: 30px 0;
   border-radius: 50%;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 /* About Section */
 #about {
-  padding: 100px 0;
+  padding: 75px 0;
   background: rgb(32, 33, 36);
 }
 #about h3 {
@@ -290,7 +290,7 @@ header .intro-text {
 #about h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -305,7 +305,7 @@ header .intro-text {
 #about .about-text li:before {
   content: "\f0da";
   font-family: "FontAwesome";
-  color: #5ca9fb;
+  color: #CD2E3A;
   font-size: 11px;
   font-weight: 300;
   padding-right: 8px;
@@ -326,8 +326,20 @@ header .intro-text {
 }
 /* Programs Section */
 #programs {
-  padding: 100px 0;
+  padding: 10px 0;
   background: rgb(32, 33, 36);
+  /*background-image: linear-gradient(to bottom, #cd2e3a, #df5877, #e582ab, #e5abd3, #e8d1ee, #dfcfec, #d6ceea, #cecce7, #a8a8d5, #8085c3, #5365b2, #0047a0);
+  border-top: solid #CD2E3A;
+  background: rgb(0,71,160);
+  background: linear-gradient(to top, rgb(32, 33, 36) 0%, rgb(0,71,160) 100%);
+  background: linear-gradient(to bottom, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
+  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(32, 33, 36));
+  background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);
+  border-top: solid linear-gradient(to right, #CD2E3A 0%, #0047A0 100%);
+  border-top: solid #0047A0;
+  border-bottom: solid #CD2E3A;*/
 }
 #programs .container {
   width: 60vw;
@@ -352,7 +364,7 @@ header .intro-text {
 #programs .section-title h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -364,7 +376,7 @@ header .intro-text {
   width: 120px;
   height: 120px;
   padding: 40px 0;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   border-radius: 50%;
   color: #fff;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
@@ -377,16 +389,16 @@ header .intro-text {
 #programs .programs-desc {
   margin-bottom: 40px;
 }
-/* Portfolio Section */
-#portfolio {
+
+#gallery {
   padding: 50px 0;
   background: rgb(32, 33, 36);
 }
-.portfolio-item {
+.gallery-item {
   margin: 1px -15px 0 -14px;
   padding: 0;
 }
-.portfolio-item .hover-bg {
+.gallery-item .hover-bg {
   overflow: hidden;
   position: relative;
   margin: 0;
@@ -396,11 +408,7 @@ header .intro-text {
   text-align: center;
   margin: 0 auto;
   color: #fff;
-  background: linear-gradient(
-    to right,
-    rgba(99, 114, 255, 0.8) 0%,
-    rgba(92, 169, 251, 0.8) 100%
-  );
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   padding: 30% 0 0;
   height: 100%;
   width: 100%;
@@ -427,49 +435,10 @@ header .intro-text {
 .hover-bg:hover .hover-text {
   opacity: 1;
 }
-/* Testimonials Section */
-#testimonials {
-  padding: 100px 0;
-  background: rgb(32, 33, 36);
-}
-#testimonials i {
-  color: #e6e6e6;
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-.testimonial {
-  position: relative;
-  padding: 20px;
-}
-.testimonial-image {
-  float: left;
-  margin-right: 15px;
-}
-.testimonial-image,
-.testimonial-image img {
-  display: block;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-}
-.testimonial-content {
-  position: relative;
-  overflow: hidden;
-}
-.testimonial-content p {
-  margin-bottom: 0;
-  font-size: 14px;
-  font-style: italic;
-}
-.testimonial-meta {
-  margin-top: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #666;
-}
+
 /* Team Section */
 #team {
-  padding: 100px 0;
+  padding: 10px 0;
   background: rgb(32, 33, 36);
 }
 #team h4 {
@@ -501,7 +470,7 @@ header .intro-text {
   padding-bottom: 15px;
 }
 #instructors hr {
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
 }
 #instructors .instructor-item {
   width: 100%;
@@ -693,7 +662,7 @@ label {
   color: #608dfd;
 }
 #footer a:hover {
-  border-bottom: 2px solid #608dfd;
+  /*border-bottom: 2px solid #608dfd;*/
 }
 
 @media (max-width: 768px) {
