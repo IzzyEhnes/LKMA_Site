@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ProgramsComponent } from "./components/programsPage/programsComponent";
-import JsonData from "./data/data.json";
+import JsonData from "./data/programsData.json";
 import SmoothScroll from "smooth-scroll";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -16,7 +16,7 @@ const Programs = () => {
 
   return (
     <div>
-      <ProgramsComponent />
+      <ProgramsComponent data={programsPageData.Programs} />
     </div>
   );
 };
