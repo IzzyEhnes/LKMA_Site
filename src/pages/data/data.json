@@ -19,48 +19,48 @@
   "Gallery": [
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/01-large.jpg",
-      "smallImage": "img/portfolio/01-small.jpg"
+      "largeImage": "img/homePage/gallery/01-large.jpg",
+      "smallImage": "img/homePage/gallery/01-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/02-large.jpg",
-      "smallImage": "img/portfolio/02-small.jpg"
+      "largeImage": "img/homePage/gallery/02-large.jpg",
+      "smallImage": "img/homePage/gallery/02-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/03-large.jpg",
-      "smallImage": "img/portfolio/03-small.jpg"
+      "largeImage": "img/homePage/gallery/03-large.jpg",
+      "smallImage": "img/homePage/gallery/03-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/04-large.jpg",
-      "smallImage": "img/portfolio/04-small.jpg"
+      "largeImage": "img/homePage/gallery/04-large.jpg",
+      "smallImage": "img/homePage/gallery/04-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/05-large.jpg",
-      "smallImage": "img/portfolio/05-small.jpg"
+      "largeImage": "img/homePage/gallery/05-large.jpg",
+      "smallImage": "img/homePage/gallery/05-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/06-large.jpg",
-      "smallImage": "img/portfolio/06-small.jpg"
+      "largeImage": "img/homePage/gallery/06-large.jpg",
+      "smallImage": "img/homePage/gallery/06-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/07-large.jpg",
-      "smallImage": "img/portfolio/07-small.jpg"
+      "largeImage": "img/homePage/gallery/07-large.jpg",
+      "smallImage": "img/homePage/gallery/07-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/08-large.jpg",
-      "smallImage": "img/portfolio/08-small.jpg"
+      "largeImage": "img/homePage/gallery/08-large.jpg",
+      "smallImage": "img/homePage/gallery/08-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/09-large.jpg",
-      "smallImage": "img/portfolio/09-small.jpg"
+      "largeImage": "img/homePage/gallery/09-large.jpg",
+      "smallImage": "img/homePage/gallery/09-small.jpg"
     }
   ],
   "Programs": [
@@ -80,58 +80,26 @@
       "smallImage": "img/programs/adults-small.jpg"
     }
   ],
-  "Testimonials": [
-    {
-      "img": "img/testimonials/01.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/02.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
-    },
-    {
-      "img": "img/testimonials/03.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/04.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
-    },
-    {
-      "img": "img/testimonials/05.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/06.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
-    }
-  ],
   "Team": [
     {
-      "img": "img/team/01.jpg",
-      "name": "John Doe",
-      "job": "Director"
+      "img": "img/homePage/instructors/temp-1.png",
+      "name": "Grandmaster Kidong Lee",
+      "job": "Taekwondo and Hapkido"
     },
     {
-      "img": "img/team/02.jpg",
-      "name": "Mike Doe",
-      "job": "Senior Designer"
+      "img": "img/homePage/instructors/temp-2.png",
+      "name": "Master Alex Lee",
+      "job": "Taekwondo and Hapkido"
     },
     {
-      "img": "img/team/03.jpg",
-      "name": "Jane Doe",
-      "job": "Senior Designer"
+      "img": "img/homePage/instructors/temp-3.png",
+      "name": "Master Yvonne Allen",
+      "job": "Taekwondo and Hapkido"
     },
     {
-      "img": "img/team/04.jpg",
-      "name": "Karen Doe",
-      "job": "Project Manager"
+      "img": "img/homePage/instructors/temp-4.png",
+      "name": "Master ???",
+      "job": "Sith Lord"
     }
   ],
   "Contact": {
