@@ -76,18 +76,18 @@
   "Programs": [
     {
       "title": "Kids Classes",
-      "largeImage": "img/programs/kids-large.jpg",
-      "smallImage": "img/programs/kids-small.jpg"
+      "largeImage": "img/homePage/programs/kids-large.jpg",
+      "smallImage": "img/homePage/programs/kids-small.jpg"
     },
     {
       "title": "Teen Program",
-      "largeImage": "img/programs/teens-large.jpg",
-      "smallImage": "img/programs/teens-small.jpg"
+      "largeImage": "img/homePage/programs/teens-large.jpg",
+      "smallImage": "img/homePage/programs/teens-small.jpg"
     },
     {
       "title": "Adult Training",
-      "largeImage": "img/programs/adults-large.jpg",
-      "smallImage": "img/programs/adults-small.jpg"
+      "largeImage": "img/homePage/programs/adults-large.jpg",
+      "smallImage": "img/homePage/programs/adults-small.jpg"
     }
   ],
   "Team": [

@@ -508,7 +508,6 @@ header .intro-text {
 .hover-bg:hover .hover-text {
   opacity: 1;
 }
-
 /* Team Section */
 #team {
   padding: 10px 0;
@@ -556,7 +555,7 @@ header .intro-text {
   overflow: auto;
   display: block;
   margin-left: 20%;
-margin-right: 20%;
+  margin-right: 20%;
   white-space: pre-line;
 }
 #instructors img {
@@ -567,6 +566,81 @@ margin-right: 20%;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
 #instructors p {
+  line-height: 24px;
+  margin: 30px 0;
+}
+/* Program Details Section */
+#program-details {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+#program-details h3 {
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+#program-details h2 {
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+#program-details .programs-title {
+  white-space: pre-line;
+  overflow: auto;
+  display: block;
+  white-space: pre-line;
+  padding: 10px;
+}
+#program-details img {
+  max-width: 100%;
+  height: auto;
+}
+#program-details .programs-title p {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+#program-details .programs-title h2 {
+  position: relative;
+  margin-top: 10px;
+}
+#program-details .programs-title h2::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  height: 4px;
+  width: 60px;
+  bottom: 0;
+  margin-left: -30px;
+  left: 50%;
+}
+#program-details hr {
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+}
+#program-details .program-details-item {
+  width: 100%;
+  padding-bottom: 50px;
+}
+#program-details .subprogram-details-item h2 {
+  text-transform: none;
+}
+#program-details .subprogram-details-item h4 {
+  margin-top: -15px;
+}
+#program-details .subprogram-details-item {
+  overflow: auto;
+  display: block;
+  margin-left: 15%;
+  margin-right: 15%;
+  white-space: pre-line;
+  padding: 10px;
+}
+#program-details img {
+  width: 500px;
+  margin-top: 10px;
+  background: #fff;
+  border-right: 0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+}
+#program-details p {
   line-height: 24px;
   margin: 30px 0;
 }
@@ -720,6 +794,15 @@ label {
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;
+  }
+  #program-details .programs-title p 
+  {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #program-details .subprogram-details-item {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
