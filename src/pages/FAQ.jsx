@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Faq } from "./components/faqPage/faq";
-import JsonData from "./data/data.json";
+import { FAQ } from "./components/faqPage/faq";
+import JsonData from "./data/faqData.json";
 import SmoothScroll from "smooth-scroll";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -8,7 +8,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   speedAsDuration: true,
 });
 
-const FAQ = () => {
+const FAQs = () => {
   const [faqPageData, setFaqPageData] = useState({});
   useEffect(() => {
     setFaqPageData(JsonData);
@@ -16,9 +16,9 @@ const FAQ = () => {
 
   return (
     <div>
-      <Faq />
+      <FAQ data={faqPageData.FAQ} />
     </div>
   );
 };
 
-export default FAQ;
+export default FAQs;
