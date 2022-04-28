@@ -644,6 +644,87 @@ header .intro-text {
   line-height: 24px;
   margin: 30px 0;
 }
+/* FAQ Section */
+#faq {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+#faq h1 {
+  margin: 0;
+}
+#faq h2 {
+  position: relative;
+}
+#faq h2 {
+  position: relative;
+}
+#faq h3 {
+  font-size: 22px;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+}
+#faq p {
+  line-height: 24px;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+}
+#faq hr {
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+}
+#faq .faq-title h2 {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 30px;
+}
+#faq .faq-title h2::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  height: 4px;
+  width: 60px;
+  bottom: 0;
+  margin-left: -30px;
+  margin-bottom: 10px;
+  left: 50%;
+}
+#faq .question-nav-links {
+  margin: 20px;
+  background-color: rgb(40, 41, 45);
+}
+#faq .question-nav-link-item {
+  margin: 20px;
+}
+#faq .faq-item {
+  width: 100%;
+  padding-bottom: 50px;
+}
+#faq .faq-question {
+  background-color: 	rgb(40, 41, 45);
+  overflow: auto;
+  display: flex;
+  border-left: 5px solid #d95963;
+  align-items: center;
+  white-space: pre-line;
+}
+#faq .faq-question-q {
+  padding-left: 15px;
+  color: #d95963;
+}
+#faq .faq-answer {
+  background-color: rgb(47, 48, 53);
+  overflow: auto;
+  display: flex;
+  border-left: 5px solid 	#777;
+  align-items: center;
+  white-space: pre-line;
+}
+#faq .faq-answer-a {
+  padding-left: 15px;
+  color: 	#777;
+}
 /* Contact Section */
 #contact {
   padding: 10px 0 10px;
