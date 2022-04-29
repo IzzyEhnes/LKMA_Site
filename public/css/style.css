@@ -338,7 +338,7 @@ header .intro-text {
 #location h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   height: 4px;
   width: 60px;
   margin-left: 0px;
