@@ -1,14 +1,14 @@
 {
   "Instructors": [
     {
-      "img": "img/aboutPage/instructors/temp-1.png",
-      "name": "Temp Instructor 1",
-      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula et diam ut eleifend. Fusce hendrerit fermentum eros, nec mollis felis viverra mattis. Cras porta interdum tortor a feugiat.\n\n Donec molestie, ipsum ut vehicula mollis, nulla nisl porta quam, et condimentum neque justo vitae leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur id orci at ante venenatis auctor ac id nulla. Suspendisse auctor elit id orci eleifend ultrices. Ut interdum nisi ac consequat finibus."
+      "img": "img/aboutPage/instructors/Grandmaster_KidongLee.png",
+      "name": "Grandmaster Kidong Lee",
+      "paragraph": "Grandmaster Kidong Lee is an 8th Degree Black Belt, certified by The World Tae Kwon Do Federation and the Korean Hapkido Federation, Grandmaster Kidong Lee 1999. \n\nGrandmaster Lee has triumphed in numerous competitions; including first place in the Korean Tae Kwon Do Championships and first place in the Korean Open Martial Arts Tournament. He was also a member of the Korean National Demo Team. \n\nBeginning in 1961, Grandmaster Lee has been instructing arts professionally. From 1963 to 1987 he served as Martial Arts Instructor at the Osan Air Force Base for the United States Air Force. When he fulfilled his obligation in 1987, he left South Korea to share his experience and knowledge with the people of the United States."
     },
     {
-      "img": "img/aboutPage/instructors/temp-2.png",
-      "name": "Temp Instructor 2",
-      "paragraph": "Nullam molestie turpis et consectetur faucibus. Donec a sapien ipsum. Suspendisse elementum aliquam tellus, id viverra mauris fringilla eget. Curabitur erat nisi, pharetra vestibulum nibh in, sagittis ultricies dolor. Donec sed tortor felis. Donec vitae lorem condimentum, volutpat nunc in, semper enim. Nunc tellus augue, cursus ac nunc et, dapibus pellentesque lectus. Sed sodales ornare rhoncus. \n\nDonec sed suscipit mi. Sed pretium velit nibh, nec lacinia ipsum ultrices tincidunt. Fusce rhoncus justo ut nulla congue scelerisque. Cras a lorem quam. Vestibulum porta luctus velit, ac eleifend nibh imperdiet id. Suspendisse maximus fringilla diam, ut fringilla quam. Sed fermentum neque risus, sed congue enim luctus sit amet. Vivamus egestas egestas maximus. Quisque maximus a lorem ut faucibus. Etiam elementum ornare augue, sit amet facilisis lectus blandit id. Nullam dictum metus eget elementum euismod. Nam blandit augue ipsum, a pretium urna eleifend sed."
+      "img": "img/aboutPage/instructors/Master_AlexLee.png",
+      "name": "Master Alex Lee",
+      "paragraph": "Master Alex is a 5th dan in both Taekwondo and Hapkido. Having began his martial arts career as a boy, he is proudly continuing his father's legacy in the Sacramento community."
     },
     {
       "img": "img/aboutPage/instructors/temp-3.png",
