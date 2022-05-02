@@ -19,8 +19,10 @@ export const ProgramsComponent = (props) => {
                             <h2>{subprogram.subProgramName}</h2>
                             <h4>{subprogram.subProgramAgeRange}</h4>
                             <p>{subprogram.subProgramParagraph1}</p>
-                            <img src={subprogram.img} alt='...'/>
+                            {subprogram.img && <img src={subprogram.img} alt='...'/>}
                             <p>{subprogram.subProgramParagraph2}</p>
+                            {subprogram.img1 && <img src={subprogram.img1} alt='...'/>}
+                            <p>{subprogram.subProgramParagraph3}</p>
                           </div>
                         );
                       })}
