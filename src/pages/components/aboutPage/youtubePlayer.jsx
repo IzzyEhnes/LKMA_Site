@@ -1,31 +1,34 @@
-import React from "react"
+import React, { Component } from "react"
 import YouTube from "react-youtube"
 
 //https://www.youtube.com/watch?v=d0akqRlyjo8
 //https://youtu.be/d0akqRlyjo8
 
-class youtubePlayer extends React.Component{
+class YoutubePlayer extends Component{
+    videoOnReady (event) {
+        event.target.pauseVideo()
+        console.log(event.target)
+    }
+
     render() {
         const opts = {
             height: '390',
             width: '640',
-            playerVars: { // https://developtes.google.com/youtube/player_parameters
+            playerVars: { // https://developers.google.com/youtube/player_parameters
                 autoPlay: 1
             }
         };
-        //const {videoID} = this.props
+
+        const {videoID} = this.props
         return (
             <YouTube
-                videoID= 'd0akqRlyjo8'
+                videoID={videoID}
                 opts={opts}
-                onReady={this.onReady}
+                onReady={this.videoOnReady}
             />
         );
     }
-
-    _onReady(event) {
-    event.target.pauseVideo();
-    }
 }
 
+export default YoutubePlayer
 
