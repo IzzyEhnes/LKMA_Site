@@ -41,11 +41,17 @@ If time permits and if possible, we wish to integrate MyStudio, a membership man
 
 ## Work So Far
 Here is a glance at some of the pages we have created so far:
-![imgName1](imgSource1)
-![imgName2](imgSource2)
-![imgName3](imgSource3)
-![imgName4](imgSource4)
-![imgName5](imgSource5)
+
+Navbar:
+![Navbar](https://user-images.githubusercontent.com/72421134/167499375-c158b35b-7c68-4863-bbcb-288a0bc74800.png)
+Part of Home Page:
+![Part of Home Page](https://user-images.githubusercontent.com/72421134/167499553-86301bae-bf2a-4bda-8c1b-34dcf6c38a33.png)
+Part of About Page:
+![Part of About Page](https://user-images.githubusercontent.com/72421134/167499804-f3b49e58-6f12-4de3-9f09-b7e7f09379ac.png)
+Part of FAQ Page:
+![Part of FAQ Page](https://user-images.githubusercontent.com/72421134/167499943-1dd7b0e0-2a1f-443e-a893-4bb7cb1ad63c.png)
+Part of Programs Page:
+![Part of Programs Page](https://user-images.githubusercontent.com/72421134/167500199-61adbe80-dc04-4170-95e4-111e962c40ec.png)
 
 ## Developer Instructions
 Install [Node.js](https://nodejs.org/en/)
