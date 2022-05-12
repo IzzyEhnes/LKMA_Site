@@ -92,24 +92,24 @@
   ],
   "Team": [
     {
-      "img": "img/homePage/instructors/temp-1.png",
+      "img": "img/homePage/instructors/Grandmaster_KidongLee.jpg",
       "name": "Grandmaster Kidong Lee",
-      "job": "Taekwondo and Hapkido"
+      "job": "8th Degree Black Belt in Taekwondo, Hapkido, Tang Soo Do"
     },
     {
-      "img": "img/homePage/instructors/temp-2.png",
+      "img": "img/homePage/instructors/Master_AlexLee.jpg",
       "name": "Master Alex Lee",
-      "job": "Taekwondo and Hapkido"
+      "job": "5th Dan in Taekwondo and Hapkido"
     },
     {
       "img": "img/homePage/instructors/temp-3.png",
-      "name": "Master Yvonne Allen",
-      "job": "Taekwondo and Hapkido"
+      "name": "Master Steve Guarino",
+      "job": "4th Dan in Taekwondo and Hapkido"
     },
     {
-      "img": "img/homePage/instructors/temp-4.png",
-      "name": "Master ???",
-      "job": "Sith Lord"
+      "img": "img/homePage/instructors/Sabumnim_ChandraWagner.jpg",
+      "name": "Sabumnim Chandra Wagner",
+      "job": "3rd Dan in Taekwondo, 2nd in Hapkido"
     }
   ],
   "Contact": {

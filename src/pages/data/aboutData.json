@@ -1,34 +1,24 @@
 {
   "Instructors": [
     {
-      "img": "img/aboutPage/instructors/Grandmaster_KidongLee.png",
+      "img": "img/aboutPage/instructors/Grandmaster_KidongLee.jpg",
       "name": "Grandmaster Kidong Lee",
-      "paragraph": "Grandmaster Kidong Lee is an 8th Degree Black Belt, certified by The World Tae Kwon Do Federation and the Korean Hapkido Federation, Grandmaster Kidong Lee 1999. \n\nGrandmaster Lee has triumphed in numerous competitions; including first place in the Korean Tae Kwon Do Championships and first place in the Korean Open Martial Arts Tournament. He was also a member of the Korean National Demo Team. \n\nBeginning in 1961, Grandmaster Lee has been instructing arts professionally. From 1963 to 1987 he served as Martial Arts Instructor at the Osan Air Force Base for the United States Air Force. When he fulfilled his obligation in 1987, he left South Korea to share his experience and knowledge with the people of the United States."
+      "paragraph": "Grandmaster Kidong Lee is an 8th Degree Black Belt in Taekwondo, Hapkido, and Tang Soo Do, certified by The World Tae Kwon Do Federation, the Korean Hapkido Federation, and the Pan Am Tang Soo Do Federation.\n\nGrandmaster Lee has triumphed in numerous competitions; including first place in the Korean Tae Kwon Do Championships and first place in the Korean Open Martial Arts Tournament. He was also a member of the Korean National Demo Team.\n\nGrandmaster Lee has been instructing martial arts professionally since 1971. From 1973 to 1987 he served as Martial Arts Instructor at the Osan Air Force Base for the United States Air Force. When he fulfilled his obligation in 1987, he left South Korea to share his experience and knowledge with the people of the United States. Grandmaster Lee opened his first U.S. dojang in Rancho Cordova in 1989. He has been serving the Sacramento area for over 30 years. He now runs his Rancho Cordova school with his son, Master Alex Lee."
     },
     {
-      "img": "img/aboutPage/instructors/Master_AlexLee.png",
+      "img": "img/aboutPage/instructors/Master_AlexLee.jpg",
       "name": "Master Alex Lee",
-      "paragraph": "Master Alex is a 5th dan in both Taekwondo and Hapkido. Having began his martial arts career as a boy, he is proudly continuing his father's legacy in the Sacramento community."
+      "paragraph": "Master Alex is a 5th dan in both Taekwondo and Hapkido. Having a Grandmaster as a father, Master Alex started his martial arts journey very young. He has extensive experience in state and national competitions, both as a competitor and as a coach. Master Alex also ran an after school self-defense program at various schools throughout Southern California. Having begun his martial arts career as a boy, he is proudly continuing his father's legacy in the Sacramento community."
     },
     {
       "img": "img/aboutPage/instructors/temp-3.png",
-      "name": "Temp Instructor 3",
-      "paragraph": "Maecenas tincidunt augue sit amet massa mollis, non aliquet nunc posuere. Cras dui neque, lobortis et arcu ut, dapibus eleifend diam. \n\nPhasellus leo neque, lobortis at euismod ut, rhoncus nec metus. Fusce a tempus lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. \n\nVestibulum vulputate turpis ut orci pulvinar condimentum in eget mauris. Cras ante diam, porttitor a fermentum nec, euismod sodales orci. Proin a leo at diam rhoncus commodo imperdiet in quam. Suspendisse massa orci, interdum in eros vitae, pulvinar consequat ex. Nulla facilisi. Nullam lobortis enim ac nunc volutpat, at vehicula lorem iaculis."
+      "name": "Master Steve Guarino",
+      "paragraph": "(Needs rewrite) Master Steve is a 4th dan in both Taekwondo and Hapkido"
     },
     {
-      "img": "img/aboutPage/instructors/temp-4.png",
-      "name": "Temp Instructor 4",
-      "paragraph": "In hac habitasse platea dictumst. Ut condimentum eleifend rutrum. Morbi ultrices urna in felis accumsan, id dignissim urna lobortis."
-    },
-    {
-      "img": "img/aboutPage/instructors/temp-5.png",
-      "name": "Temp Instructor 5",
-      "paragraph": "Vestibulum eu luctus risus, sed aliquam ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed aliquam, augue ut finibus viverra, leo erat hendrerit lorem, quis tempor ipsum lorem eu mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. "
-    },
-    {
-      "img": "img/aboutPage/instructors/temp-6.png",
-      "name": "Temp Instructor 6",
-      "paragraph": "Fusce vel nulla quis dui placerat fermentum. Mauris gravida et turpis at malesuada. Nulla elementum mi nisl, nec imperdiet eros interdum sit amet. Suspendisse ultrices mauris vitae consectetur suscipit. Sed arcu nibh, congue ac convallis ac, pulvinar vel nibh. Fusce vitae augue ligula. Nullam tincidunt lacus sed leo laoreet accumsan. Nunc metus metus, faucibus in dictum ut, placerat quis ipsum. Suspendisse vel lobortis dolor. \n\nDuis arcu metus, efficitur ut enim sed, sagittis accumsan ipsum. Nunc accumsan a dui at tempor. Aliquam semper nibh quis nisi bibendum rhoncus. Mauris vehicula, justo id vehicula tristique, lectus neque luctus velit, eget consectetur urna risus gravida nibh. Duis mattis maximus orci cursus faucibus. Nulla sit amet eros dictum, posuere purus a, ultricies dui. Vivamus sed nibh hendrerit, posuere lorem eget, tristique nunc. Nullam felis lectus, faucibus vitae arcu eu, finibus viverra dui. Aenean porta ligula aliquam blandit tempor. Aliquam leo dolor, lacinia at mattis vel, iaculis id felis. Praesent convallis quis enim nec malesuada. Suspendisse scelerisque pharetra urna, sit amet pharetra urna gravida et. Pellentesque commodo, enim at venenatis consequat, orci ipsum posuere nibh, vel rhoncus arcu nulla at erat."
+      "img": "img/aboutPage/instructors/Sabumnim_ChandraWagner.jpg",
+      "name": "Sabumnim Chandra Wagner",
+      "paragraph": "Sabumnim Chandra is a 3rd dan in Taekwondo and 2nd dan in Hapkido. She has over 15 years experience in martial arts as well as ten years experience instructing. She also has experience in state and local competitions and has also competed at the national level."
     }
   ]
 }
