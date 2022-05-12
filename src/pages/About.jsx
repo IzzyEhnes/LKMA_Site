@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Instructors } from "./components/aboutPage/instructors";
 import JsonData from "./data/aboutData.json";
 import SmoothScroll from "smooth-scroll";
-import YoutubePlayer from "./components/aboutPage/youtubePlayer"
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
