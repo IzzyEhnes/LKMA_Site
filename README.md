@@ -47,7 +47,7 @@ Navbar:
 Part of Home Page:
 ![Part of Home Page](https://user-images.githubusercontent.com/72421134/167499553-86301bae-bf2a-4bda-8c1b-34dcf6c38a33.png)
 Part of About Page:
-![Part of About Page](https://user-images.githubusercontent.com/72421134/167499804-f3b49e58-6f12-4de3-9f09-b7e7f09379ac.png)
+![screenshot_abt](https://user-images.githubusercontent.com/44451361/168258988-602a4868-2479-406c-8adc-56941871c67f.png)
 Part of FAQ Page:
 ![Part of FAQ Page](https://user-images.githubusercontent.com/72421134/167499943-1dd7b0e0-2a1f-443e-a893-4bb7cb1ad63c.png)
 Part of Programs Page:
