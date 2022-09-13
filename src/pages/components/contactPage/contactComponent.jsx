@@ -5,6 +5,21 @@ export const ContactComponent = (props) => {
         <div className='contact-title'>
           <h2>Contact Us</h2>
         </div>
+        <div className='location'>
+          <h4>Address:</h4>
+          <h1> 
+            {props.data ? props.data.address : "loading..."}
+          </h1>
+        </div>
+        <div className='contact'>
+          <h4>Call or Email:</h4>
+          <h1> 
+            {props.data ? props.data.contact.phone : "loading..."}
+          </h1>
+          <h1> 
+            {props.data ? props.data.contact.email : "loading..."}
+          </h1>
+        </div>
         <div className='row'>
           <h3>
             Have any questions or comments?

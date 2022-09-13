@@ -657,6 +657,14 @@ header .intro-text {
   padding: 100px 0;
   background: rgb(32, 33, 36);
 }
+#contact h4 {
+  font-size: 32px;
+  padding-top: 10px;
+  margin-bottom: -10px;
+  margin: 0 0 10px;
+  font-weight: 500;
+  color: #fff;
+}
 #contact h3 {
   font-size: 25px;
   font-weight: 300;
@@ -667,6 +675,12 @@ header .intro-text {
   position: relative;
   margin-bottom: 15px;
   padding-bottom: 15px;
+}
+#contact h1 {
+  font-size: 25px;
+  position: relative;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
 }
 #contact .contact-title {
   white-space: pre-line;
