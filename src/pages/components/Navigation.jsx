@@ -59,14 +59,14 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href='#calendar' className='page-scroll'>
+              <NavLink className="nav-link" to="/calendar">
                 Calendar
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href='#contact' className='page-scroll'>
+              <NavLink className="nav-link" to="/contact">
                 Contact
-              </a>
+              </NavLink>
             </li>
             <li>
               <a href='#Profile' className='page-scroll'>
