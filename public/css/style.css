@@ -277,16 +277,16 @@ header .intro-text {
 #about {
   margin-top: 10px;
   padding: 75px 0;
-  /*background: rgb(32, 33, 36);*/
   padding: 10px 0;
-  /*background: rgb(32, 33, 36);*/
   border-top: solid #ffffff;
   padding-top: 10px;
   /*background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);*/
-  background-image: url("../img/flag.png");
-  background-size: 110%;
+  background: url("../img/flag2.png");
   background-position: 50%;
-  /*background-color: #8d8888;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
   padding-bottom: 15px;
   border-bottom: solid #ffffff;
 }
