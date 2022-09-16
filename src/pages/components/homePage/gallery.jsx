@@ -2,7 +2,7 @@ import { Gallery_Image } from "./image";
 
 export const Gallery = (props) => {
   return (
-    <div id='portfolio' className='text-center'>
+    <div id='gallery' className='text-center'>
       <div className='container'>
         <div className='section-title'>
           <h2>Gallery</h2>
@@ -11,7 +11,7 @@ export const Gallery = (props) => {
           </p>
         </div>
         <div className='row'>
-          <div className='portfolio-items'>
+          <div className='gallery-items'>
             {props.data
               ? props.data.map((d, i) => (
                 <div key={`${d.title}-${i}`} className='col-sm-6 col-md-4 col-lg-4'>

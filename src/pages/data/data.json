@@ -29,119 +29,87 @@
   "Gallery": [
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/01-large.jpg",
-      "smallImage": "img/portfolio/01-small.jpg"
+      "largeImage": "img/homePage/gallery/01-large.jpg",
+      "smallImage": "img/homePage/gallery/01-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/02-large.jpg",
-      "smallImage": "img/portfolio/02-small.jpg"
+      "largeImage": "img/homePage/gallery/02-large.jpg",
+      "smallImage": "img/homePage/gallery/02-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/03-large.jpg",
-      "smallImage": "img/portfolio/03-small.jpg"
+      "largeImage": "img/homePage/gallery/03-large.jpg",
+      "smallImage": "img/homePage/gallery/03-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/04-large.jpg",
-      "smallImage": "img/portfolio/04-small.jpg"
+      "largeImage": "img/homePage/gallery/04-large.jpg",
+      "smallImage": "img/homePage/gallery/04-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/05-large.jpg",
-      "smallImage": "img/portfolio/05-small.jpg"
+      "largeImage": "img/homePage/gallery/05-large.jpg",
+      "smallImage": "img/homePage/gallery/05-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/06-large.jpg",
-      "smallImage": "img/portfolio/06-small.jpg"
+      "largeImage": "img/homePage/gallery/06-large.jpg",
+      "smallImage": "img/homePage/gallery/06-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/07-large.jpg",
-      "smallImage": "img/portfolio/07-small.jpg"
+      "largeImage": "img/homePage/gallery/07-large.jpg",
+      "smallImage": "img/homePage/gallery/07-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/08-large.jpg",
-      "smallImage": "img/portfolio/08-small.jpg"
+      "largeImage": "img/homePage/gallery/08-large.jpg",
+      "smallImage": "img/homePage/gallery/08-small.jpg"
     },
     {
       "title": "LKMA Gallery Image",
-      "largeImage": "img/portfolio/09-large.jpg",
-      "smallImage": "img/portfolio/09-small.jpg"
+      "largeImage": "img/homePage/gallery/09-large.jpg",
+      "smallImage": "img/homePage/gallery/09-small.jpg"
     }
   ],
   "Programs": [
     {
       "title": "Kids Classes",
-      "largeImage": "img/programs/kids-large.jpg",
-      "smallImage": "img/programs/kids-small.jpg"
+      "largeImage": "img/homePage/programs/kids-large.jpg",
+      "smallImage": "img/homePage/programs/kids-small.jpg"
     },
     {
       "title": "Teen Program",
-      "largeImage": "img/programs/teens-large.jpg",
-      "smallImage": "img/programs/teens-small.jpg"
+      "largeImage": "img/homePage/programs/teens-large.jpg",
+      "smallImage": "img/homePage/programs/teens-small.jpg"
     },
     {
       "title": "Adult Training",
-      "largeImage": "img/programs/adults-large.jpg",
-      "smallImage": "img/programs/adults-small.jpg"
-    }
-  ],
-  "Testimonials": [
-    {
-      "img": "img/testimonials/01.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/02.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
-    },
-    {
-      "img": "img/testimonials/03.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/04.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
-    },
-    {
-      "img": "img/testimonials/05.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "John Doe"
-    },
-    {
-      "img": "img/testimonials/06.jpg",
-      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
-      "name": "Johnathan Doe"
+      "largeImage": "img/homePage/programs/adults-large.jpg",
+      "smallImage": "img/homePage/programs/adults-small.jpg"
     }
   ],
   "Team": [
     {
-      "img": "img/team/01.jpg",
-      "name": "John Doe",
-      "job": "Director"
+      "img": "img/homePage/instructors/Grandmaster_KidongLee.jpg",
+      "name": "Grandmaster Kidong Lee",
+      "job": "8th Degree Black Belt in Taekwondo, Hapkido, Tang Soo Do"
     },
     {
-      "img": "img/team/02.jpg",
-      "name": "Mike Doe",
-      "job": "Senior Designer"
+      "img": "img/homePage/instructors/Master_AlexLee.jpg",
+      "name": "Master Alex Lee",
+      "job": "5th Dan in Taekwondo and Hapkido"
     },
     {
-      "img": "img/team/03.jpg",
-      "name": "Jane Doe",
-      "job": "Senior Designer"
+      "img": "img/homePage/instructors/Master_SteveGuarino.jpg",
+      "name": "Master Steve Guarino",
+      "job": "4th Dan in Taekwondo and Hapkido"
     },
     {
-      "img": "img/team/04.jpg",
-      "name": "Karen Doe",
-      "job": "Project Manager"
+      "img": "img/homePage/instructors/Sabumnim_ChandraWagner.jpg",
+      "name": "Sabumnim Chandra Wagner",
+      "job": "3rd Dan in Taekwondo, 2nd in Hapkido"
     }
   ],
   "Contact": {
@@ -208,6 +176,36 @@
       "img": "img/aboutPage/instructors/temp-6.png",
       "name": "Temp Instructor 6",
       "paragraph": "Fusce vel nulla quis dui placerat fermentum. Mauris gravida et turpis at malesuada. Nulla elementum mi nisl, nec imperdiet eros interdum sit amet. Suspendisse ultrices mauris vitae consectetur suscipit. Sed arcu nibh, congue ac convallis ac, pulvinar vel nibh. Fusce vitae augue ligula. Nullam tincidunt lacus sed leo laoreet accumsan. Nunc metus metus, faucibus in dictum ut, placerat quis ipsum. Suspendisse vel lobortis dolor. \n\nDuis arcu metus, efficitur ut enim sed, sagittis accumsan ipsum. Nunc accumsan a dui at tempor. Aliquam semper nibh quis nisi bibendum rhoncus. Mauris vehicula, justo id vehicula tristique, lectus neque luctus velit, eget consectetur urna risus gravida nibh. Duis mattis maximus orci cursus faucibus. Nulla sit amet eros dictum, posuere purus a, ultricies dui. Vivamus sed nibh hendrerit, posuere lorem eget, tristique nunc. Nullam felis lectus, faucibus vitae arcu eu, finibus viverra dui. Aenean porta ligula aliquam blandit tempor. Aliquam leo dolor, lacinia at mattis vel, iaculis id felis. Praesent convallis quis enim nec malesuada. Suspendisse scelerisque pharetra urna, sit amet pharetra urna gravida et. Pellentesque commodo, enim at venenatis consequat, orci ipsum posuere nibh, vel rhoncus arcu nulla at erat."
+    }
+  ],
+  "FAQ": [
+    {
+      "question": "Where is Lee's Korean Martial Arts located?",
+      "answer": "Lee's Korean Martial Arts is located in the Sacramento area. The school's address is 2801 Zinfandel Drive, Rancho Cordova, CA 95670. This school has black belt instructions and offer training six days a week."
+    },
+    {
+      "question": "How long does it take to get a black belt?",
+      "answer": "To achieve the rank of Black Belt in Taekwondo and Hapkido it takes roughly 4 years for adults. Children are able to start training in Hapkido when they are 12 years old or once they earn their black belt. For all ages of students who wish to get their black belt sooner, we offer accelerated training and private lessons. Private martial arts lessons are taught by Master Alex in Ranch Cordova and Grandmaster Lee in Elk Grove."
+    },
+    {
+      "question": "Can I take martial arts classes with my child?",
+      "answer": "Yes. Lee's Korean Martial Arts offers Family classes that can be taken with the entire family. We have developed a curriculum for our family classes so both adults and children equally benefit and thrive on their journey to learning Taekwondo in the Sacramento area."
+    },   
+    {
+      "question": "What is Hapkido?",
+      "answer": "Hapkido is a form of self-defense that uses joint locks, throws, kicks, punches, and striking techniques. A Hapkido student will use body position, footwork and leverage to avoid using strength against their opponents."
+    },
+    {
+      "question": "When are martial arts classes and what time do they start?",
+      "answer": "Taekwondo and Hapkido classes start at various times during the week. Both our Rancho Cordova and Elk Grove martial arts schools have different schedules. Please click here for taekwondo class schedule in Sacramento located in Rancho Cordova, CA. Our Elk Grove, CA, martial arts schedule can be found here."
+    },
+    {
+      "question": "Are there age, height, weight, or mobility requirements?",
+      "answer": "Consistently fostering a positive learning environment, if a student (child, kid, teen, adult) is unable to perform a specific exercise, or is in someway incapacitated - we work with you and your body on what you can and are able to do. Regardless of height, weight, disability, etc., everyone is capable of learning martial arts both to defend themselves and keep fit."
+    },
+    {
+      "question": "What is the correct spelling of Taekwondo?",
+      "answer": "Taekwondo is the most common form. However, Tae Kwon Do is the most correct. In Korean, Tae means 'foot' Kwon means 'hand' and Do means 'way of life.' Common misspellings include 'teakwondo' and taekwando'"
     }
   ]
 }

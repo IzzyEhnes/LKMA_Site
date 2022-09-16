@@ -1,0 +1,46 @@
+{
+  "Programs": [
+    {
+      "name": "Martial Arts for Kids",
+      "img": "img/programsPage/kids.png",
+      "subPrograms": [
+        {
+          "subProgramName": "Little Dragons Program",
+          "subProgramAgeRange": "3 to 6 year olds",
+          "subProgramParagraph1": "What 3 - 6 year-old doesn't want to jump, kick, run, and scream? Your preschooler is probably a ball of energy, and our Little Dragon's program will channel that energy and teach Respect, Discipline, and Courtesy.",
+          "img": "img/programsPage/littledragons.png",
+          "subProgramParagraph2": "Is your child quiet or shy? Through structure, encouragement, and positive reinforcement, the Little Dragon's experience helps the quiet child become confident and assertive. The consistent structure of weekly classes gives your preschooler a jump-start on mastering the listening skills needed for success in school. We provide your child with a safe and warm environment at an early age, which will reduce separation anxiety and improve social skills, making the transition to kindergarten and first grade much easier.",
+          "img1": "img/programsPage/littledragons1.jpg",
+          "subProgramParagraph3": "With most children's activities, the learning stops when the activity ends. Our goal is to teach children how to take the life skills we teach and put them to use in their lives at home and in school. Our Star Student Reward Program will help you reinforce our lessons at home and at school. We acknowledge your Little Dragon's achievements at home and school by presenting awards in front of the entire class, helping reinforce good behavior!\n\n Included in our Little Dragon's program is our Kids Safety curriculum. This curriculum teaches bullying prevention, anti-abduction skills and safety information such as how to use the phone to call 911 or mom and dad.\n\n Our Little Dragon's program, regardless of rank or experience, is taught basic sparring skills (with an emphasis on control and respect) and weapon skills (to develop rhythm and coordination). So whether your child is a ball of energy or a little shy, the Little Dragon's program creates well-rounded kids with a Black Belt Attitude."
+        },
+        {
+          "subProgramName": "Juniors & Junior Advanced",
+          "subProgramAgeRange": "7 to 12 year olds",
+          "subProgramParagraph1": "Are you looking for a wholesome children's activity that will teach your child not only health and fitness, but also integrity, honesty, and respect? We teach WTF approved techniques like blocks, kicks and punches to help your child develop a strong sense of balance, self-control and hand/eye coordination.\n\n Is your child quiet or shy? Martial arts can help!\n\nThrough structure, encouragement, and positive reinforcement, the juniors program helps the quiet child become confident and assertive.\n\nAnd there's more! Your child's academic performance will improve because of better focus and concentration. Focus begins with achieving a Black Belt Attitude, and one of the first lessons in the juniors program is standing still or \"standing like a black belt.\" From here, we gradually increase demands on concentration until it becomes second nature to hold focus for long periods of time.",
+          "img": "img/programsPage/juniors.png",
+          "subProgramParagraph2": "Our goal is to teach children how to put the life skills we teach to use in their lives at home and in school. We acknowledge your child's achievements at home and school by presenting awards in front of the entire class using our Star Reward Program and helping reinforce good behavior! Included in our Juniors program is our Kids Safety curriculum. This curriculum teaches bullying prevention, anti-abduction skills and safety information such as how to use the phone to call 911.\n\nAll Juniors, regardless of rank or experience, are permitted to join our Black Belt Club. Students who choose to join the Black Belt Club receive special weapons training as well as an extra class each week. Your child also has the opportunity to join our Leadership Program, where we teach leadership skills, public speaking skills, performance skills, and self-defense skills.\n\nRegardless of rank or experience, is taught basic sparring skills (with an emphasis on control and respect) and weapon skills (to develop rhythm and coordination). So whether your child is hyper or shy, the Junior's martial arts program will create a well-rounded kid with a Black Belt Attitude."
+        }
+      ]
+    },
+    {
+      "name": "Martial Arts for Families",
+      "img": "img/programsPage/families.png",
+      "paragraph": "Aliquam ac finibus sem, vel rhoncus elit. Pellentesque semper mauris pretium auctor feugiat. Etiam quis tempor metus. In suscipit diam eu tellus varius feugiat. Aliquam quis lacus vitae dui interdum vestibulum. Fusce vel ligula elementum, porta dolor eu, tincidunt nibh. Cras molestie risus ut dolor tempus egestas. Vestibulum at diam varius, accumsan leo et, pulvinar nibh.\n\n Proin vulputate suscipit scelerisque. Proin ut ipsum leo. Fusce ipsum nisl, gravida ac nunc id, pellentesque ultricies nibh. Sed in scelerisque felis, in luctus orci. Proin metus nisl, scelerisque non turpis ac, ultricies malesuada arcu."
+    },
+    {
+      "name": "Martial Arts Lessons for Teens",
+      "img": "img/programsPage/teens.png",
+      "paragraph": "Nam at auctor enim. Pellentesque ut consequat ligula. Integer sed tortor vitae tellus faucibus scelerisque eget in lectus. Aenean ac tellus convallis, mollis libero quis, porta leo. Praesent ornare varius tellus ac maximus. Mauris at nibh sed tortor eleifend mattis. Donec a nisl eget ex lobortis viverra. Quisque eleifend at turpis ut fringilla. Vivamus aliquam dui vel dui ullamcorper vestibulum. Nulla mattis facilisis lectus ac mollis. Nulla ac molestie turpis. Curabitur eget est vitae massa tempor rutrum. Mauris mollis nunc metus, non rhoncus ante ornare quis. Nam tincidunt quis odio sed dapibus.\n\nUt eget lectus consequat, malesuada turpis in, maximus lectus. Integer ut tincidunt tellus. Nunc quis dolor molestie, interdum eros sed, convallis mi. Suspendisse euismod justo in odio tristique efficitur. Nam cursus interdum arcu, id tristique elit luctus non. Sed ligula sem, fermentum sit amet neque sit amet, venenatis hendrerit metus. Nulla auctor metus et turpis scelerisque porttitor."
+    },
+    {
+      "name": "Martial Arts Lessons for Adults",
+      "img": "img/programsPage/adults.png",
+      "paragraph": "Donec aliquet neque sit amet dui interdum, sed maximus purus cursus. Cras velit nulla, euismod vel nisl rhoncus, mattis rutrum metus. Aenean in orci metus. Fusce fermentum dapibus ex, at fermentum tellus ultricies eu. Nam cursus ex pretium, porta tellus ac, bibendum eros. Morbi vulputate pretium nibh nec commodo. Nulla luctus vel magna vel blandit. Curabitur ut sapien eget est luctus vulputate ac eu augue."
+    },
+    {
+      "name": "Private Martial Arts Lessons",
+      "img": "img/programsPage/privatelessons.png",
+      "paragraph": "Private martial arts lessons are available for students of all ages and groups of all sizes at both locations. Please contact Grandmaster Lee for lessons in Elk Grove and Master Alex in Rancho Cordova."
+    }
+  ]
+}

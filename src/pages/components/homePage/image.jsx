@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export const Gallery_Image = ({ title, largeImage, smallImage }) => {
   return (
-    <div className='portfolio-item'>
+    <div className='gallery-item'>
       <div className='hover-bg'>
         {' '}
         <a
@@ -23,7 +23,7 @@ export const Gallery_Image = ({ title, largeImage, smallImage }) => {
 
 export const Program_Image = ({ title, largeImage, smallImage }) => {
   return (
-    <div className='program-item'>
+    <div className='gallery-item'>
       <div className='hover-bg'>
         {' '}
         <NavLink className="nav-link" to="/programs"
