@@ -101,7 +101,7 @@ hr {
 #menu.navbar-default .navbar-nav > li > a {
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
-  color: rgb(255, 255, 255)
+  color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: 400;
   padding: 8px 2px;
@@ -692,6 +692,12 @@ header .intro-text {
 #contact img {
   max-width: 100%;
   height: auto;
+  margin-top: 0px;
+  background: #fff;
+  border-right: 0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+  background-color: transparent;
+  position: relative;
 }
 #contact .contact-title p {
   margin-left: 15%;
@@ -738,13 +744,6 @@ header .intro-text {
 #contact .subtest-details-item + .subtest-details-item{
   border-right: none;
   margin-left: 65px;
-}
-#contact img {
-  width: 500px;
-  margin-top: 10px;
-  background: #fff;
-  border-right: 0;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
 #contact p {
   line-height: 24px;
