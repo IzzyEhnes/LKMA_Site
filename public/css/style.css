@@ -275,8 +275,20 @@ header .intro-text {
 }
 /* About Section */
 #about {
+  margin-top: 10px;
   padding: 75px 0;
-  background: rgb(32, 33, 36);
+  /*background: rgb(32, 33, 36);*/
+  padding: 10px 0;
+  /*background: rgb(32, 33, 36);*/
+  border-top: solid #ffffff;
+  padding-top: 10px;
+  /*background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);*/
+  background-image: url("../img/flag.png");
+  background-size: 110%;
+  background-position: 50%;
+  /*background-color: #8d8888;*/
+  padding-bottom: 15px;
+  border-bottom: solid #ffffff;
 }
 #about h3 {
   font-size: 22px;
@@ -290,7 +302,7 @@ header .intro-text {
 #about h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  background: linear-gradient(to right, #3317d1 0%, #366cbd 100%);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -301,6 +313,7 @@ header .intro-text {
   margin-left: 6px;
   list-style: none;
   padding: 0;
+  color: white;
 }
 #about .about-text li:before {
   content: "\f0da";
@@ -314,19 +327,21 @@ header .intro-text {
   width: 520px;
   margin-top: 10px;
   background: #fff;
-  border-right: 0;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+  border: solid white;
 }
 #about p {
   line-height: 24px;
   margin: 30px 0;
+  color: white;
 }
 #page-top{
   background: rgb(32, 33, 36);
 }
 /* Location Section */
 #location {
-  padding: 50px 0;
+  /*padding: 70px 0;*/
+  margin-top: 70px;
+  margin-bottom: 30px;
   background: rgb(32, 33, 36);
 }
 #location h2 {
@@ -401,16 +416,18 @@ header .intro-text {
 #programs {
   padding: 10px 0;
   background: rgb(32, 33, 36);
+  border-top: solid #ffffff;
+  background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);
+  border-bottom: solid #ffffff;
   /*background-image: linear-gradient(to bottom, #cd2e3a, #df5877, #e582ab, #e5abd3, #e8d1ee, #dfcfec, #d6ceea, #cecce7, #a8a8d5, #8085c3, #5365b2, #0047a0);
   border-top: solid #CD2E3A;
-  background: rgb(0,71,160);
-  background: linear-gradient(to top, rgb(32, 33, 36) 0%, rgb(0,71,160) 100%);
+  background: rgb(0,71,160);*/
+  /*background: linear-gradient(to top, rgb(32, 33, 36) 0%, rgb(0,71,160) 100%);
   background: linear-gradient(to bottom, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
   background: rgb(255, 255, 255);
   background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
-  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(32, 33, 36));
-  background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);
-  border-top: solid linear-gradient(to right, #CD2E3A 0%, #0047A0 100%);
+  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(32, 33, 36));*/
+  /*border-top: solid linear-gradient(to right, #CD2E3A 0%, #0047A0 100%);
   border-top: solid #0047A0;
   border-bottom: solid #CD2E3A;*/
 }
@@ -464,7 +481,7 @@ header .intro-text {
 }
 
 #gallery {
-  padding: 50px 0;
+  padding: 10px 0;
   background: rgb(32, 33, 36);
 }
 .gallery-item {
