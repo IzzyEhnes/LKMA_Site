@@ -586,6 +586,7 @@ header .intro-text {
   line-height: 24px;
   margin: 30px 0;
 }
+
 /* Program Details Section */
 #program-details {
   padding: 100px 0;
@@ -630,7 +631,7 @@ header .intro-text {
   left: 50%;
 }
 #program-details hr {
-  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  visibility: hidden;
 }
 #program-details .program-details-item {
   width: 100%;
@@ -643,12 +644,19 @@ header .intro-text {
   margin-top: -15px;
 }
 #program-details .subprogram-details-item {
-  overflow: auto;
-  display: block;
-  margin-left: 15%;
-  margin-right: 15%;
+  display: inline-block;
   white-space: pre-line;
-  padding: 10px;
+  vertical-align: top;
+  border-width: 0 2px 0 0;
+  border-style: solid;
+  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
+  margin-right: -35px;
+  padding-right: 50px;
+  width: 49%;
+}
+#program-details .subprogram-details-item + .subprogram-details-item{
+  border-right: none;
+  margin-left: 65px;
 }
 #program-details img {
   width: 500px;
@@ -658,6 +666,104 @@ header .intro-text {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
 }
 #program-details p {
+  line-height: 24px;
+  margin: 30px 0;
+}
+/* Contact Page */
+#contact {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+#contact h4 {
+  font-size: 32px;
+  padding-top: 10px;
+  margin-bottom: -10px;
+  margin: 0 0 10px;
+  font-weight: 500;
+  color: #fff;
+}
+#contact h3 {
+  font-size: 25px;
+  font-weight: 300;
+  background-color: 	rgb(40, 41, 45);
+  padding: 40px;
+}
+#contact h2 {
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+#contact h1 {
+  font-size: 25px;
+  position: relative;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+#contact .contact-title {
+  white-space: pre-line;
+  overflow: auto;
+  display: block;
+  white-space: pre-line;
+  padding: 10px;
+}
+#contact img {
+  max-width: 100%;
+  height: auto;
+}
+#contact .contact-title p {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+#contact .contact-title h2 {
+  position: relative;
+  margin-top: 10px;
+}
+#contact .contact-title h2::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  height: 4px;
+  width: 60px;
+  bottom: 0;
+  margin-left: -30px;
+  left: 50%;
+}
+#contact hr {
+  visibility: hidden;
+}
+#contact .test-details-item {
+  width: 100%;
+  padding-bottom: 50px;
+}
+#contact .subtest-details-item h2 {
+  text-transform: none;
+}
+#contact .subtest-details-item h4 {
+  margin-top: -15px;
+}
+#contact .subtest-details-item {
+  display: inline-block;
+  white-space: pre-line;
+  vertical-align: top;
+  border-width: 0 2px 0 0;
+  border-style: solid;
+  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
+  margin-right: -35px;
+  padding-right: 50px;
+  width: 49%;
+}
+#contact .subtest-details-item + .subtest-details-item{
+  border-right: none;
+  margin-left: 65px;
+}
+#contact img {
+  width: 500px;
+  margin-top: 10px;
+  background: #fff;
+  border-right: 0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+}
+#contact p {
   line-height: 24px;
   margin: 30px 0;
 }
@@ -742,137 +848,6 @@ header .intro-text {
   padding-left: 15px;
   color: 	#777;
 }
-/* Contact Section */
-#contact {
-  padding: 10px 0 10px;
-  background-color: #0047A0;
-  color: rgba(255, 255, 255, 0.75);
-}
-#contact .section-title {
-  margin-bottom: 40px;
-}
-#contact .section-title p {
-  font-size: 16px;
-}
-#contact h2 {
-  color: #fff;
-  margin-top: 10px;
-  margin-bottom: 0px;
-  padding-bottom: 15px;
-  text-align: center;
-}
-#contact .section-title h2::after {
-  position: absolute;
-  content: "";
-  background: rgba(255, 255, 255, 0.3);
-  height: 4px;
-  width: 60px;
-  bottom: 0;
-  left: 30px;
-}
-#contact h3 {
-  color: #fff;
-  margin-top: 80px;
-  margin-bottom: 25px;
-  padding-bottom: 20px;
-  font-weight: 400;
-}
-#contact form {
-  padding-top: 20px;
-}
-#contact .text-danger {
-  color: #cc0033;
-  text-align: left;
-}
-#contact .btn-custom {
-  margin: 30px 0;
-  background: transparent;
-  border: 2px solid #fff;
-}
-#contact .btn-custom:hover {
-  color: #1f386e;
-  background: #fff;
-}
-label {
-  font-size: 12px;
-  font-weight: 400;
-  font-family: "Open Sans", sans-serif;
-  float: left;
-}
-#contact .form-control {
-  display: block;
-  width: 100%;
-  padding: 6px 12px;
-  font-size: 16px;
-  line-height: 1.42857143;
-  color: #444;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ddd;
-  border-radius: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-#contact .form-control:focus {
-  border-color: #999;
-  outline: 0;
-  -webkit-box-shadow: transparent;
-  box-shadow: transparent;
-}
-.form-control::-webkit-input-placeholder {
-  color: #777;
-}
-.form-control:-moz-placeholder {
-  color: #777;
-}
-.form-control::-moz-placeholder {
-  color: #777;
-}
-.form-control:-ms-input-placeholder {
-  color: #777;
-}
-#contact .contact-item {
-  margin: 20px 0;
-}
-#contact .contact-item span {
-  color: rgba(255, 255, 255, 1);
-  margin-bottom: 10px;
-  display: block;
-}
-#contact .contact-item i.fa {
-  margin-right: 10px;
-}
-#contact .social {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 50px;
-  margin-top: 50px;
-  text-align: center;
-}
-#contact .social ul li {
-  display: inline-block;
-  margin: 0 20px;
-}
-#contact .social i.fa {
-  font-size: 22px;
-  width: 48px;
-  height: 48px;
-  padding: 12px 0;
-  border: 2px solid #fff;
-  color: #fff;
-  border-radius: 50%;
-  transition: all 0.3s;
-}
-#contact .social i.fa:hover {
-  color: #608dfd;
-  background: #fff;
-}
-#contact-info {
-  text-align: center;
-}
-
 /* Footer Section*/
 #footer {
   background: #f6f6f6;
@@ -898,10 +873,6 @@ label {
     margin-left: 0;
     margin-right: 0;
   }
-  #program-details .subprogram-details-item {
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
 
 @media (max-width: 968px) {
@@ -924,9 +895,13 @@ label {
   #location img {
     margin-top: -50px;
   }
+  #program-details .programs-title p {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
-@media (max-width: 1182px) {
+@media (max-width: 1200px) {
   #location h2 {
     text-align: left;
   }
@@ -943,5 +918,22 @@ label {
   #location .facebook {
     margin-left: 30px;
   }
+  #program-details .programs-title p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #program-details .subprogram-details-item {
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  #program-details .subprogram-details-item + .subprogram-details-item {
+    border: none;
+    margin: 0;
+  }
+  #program-details hr {
+    visibility: visible;
+    background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  }
 }
-

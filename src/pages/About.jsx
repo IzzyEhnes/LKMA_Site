@@ -17,6 +17,7 @@ const About = () => {
   return (
     <div>
       <Instructors data={aboutPageData.Instructors} />
+      {/*<YoutubePlayer videoID='d0akqRlyjo8' /> */}
     </div>
   );
 };
