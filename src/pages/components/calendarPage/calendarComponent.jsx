@@ -29,7 +29,8 @@ export const CalendarComponent = (props) => {
                 <div className='monthly-calendar'>
                     <h4>
                         Monthly Calendar
-                        <br></br>                        
+                        <br></br>
+                        <iframe src="https://calendar.google.com/calendar/embed?src=justinvierstra%40gmail.com&ctz=America%2FLos_Angeles" width="700" height="500" frameborder="0" scrolling="no"></iframe>
                     </h4>
                 </div>
 
