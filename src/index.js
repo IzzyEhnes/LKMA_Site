@@ -8,6 +8,7 @@ import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Programs from './pages/Programs';
 import Contact from './pages/Contact';
+import Calendar from './pages/Calendar';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -20,11 +21,13 @@ ReactDOM.render(
         <Route path="/faq" element={<FAQ />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
