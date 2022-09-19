@@ -3,7 +3,7 @@ html {
   font-family: "Open Sans", sans-serif;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
-  color: #777;
+  color: rgb(255, 255, 255);
   font-weight: 400;
   width: 100% !important;
   height: 100% !important;
@@ -216,7 +216,9 @@ a:focus,
   outline: none;
   outline-offset: none;
 }
+
 /* Header Section */
+
 .intro {
   display: table;
   width: 100%;
@@ -257,7 +259,9 @@ header .intro-text {
   padding-bottom: 200px;
   text-align: center;
 }
+
 /* Features Section */
+
 #features {
   background: rgb(32, 33, 36);
 }
@@ -274,7 +278,9 @@ header .intro-text {
   background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
+
 /* About Section */
+
 #about {
   margin-top: 10px;
   padding: 75px 0;
@@ -288,7 +294,7 @@ header .intro-text {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   border-bottom: solid #ffffff;
 }
 #about h3 {
@@ -303,7 +309,8 @@ header .intro-text {
 #about h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #3317d1 0%, #366cbd 100%);
+  /* background: linear-gradient(to right, #3317d1 0%, #366cbd 100%); */
+  background: rgb(0,71,160);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -338,7 +345,9 @@ header .intro-text {
 #page-top{
   background: rgb(32, 33, 36);
 }
+
 /* Location Section */
+
 #location {
   /*padding: 70px 0;*/
   margin-top: 70px;
@@ -420,17 +429,7 @@ header .intro-text {
   border-top: solid #ffffff;
   background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);
   border-bottom: solid #ffffff;
-  /*background-image: linear-gradient(to bottom, #cd2e3a, #df5877, #e582ab, #e5abd3, #e8d1ee, #dfcfec, #d6ceea, #cecce7, #a8a8d5, #8085c3, #5365b2, #0047a0);
-  border-top: solid #CD2E3A;
-  background: rgb(0,71,160);*/
-  /*background: linear-gradient(to top, rgb(32, 33, 36) 0%, rgb(0,71,160) 100%);
-  background: linear-gradient(to bottom, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
-  background: rgb(255, 255, 255);
-  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(0,71,160) 100%);
-  background: linear-gradient(to right, rgb(	205,46,58) 0%, rgb(32, 33, 36));*/
-  /*border-top: solid linear-gradient(to right, #CD2E3A 0%, #0047A0 100%);
-  border-top: solid #0047A0;
-  border-bottom: solid #CD2E3A;*/
+  padding-bottom: 30px;
 }
 #programs .container {
   width: 60vw;
@@ -452,10 +451,10 @@ header .intro-text {
 #programs h2 {
   color: #fff;
 }
-#programs .section-title h2::after {
+#programs h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  background: rgb(0,71,160);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -477,9 +476,14 @@ header .intro-text {
   padding: 5px 0;
   color: #fff;
 }
+#programs img {
+  border: solid white;
+}
 #programs .programs-desc {
   margin-bottom: 40px;
 }
+
+/* Gallery Section */
 
 #gallery {
   padding: 10px 0;
@@ -526,16 +530,32 @@ header .intro-text {
 .hover-bg:hover .hover-text {
   opacity: 1;
 }
+
 /* Team Section */
 #team {
   padding: 10px 0;
-  background: rgb(32, 33, 36);
+  /* border-top: solid #ffffff;
+  background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);
+  border-bottom: solid #ffffff; */
+
+  border-top: solid #ffffff;
+  padding-top: 10px;
+  /*background: linear-gradient(to bottom, rgb(205,46,58) 0%, rgb(0,71,160) 100%);*/
+  background: url("../img/flag2.png");
+  background-position: 50%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  padding-bottom: 15px;
+  border-bottom: solid #ffffff;
 }
 #team h4 {
   margin: 5px 0;
 }
 #team .team-img {
   width: 240px;
+  border: solid white;
 }
 #team .thumbnail {
   background: transparent;
@@ -543,9 +563,14 @@ header .intro-text {
 }
 #team .thumbnail .caption {
   padding: 10px 0 0;
-  color: #888;
+  color: rgb(255, 255, 255);
 }
-/* Instructors Section */
+
+#team .section-title h2::after {
+  background: rgb(0,71,160);
+}
+
+/* Instructors Page */
 #instructors {
   padding: 100px 0;
   background: rgb(32, 33, 36);
@@ -589,6 +614,7 @@ header .intro-text {
 }
 
 /* Program Details Section */
+
 #program-details {
   padding: 100px 0;
   background: rgb(32, 33, 36);
@@ -624,7 +650,8 @@ header .intro-text {
 #program-details .programs-title h2::after {
   position: absolute;
   content: "";
-  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  /* background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%); */
+  background: rgb(32, 33, 36);
   height: 4px;
   width: 60px;
   bottom: 0;
@@ -730,10 +757,8 @@ header .intro-text {
   left: 50%
 }
 
-
-
-
 /* Contact Page */
+
 #contact {
   padding: 100px 0;
   background: rgb(32, 33, 36);
@@ -831,7 +856,9 @@ header .intro-text {
   line-height: 24px;
   margin: 30px 0;
 }
+
 /* FAQ Section */
+
 #faq {
   padding: 100px 0;
   background: rgb(32, 33, 36);
@@ -912,7 +939,9 @@ header .intro-text {
   padding-left: 15px;
   color: 	#777;
 }
+
 /* Footer Section*/
+
 #footer {
   background: #f6f6f6;
   padding: 30px 0;
