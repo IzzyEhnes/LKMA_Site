@@ -864,6 +864,19 @@ header .intro-text {
   margin: 30px 0;
 }
 
+/* Profile Section */
+
+#profile {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+#profile h1 {
+  font-size: 25px;
+  position: relative;
+  margin-bottom: 5px;
+  padding-bottom: 5px;  
+}
+
 /* FAQ Section */
 
 #faq {

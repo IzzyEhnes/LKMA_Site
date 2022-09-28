@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ProfileComponent } from "./components/profilePage/profileComponent";
 import JsonData from "./data/profileData.json";
 import SmoothScroll from "smooth-scroll";
 
@@ -15,7 +16,7 @@ const Profile = () => {
 
   return (
     <div>
-      
+      <ProfileComponent data={profilePageData.ProfileData} />
     </div>
   );
 };
