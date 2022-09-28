@@ -1,0 +1,94 @@
+{
+  "GalleryData": [
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/01-large.jpg",
+      "smallImage": "img/galleryPage/01-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/02-large.jpg",
+      "smallImage": "img/galleryPage/02-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/03-large.jpg",
+      "smallImage": "img/galleryPage/03-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/04-large.jpg",
+      "smallImage": "img/galleryPage/04-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/05-large.jpg",
+      "smallImage": "img/galleryPage/05-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/06-large.jpg",
+      "smallImage": "img/galleryPage/06-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/07-large.jpg",
+      "smallImage": "img/galleryPage/07-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/08-large.jpg",
+      "smallImage": "img/galleryPage/08-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/09-large.jpg",
+      "smallImage": "img/galleryPage/09-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/07-large.jpg",
+      "smallImage": "img/galleryPage/07-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/08-large.jpg",
+      "smallImage": "img/galleryPage/08-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/09-large.jpg",
+      "smallImage": "img/galleryPage/09-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/07-large.jpg",
+      "smallImage": "img/galleryPage/07-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/08-large.jpg",
+      "smallImage": "img/galleryPage/08-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/09-large.jpg",
+      "smallImage": "img/galleryPage/09-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/07-large.jpg",
+      "smallImage": "img/galleryPage/07-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/08-large.jpg",
+      "smallImage": "img/galleryPage/08-small.jpg"
+    },
+    {
+      "title": "LKMA Gallery Image",
+      "largeImage": "img/galleryPage/09-large.jpg",
+      "smallImage": "img/galleryPage/09-small.jpg"
+    }
+  ]
+}

@@ -49,14 +49,9 @@ export const Navigation = (props) => {
               </NavLink>
             </li>
             <li>
-              <a href='#gallery' className='page-scroll'>
+              <NavLink className="nav-link" to="/gallery">
                 Gallery
-              </a>
-            </li>
-            <li>
-              <a href='#team' className='page-scroll'>
-                Team
-              </a>
+              </NavLink>
             </li>
             <li>
               <NavLink className="nav-link" to="/calendar">
@@ -69,9 +64,19 @@ export const Navigation = (props) => {
               </NavLink>
             </li>
             <li>
-              <a href='#Profile' className='page-scroll'>
-                Profile / Log In
-              </a>
+              <NavLink className="nav-link" to="/profile">
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-link" to="/signup">
+                Sign Up
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
             </li>
           </ul>
         </div>

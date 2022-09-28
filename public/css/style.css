@@ -698,6 +698,13 @@ header .intro-text {
   margin: 30px 0;
 }
 
+/*Gallery Page */
+
+#gallerypage {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+
 /*Calendar Page */
 
 #calendar {

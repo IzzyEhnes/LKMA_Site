@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export const Features = (props) => {
   return (
     <div id='features' className='text-center'>
@@ -13,13 +15,10 @@ export const Features = (props) => {
 
                   <i className={d.icon}></i>
                   <h3>
-
-                <a
-                  href={d.ref}
-                  className='btn btn-custom btn-lg page-scroll'
-                >
-                  {d.title}
-                </a></h3>{' '}{' '}
+                    <NavLink className="nav-link btn btn-custom btn-lg" to={d.ref}>
+                      {d.title}
+                    </NavLink>
+                  </h3>{' '}{' '}
 
                   <p>{d.text}</p>
                   
