@@ -7,8 +7,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Programs from './pages/Programs';
+import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Calendar from './pages/Calendar';
+import Profile from './pages/Profile';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -20,8 +24,12 @@ ReactDOM.render(
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/programs" element={<Programs />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/calendar" element={<Calendar />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   </React.StrictMode>,
