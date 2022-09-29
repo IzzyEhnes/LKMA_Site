@@ -11,7 +11,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Calendar from './pages/Calendar';
 import Profile from './pages/Profile';
-import Signup from './pages/Signup';
+import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import * as serviceWorker from './serviceWorker';
 
@@ -28,7 +28,7 @@ ReactDOM.render(
         <Route path="/contact" element={<Contact />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
