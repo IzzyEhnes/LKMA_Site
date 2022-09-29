@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { LoginComponent } from "./components/loginPage/loginComponent";
 import JsonData from "./data/loginData.json";
 import SmoothScroll from "smooth-scroll";
 
@@ -15,7 +16,7 @@ const Login = () => {
 
   return (
     <div>
-      
+      <LoginComponent data={loginPageData.LoginData} />
     </div>
   );
 };
