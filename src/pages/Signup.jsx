@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import JsonData from "./data/signupData.json";
+import { SignUpComponent } from "./components/signUpPage/signUpComponent";
+import JsonData from "./data/signUpData.json";
 import SmoothScroll from "smooth-scroll";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -7,17 +8,17 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   speedAsDuration: true,
 });
 
-const Signup = () => {
-  const [signupPageData, setSignupPageData] = useState({});
+const SignUp = () => {
+  const [signUpPageData, setSignUpPageData] = useState({});
   useEffect(() => {
-    setSignupPageData(JsonData);
+    setSignUpPageData(JsonData);
   }, []);
 
   return (
     <div>
-      
+      <SignUpComponent data={signUpPageData.SignUpData} />
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;
