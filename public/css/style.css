@@ -972,6 +972,22 @@ header .intro-text {
 	margin: -20px 0 50px;
 }
 
+#emailError{
+  color: red;
+}
+
+#passwordError{
+  color: red;
+}
+
+#passwordConfirmError{
+  color: red;
+}
+
+#matchingError{
+  color: red;
+}
+
 #login h1 {
 	font-weight: bold;
 	margin: 0;
