@@ -1,8 +1,6 @@
-import { Gallery_Image } from "./image";
-
-export const Gallery = (props) => {
+export const GalleryComponent = (props) => {
   return (
-    <div id='gallery' className='text-center'>
+    <div id='gallerypage' className='text-center'>
       <div className='container'>
         <div className='section-title'>
           <h2>Gallery</h2>
@@ -18,6 +16,27 @@ export const Gallery = (props) => {
               : 'Loading...'}
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+const Gallery_Image = ({ title, largeImage, smallImage }) => {
+  return (
+    <div className='gallery-item'>
+      <div className='hover-bg'>
+        {' '}
+        <a
+          href={largeImage}
+          title={title}
+          data-lightbox-gallery='gallery1'
+        >
+          <img
+            src={smallImage}
+            className='img-responsive'
+            alt={title}
+          />{' '}
+        </a>{' '}
       </div>
     </div>
   )

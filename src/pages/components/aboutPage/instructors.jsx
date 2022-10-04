@@ -5,7 +5,7 @@ export const Instructors = (props) => {
         <div className='section-title'>
           <h2>Instructors</h2>
           <p>
-            Head Masters at Lee's Korean Martial Arts in Elk Grove &amp; Rancho Cordova
+            Head Masters at Lee's Korean Martial Arts in Rancho Cordova
           </p>
         </div>
         <div className='row'>
