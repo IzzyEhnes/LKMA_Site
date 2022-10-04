@@ -9,10 +9,20 @@ const validateEmail = (email) => {
     );
 };
 
+const validateName = (name) => {
+  return String(name)
+    .toLowerCase()
+    .match(
+      /^[a-zA-Z]+$/
+    );
+};
+
 
 
 export const SignUpComponent = (props) => {
 
+  const inputFirstName=useRef(null);
+  const inputLastName=useRef(null);
   const inputEmail=useRef(null);
   const inputPassword=useRef(null);
   const inputPasswordConfirm=useRef(null);
@@ -30,6 +40,28 @@ export const SignUpComponent = (props) => {
 
 
   function validate() {
+    if(inputFirstName.current.value === ""){
+      console.log("No first name provided")
+      document.getElementById("firstNameError").innerHTML = "Please provide your first name"
+    }else if(validateName(inputFirstName.current.value)){
+      console.log("First name valid")
+      document.getElementById("firstNameError").innerHTML = ""
+    }else{
+      console.log("First name must only contain letters")
+      document.getElementById("firstNameError").innerHTML = "First name must only contain letters"
+    }
+
+    if(inputLastName.current.value === ""){
+      console.log("No last name provided")
+      document.getElementById("lastNameError").innerHTML = "Please provide your last name"
+    }else if(validateName(inputLastName.current.value)){
+      console.log("Last name valid")
+      document.getElementById("lastNameError").innerHTML = ""
+    }else{
+      console.log("Last name must only contain letters")
+      document.getElementById("lastNameError").innerHTML = "Last name must only contain letters"
+    }
+
     if(inputEmail.current.value === ""){
       console.log("No email provided")
       document.getElementById("emailError").innerHTML = "Please provide an email"
@@ -80,11 +112,15 @@ export const SignUpComponent = (props) => {
                 <div class="form-container sign-in-container">
                     <form action="#">
                         <h1>Create Account</h1>
+                        <div id="firstNameError"></div>
+                        <div id="lastNameError"></div>
                         <div id="emailError"></div>
                         <div id="passwordError"></div>
                         <div id="passwordConfirmError"></div>
                         <div id="matchingError"></div>
-                        <input ref={inputEmail} type="email" id="email" placeholder="Enter your email" required/>
+                        <input ref={inputFirstName} id="firstName" type="text" placeholder="First Name" required/>
+                        <input ref={inputLastName} id="lastName" type="text" placeholder="Last Name" required/>
+                        <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
                         <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
                         <input ref={inputPasswordConfirm} id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password" minlength="8" required/>
                         <button type="button" onClick={functions} >Sign Up</button>
