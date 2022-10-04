@@ -1,75 +1,61 @@
-//Approach 1: using mysql2
-
-/*const mysql = require('mysql2');
-
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "CicadaCode@7",
-  connectionLimit: 10
-});
-
-exports.getName = function(callback) {
-    pool.query('select * from lkmadb.student', (err, res)=>{
-        return console.log(res);
-    });
-    console.log('test');
-}
-
-console.log("test 1");
-pool.query('create database lkmadb', (err, res)=>{
-    return console.log(res);
-});
-console.log("test 2");
-
-pool.query('use student', (err, res)=>{
-    return console.log(res);
-});
-console.log("test 3");
-
-//var getName = function(callback) {
-    var getName = function getNames() {
-        pool.query('select * from lkmadb.student', function (err, res) {
-            if (err) throw err;
-            
-            return console.log(res);
-        });
-    }
-//}
-export {getName};
-
-console.log("test 4");
-
-pool.query('show tables', (err, res)=>{
-    return console.log(res);
-});*/
-
-///////////////////////////////////////////
-//approach 2: using mysql with express
-
-const express = require('express');
-const mysql = require('mysql');
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended : false }));
+app.use(cors());
+
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    database: 'testing',
-    user: 'root',
-    password: 'CicadaCode@7'
+    user: "root",
+    host: "localhost",
+    //adapt password to your MySQL password
+    password: "CicadaCode@7",
+    database: "lkmadb",
 });
 
-app.listen(3000, () => {
-    console.log('running server');
+app.post("/", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    //implement proper registration authentication
+    connection.query("INSERT INTO account (email, password) VALUES (?,?)",
+    [email, password], (err, result) => {
+        if (err) {
+            console.log(err);
+        } 
+            
+        if ((result.email != "" && result.password != "")) {
+            res.status(200).json({ message: "registration successful", 
+                result });
+        } else {
+            res.status(200).json({ message: "no input", 
+                result });
+        }       
+    });
 });
 
-/*connection.connect(function(error) {
-    if (error) {
-        throw error;
-    } else {
-        console.log('MySQL database is connected successfully.');
-    }
-})
-*/
-module.exports = connection;
-
+app.post("/login", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    
+    connection.query("SELECT * FROM account WHERE email = ? AND password = ?",
+    [email, password], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+            
+        if (result.length > 0) {
+            res.status(200).json({ message: "You logged in", result });
+        } else {
+            res.status(200).json({ message: "Wrong combination", result });
+        }       
+    });
+});
