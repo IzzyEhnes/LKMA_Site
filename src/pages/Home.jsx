@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "./components/homePage/header";
 import { Features } from "./components/homePage/features";
 import { About } from "./components/homePage/about";
@@ -23,6 +23,7 @@ const Home = () => {
 
   return (
     <div>
+      {/*````````````````````````*/}
       <Header data={landingPageData.Header} />
       <Features data={landingPageData.Features} />
       <About data={landingPageData.About} />
