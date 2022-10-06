@@ -1,5 +1,6 @@
 export const ContactComponent = (props) => {
   return (
+
     <div id='contact' className='text-center'>
       <div className='container'>
         <div className='contact-title'>
@@ -44,15 +45,15 @@ export const ContactComponent = (props) => {
         <div className="col-xs-12 col-md-6">
          <h3 className="follow-us">Follow us on:</h3>
         </div>
-        <div className="col-xs-12 col-md-6">
-         <a className="twitter" href="https://twitter.com/SacMartialArts">
-          <img src="img/twitter.png" width="30" height="30" alt="" />
-         </a>
-         <a className="facebook" href="https://www.facebook.com/LeesKoreanMartialArts">
-          <img src="img/facebook.png" width="10" height="10" alt="" />
-          </a>
-        </div>
       </div>
-    </div>  
+
+            <div className="twitter" href="https://twitter.com/SacMartialArts">
+              <img src="img/twitter.png" width="30" height="30" alt=""/>
+            </div>
+              <div class="facebook" href="https://www.facebook.com/LeesKoreanMartialArts">
+                <img src="img/facebook.png" width="30" height="30" alt=""/>
+              </div>
+
+    </div> 
   )
 }
