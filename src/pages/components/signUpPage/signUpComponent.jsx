@@ -17,7 +17,23 @@ const validateName = (name) => {
     );
 };
 
+function checkUppercase(str){
+  for (var i=0; i<str.length; i++){
+    if (str.charAt(i) === str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)){
+      return true;
+    }
+  }
+  return false;
+};
 
+function checkLowercase(str){
+  for (var i=0; i<str.length; i++){
+    if (str.charAt(i) === str.charAt(i).toLowerCase() && str.charAt(i).match(/[a-z]/i)){
+      return true;
+    }
+  }
+  return false;
+};
 
 export const SignUpComponent = (props) => {
 
@@ -75,13 +91,19 @@ export const SignUpComponent = (props) => {
 
     if(inputPassword.current.value === ""){
       console.log("No password provided")
-      document.getElementById("passwordError").innerHTML = "No password provided"
-    }else if(inputPassword.current.value.length > 7){
+      document.getElementById("passwordError").innerHTML = "Please provide a password"
+    }else if(inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)){
       console.log("Valid Password")
       document.getElementById("passwordError").innerHTML = ""
-    }else{
+    }else if(inputPassword.current.value.length < 8){
       console.log("Password must be 8 characters or longer in length")
       document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
+    } else if (checkUppercase(inputPassword.current.value)){
+      console.log("Password must contain at least one lowercase letter")
+      document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
+    } else if (checkLowercase(inputPassword.current.value)){
+      console.log("Password must contain at least one uppercase letter")
+      document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
     }
 
     if(inputPasswordConfirm.current.value === ""){
