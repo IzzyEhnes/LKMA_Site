@@ -1,6 +1,6 @@
 import { fireEvent, getByRole, getByTestId, render } from "@testing-library/react";
-import { ProfileComponent } from "./profileComponent";
-import Login from "./profileComponent";
+import { TempComponent } from "./tempComponent";
+import Login from "./tempComponent";
 
 //still in progress
 /*requires following packages: 
@@ -12,7 +12,7 @@ import Login from "./profileComponent";
     "sequelize": "^6.23.2"
 */
 
-describe(ProfileComponent, () => {
+describe(TempComponent, () => {
     it("login button logs in user and displays email address", () => {
 
         const email = "";

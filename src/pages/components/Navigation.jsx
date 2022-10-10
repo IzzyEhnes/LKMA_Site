@@ -78,6 +78,16 @@ export const Navigation = (props) => {
                 Login
               </NavLink>
             </li>
+            <li>
+              <NavLink className="nav-link" to="/temp">
+                Temp
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="nav-link" to="/admin">
+                Admin
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
