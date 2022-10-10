@@ -74,7 +74,9 @@ export const LoginComponent = (props) => {
                         <div id="passwordError"></div>
                         <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
                         <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
-                        <a href="#">Forgot your password?</a>
+                        <NavLink className="nav-link" to="/forgot">
+                          Forgot your password?
+                        </NavLink>
                         <button type="button" onClick={validate} >Sign In</button>
                     </form>
                 </div>

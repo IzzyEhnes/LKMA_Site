@@ -13,6 +13,9 @@ import Calendar from './pages/Calendar';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import Temp from './pages/Temp';
+import Forgot from './pages/Forgot';
+import Admin from './pages/Admin';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -30,6 +33,9 @@ ReactDOM.render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/temp" element={<Temp />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   </React.StrictMode>,
