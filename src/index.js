@@ -13,6 +13,7 @@ import Calendar from './pages/Calendar';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
 import Temp from './pages/Temp';
 import Forgot from './pages/Forgot';
 import Admin from './pages/Admin';
@@ -33,6 +34,7 @@ ReactDOM.render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/temp" element={<Temp />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/admin" element={<Admin />} />
