@@ -95,6 +95,9 @@ export const SignUpComponent = (props) => {
     }else if(inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)){
       console.log("Valid Password")
       document.getElementById("passwordError").innerHTML = ""
+    }else if(inputPassword.current.value.length > 7 && !checkUppercase(inputPassword.current.value) && !checkLowercase(inputPassword.current.value)){
+      console.log("Password must contain letters")
+      document.getElementById("passwordError").innerHTML = "Password must contain letters"
     }else if(inputPassword.current.value.length < 8){
       console.log("Password must be 8 characters or longer in length")
       document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
@@ -120,8 +123,8 @@ export const SignUpComponent = (props) => {
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
     }else{
-      console.log("Password and conformation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
+      console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
     }
 
   }
@@ -145,7 +148,7 @@ export const SignUpComponent = (props) => {
                         <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
                         <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
                         <input ref={inputPasswordConfirm} id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password" minlength="8" required/>
-                        <button type="button" onClick={functions} >Sign Up</button>
+                        <button type="button" onClick={functions}>Sign Up</button>
                         <label></label>
                     </form>
                 </div>
