@@ -120,8 +120,8 @@ export const SignUpComponent = (props) => {
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
     }else{
-      console.log("Password and conformation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
+      console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
     }
 
   }
