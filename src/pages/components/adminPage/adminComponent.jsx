@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export const AdminComponent = (props) => {
   return (
     <div id='admin' className='text-center'>
@@ -17,7 +19,12 @@ export const AdminComponent = (props) => {
         </div>
         <div className='row'>
           <div className="column">
-            <button>Change Email</button>
+              <NavLink to="/changeemail">
+                <button type="button">
+                  Change Email
+                </button>
+              </NavLink>
+              
           </div>
           <div className="column">
             <button>Change Password</button>
