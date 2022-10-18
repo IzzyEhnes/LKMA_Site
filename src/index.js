@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
+import ChangeEmail from './pages/ChangeEmail';
 import Temp from './pages/Temp';
 import Forgot from './pages/Forgot';
 import Admin from './pages/Admin';
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/changeemail" element={<ChangeEmail />} />
         <Route path="/temp" element={<Temp />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/admin" element={<Admin />} />
