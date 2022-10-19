@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SignUpComponent } from "./components/signUpPage/signUpComponent";
 import JsonData from "./data/signUpData.json";
 import SmoothScroll from "smooth-scroll";
