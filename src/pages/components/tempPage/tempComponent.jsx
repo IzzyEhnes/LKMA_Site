@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 export const TempComponent = (props) => {
     const [regStatus, setRegStatus] = useState("");
@@ -18,6 +19,8 @@ export const TempComponent = (props) => {
     const [submit, setSubmit] = useState("");
     const [uploadedSub, setUploadedSub] = useState("");
 
+   // const [user, setUser] = useState();
+
     const register = () => {
         const data = {email: emailReg, password: passwordReg};
         axios.post("http://localhost:3001/", data).then((response) => {
@@ -26,7 +29,9 @@ export const TempComponent = (props) => {
         }); 
     };
 
-    const login = () => {
+
+    const login = async e => {
+        e.preventDefault();
         const formData = new FormData();
         formData.append('email', email);
         formData.append('password', password);
@@ -51,6 +56,20 @@ export const TempComponent = (props) => {
                 console.log(err.response.data.message);
             }
         }
+    };
+
+    const changePassword = () => {
+        const data = {email: email, password: password};
+        axios.post("http://localhost:3001/password", data).then((response) => {
+        console.log(response.data);
+        }); 
+    };
+
+    const changeEmail = () => {
+        const data = {email: email, password: password};
+        axios.post("http://localhost:3001/email", data).then((response) => {
+        console.log(response.data);
+        }); 
     };
 
     const uploadImage = async e => {
@@ -82,6 +101,15 @@ export const TempComponent = (props) => {
         
     }
 
+    useEffect(() => {
+    const loggedInUser = localStorage.getItem("email", "password");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
+
+
     return(
         <div id='profile' >
             <div className="containerBlock">
@@ -104,9 +132,9 @@ export const TempComponent = (props) => {
                 <ul>
                     <h1>Login</h1>
                     <label>Email: </label>
-                    <input data-testid="loginEmail" type="text" onChange={(e) => {
-                        setEmail(e.target.value);
-                        }} 
+                    <input data-testid="loginEmail" type="text" 
+                    onChange={(e) => {setEmail(e.target.value);}}
+                    
                     />
                     <label>Password: </label>
                     <input data-testid="loginPassword" type="text" onChange={(e) => {
@@ -119,6 +147,31 @@ export const TempComponent = (props) => {
             <h1>{regStatus}</h1>
 
             <div className="profileInfo">
+
+            <div className="containerBlock">
+                <ul>
+                    <h1>Change Email</h1>
+                    <label>Email: </label>
+                    <input type="text" onChange={(e) => {
+                        setEmail(e.target.value);
+                        }} 
+                    />
+                    <button onClick={changeEmail}>Change Email</button>
+                </ul>
+            </div>
+
+            <div className="containerBlock">
+                <ul>
+                    <h1>Change Password</h1>
+                    <label>Password: </label>
+                    <input type="text" onChange={(e) => {
+                        setPassword(e.target.value);
+                        }} 
+                    />
+                    <button onClick={changePassword}>Change Password</button>
+                </ul>
+            </div>
+
                 <div className="subPortal">
                     <h1>Profile Picture</h1>
                     <img src={uploadedFile.filePath} alt="" /> 

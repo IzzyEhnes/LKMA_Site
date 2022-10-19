@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import {useRef} from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const validateEmail = (email) => {
     return String(email)
@@ -13,6 +15,18 @@ export const ChangeEmailComponent = (props) => {
 
   const inputEmail=useRef(null);
   const inputEmailConfirm=useRef(null);
+
+  const [email, setEmail] = useState("");
+
+  const [newEmail, setNewEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const changeEmail = () => {
+        const data = {email: email, newEmail: newEmail};
+        axios.post("http://localhost:3001/email", data).then((response) => {
+        console.log(response.data);
+        }); 
+    };
 
   function validate() {
     if(inputEmail.current.value === ""){
@@ -39,6 +53,8 @@ export const ChangeEmailComponent = (props) => {
       }
   }
 
+
+
     return (
       <div id='change-email' className='text-center'>
         <div className='container'>
@@ -49,9 +65,12 @@ export const ChangeEmailComponent = (props) => {
                         <h1>Change Email</h1>
                         <div id="emailError"></div>
                         <div id="matchingError"></div>
+                        {/* THIS IS A TEMP SOLUTION FOR EMAIL CHANGE*/}
+                        <input onChange={(e) => {setEmail(e.target.value);}} ref={setEmail} id="email" type="email" placeholder="Old Email"/>
+
                         <input ref={inputEmail} id="email" type="email" placeholder="Email" required/>
-                        <input ref={inputEmailConfirm} id="EmailConfirm" type="email" placeholder="Confirm Email" required/>
-                        <button type="button" onClick={validate}>Submit</button>
+                        <input onChange={(e) => {setNewEmail(e.target.value);}} ref={setNewEmail} id="EmailConfirm" type="email" placeholder="Confirm Email" required/>
+                        <button type="button" onClick={changeEmail}>Submit</button>
                     </form>
                 </div>
                 <div class="overlay-container">

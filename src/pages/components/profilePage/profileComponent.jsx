@@ -1,4 +1,5 @@
 import image from "./tempImage.jpg";
+import {Link} from "react-router-dom";
 
 export const ProfileComponent = (props) => {
   return (
@@ -24,11 +25,17 @@ export const ProfileComponent = (props) => {
         </div>
         <div className='row'>
           <div className="column">
+          <Link to="/ChangeEmail">
             <button>Change Email</button>
+            </Link> 
           </div>
+
           <div className="column">
+          <Link to="/ResetPassword">
             <button>Change Password</button>
+            </Link> 
           </div>
+
         </div>
       </div>
     </div>
