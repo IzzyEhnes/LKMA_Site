@@ -38,6 +38,10 @@ app.post("/", (req, res) => {
     //implement password hashing algorithm here before password enters database
 
     if (email != "" && password != "") {
+        /*
+        connection.query("INSERT INTO account (email, password) VALUES (?,?)",
+        [email, password], (err, result) => {
+            */
         connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
         [first_name, last_name, email, password, file_path], (err, result) => {
             if (err) {
@@ -79,6 +83,9 @@ app.post("/login", (req, res) => {
     });
 });
 
+/*
+app.post("/image", (req, res) => {
+    */
 app.post("/retrieveImage", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -109,6 +116,9 @@ app.post("/uploadImage", (req, res) => {
     const uploadPath = path.join(__dirname, '..') + '\\public\\img\\' 
     + imageFile.name;
 
+    /*
+    imageFile.mv(uploadPath, err => {
+        */
     var checkImage = detect(uploadPath);
     if (uploadPath != checkImage) {    
         imageFile.mv(uploadPath, err => {
@@ -123,6 +133,10 @@ app.post("/uploadImage", (req, res) => {
     }
 
     const image = imageFile.name;
+    /*
+    const email = req.body.email
+    */
+   
     connection.query("UPDATE account SET account_image = ? WHERE email = ?",
     [image, email], (err, result) => {
         if (err) {
