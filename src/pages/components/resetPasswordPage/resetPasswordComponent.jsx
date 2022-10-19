@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import {useRef} from 'react';
 
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 function checkUppercase(str){
   for (var i=0; i<str.length; i++){
     if (str.charAt(i) === str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)){
@@ -19,10 +22,24 @@ function checkLowercase(str){
   return false;
 };
 
+
 export const ResetPasswordComponent = (props) => {
 
   const inputPassword=useRef(null);
   const inputPasswordConfirm=useRef(null);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  /*const changePassword = () => {
+  const data = {email: email, password: password};
+      axios.post("http://localhost:3001/password", data).then((response) => {
+        console.log(response.data);
+        }); 
+    };*/
+
+
+
 
   function validate() {
     if(inputPassword.current.value === ""){
@@ -52,9 +69,12 @@ export const ResetPasswordComponent = (props) => {
       document.getElementById("passwordConfirmError").innerHTML = ""
     }
 
+    //IF passwords match then it is sent to the DB. NEED AUTH TOKEN
     if(inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
       console.log("Passwords match")
       document.getElementById("matchingError").innerHTML = ""
+      {changePassword};
+
     }else if(inputPassword.current.value === "" || inputPasswordConfirm.current.value === ""){
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
@@ -63,6 +83,14 @@ export const ResetPasswordComponent = (props) => {
       document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
     }
   }
+
+const changePassword = () => {
+  const data = {email: email, password: password};
+      axios.post("http://localhost:3001/password", data).then((response) => {
+        console.log(response.data);
+        }); 
+    };
+
 
     return (
       <div id='reset-password' className='text-center'>
@@ -75,9 +103,13 @@ export const ResetPasswordComponent = (props) => {
                         <div id="passwordError"></div>
                         <div id="passwordConfirmError"></div>
                         <div id="matchingError"></div>
+
+                        {/* THIS IS A TEMP SOLUTION FOR EMAIL PASSWORD CHANGE*/}
+                        <input onChange={(e) => {setEmail(e.target.value);}} ref={setEmail} id="email" type="email" placeholder="Email"/>
+
                         <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
-                        <input ref={inputPasswordConfirm} id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirm Password" minlength="8" required/>
-                        <button type="button" onClick={validate}>Submit</button>
+                        <input onChange={(e) => {setPassword(e.target.value);}} ref={setPassword} id="passwordConfirm" name="passwordConfirm" type="password"  placeholder="Confirm Password" minlength="8" required/>
+                        <button type="button" onClick={changePassword}>Submit</button>
                     </form>
                 </div>
                 <div class="overlay-container">
