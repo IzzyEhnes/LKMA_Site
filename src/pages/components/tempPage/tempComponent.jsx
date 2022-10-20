@@ -105,7 +105,7 @@ export const TempComponent = (props) => {
     const loggedInUser = localStorage.getItem("email", "password");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
+      //setUser(foundUser);
     }
   }, []);
 

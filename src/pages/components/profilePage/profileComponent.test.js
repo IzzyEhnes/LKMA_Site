@@ -1,7 +1,3 @@
-import { fireEvent, getByRole, getByTestId, render } from "@testing-library/react";
-import { TempComponent } from "./tempComponent";
-import Login from "./tempComponent";
-
 /*requires following packages: 
     "axios": "^0.27.2",
     "cors": "^2.8.5",
@@ -28,22 +24,3 @@ import Login from "./tempComponent";
 //		   Image without choosing a file
 // test 10: check if cancelling out of Choose File causes profile pic to disappear
 // test 11: test if profile info appears when signing up and logging in
-
-describe(ProfileComponent, () => {
-    it("login button logs in user and displays email address", () => {
-
-        const email = "";
-        const password = "";
-
-        const mockLogin = jest.fn();
-        
-        const {getByTestId} = render(<ProfileComponent onSubmit={mockLogin(email,password)} />);
-        const loginEmail = getByTestId("loginEmail").textContent;
-        const loginPassword = getByTestId("loginPassword").textContent;
-        
-        const loginBtn = getByTestId("loginSubmit");
-        const submitBtn = getByTestId("uploadSubmit");
-        const displayEmail = getByTestId("displayEmail");
-        fireEvent.click(loginBtn);  
-    });
-})
