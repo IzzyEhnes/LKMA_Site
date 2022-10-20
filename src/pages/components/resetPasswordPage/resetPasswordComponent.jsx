@@ -73,7 +73,8 @@ export const ResetPasswordComponent = (props) => {
     if(inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
       console.log("Passwords match")
       document.getElementById("matchingError").innerHTML = ""
-      {changePassword};
+      //{changePassword};
+      changePassword();
 
     }else if(inputPassword.current.value === "" || inputPasswordConfirm.current.value === ""){
       //Doing nothing as error already given by another error message

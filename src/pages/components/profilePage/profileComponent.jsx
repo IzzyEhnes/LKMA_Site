@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
+import image from "./tempImage.jpg";
 import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
 import { exportEmail, exportPassword, inputName, filePath, login } from "../loginPage/loginComponent";
 
@@ -240,74 +241,112 @@ export const ProfileComponent = (props) => {
 		e.preventDefault();
 	}
 
-	return (
-		<div id='profile' >
-			<div className="profileInfo">
-				<div className="subPortal">
-					<h1>Profile Picture</h1>
-					<br/>
-					<h1><img src={imageFilePath} alt="" /></h1>
-					<div id="imageUploaded"></div>
-					<div className='row'>
-						<div class="login-form">
-							<input type="file" name="imageFile" accept="image/*" onChange={(e) => {
-								tempImage = e.target.files[0];
+  // Will go inside the return() statement to be integrated with currently 
+  // working profile page -> was causing issues for page to work
+  //
+  /*
+		<div id='student' className='text-center'>
+		  <div className='container'>
+			  <div className='section-title'>
+				  <h2>Profile</h2>
+			  </div>
+        <div className='row'>
+          <div className='row'>
+            <img src={image} />
+          </div>
+          <div className="column">
+            <h1>First Name</h1>
+            <h1>Last Name</h1>
+          </div>
+          <div className="column">
+            <h1>Email Here</h1>
+            //If Phone # is in DB, display, else display Add Phone Button.
+            <h1>Phone # Here</h1>
+            <button>Add Phone</button>
+          </div>
+        </div>
+        <div className='row'>
+          <div className="column">
+            <Link to="/ChangeEmail">
+              <button>Change Email</button>
+            </Link> 
+          </div>
 
-								if (tempImage == undefined) {
-									resetImage = true;
-								}								
-								uploadImage = false;
-							}} />
-							<NavLink className="nav-link" to="/profile">
-								<input data-testid="uploadSubmit" type="submit" value="Upload Image" onClick={() => {
-									if (tempImage != undefined) {
-										uploadImage = true;
-										resetImage = false;
-									}
-								}} />
-							</NavLink>
-						</div>
-					</div>
-
-					<h1>{profileName}</h1>
-					<br/>
-					<h1>Email: {profileEmail}</h1>
-					<h2></h2>
-					<h1>Submission Portal</h1>
-					<div className='row'>
-						<div class="login-form">
-							<input type="file" onChange={(e) => {
-								setSubmit(e.target.files[0]);
-								setUploadedSub(e.target.files[0].name);
-							}} />
-							<input type="submit" value="Upload" onClick={uploadSub} />
-						</div>
-					</div>
-					<NavLink className="nav-link" to="/login">
-						<button class="ghost" id="logIn" onClick={() => {
-							logOut = true;
-						}}>Log out</button>
-					</NavLink>
-					<h1>Phone # Here</h1>
-					<button>Add Phone</button>
-					<div className='row'>
-						<div className="column">
-							<Link to="/ChangeEmail">
-								<button>Change Email</button>
-							</Link> 
-						</div>
-					</div>
-					<div className="column">
-						<Link to="/ResetPassword">
-							<button>Change Password</button>
-						</Link> 
-					</div>
-				</div>
-			</div>
+          <div className="column">
+            <Link to="/ResetPassword">
+              <button>Change Password</button>
+            </Link> 
+          </div>
+        </div>
+      </div>
 		</div>
-		/////////
+  */
 
-		
+	return (  
+    <div id='profile'>
+    <div className="profileInfo">
+      <div className="subPortal">
+        <h1>Profile Picture</h1>
+        <br/>
+        <h1><img src={imageFilePath} alt="" /></h1>
+        <div id="imageUploaded"></div>
+        <div className='row'>
+          <div class="login-form">
+            <input type="file" name="imageFile" accept="image/*" onChange={(e) => {
+              tempImage = e.target.files[0];
+
+              if (tempImage == undefined) {
+                resetImage = true;
+              }								
+              uploadImage = false;
+            }} />
+            <NavLink className="nav-link" to="/profile">
+              <input data-testid="uploadSubmit" type="submit" value="Upload Image" onClick={() => {
+                if (tempImage != undefined) {
+                  uploadImage = true;
+                  resetImage = false;
+                }
+              }} />
+            </NavLink>
+          </div>
+        </div>
+
+        <h1>{profileName}</h1>
+        <br/>
+        <h1>Email: {profileEmail}</h1>
+        <h2></h2>
+        <h1>Submission Portal</h1>
+        <div className='row'>
+          <div class="login-form">
+            <input type="file" onChange={(e) => {
+              setSubmit(e.target.files[0]);
+              setUploadedSub(e.target.files[0].name);
+            }} />
+            <input type="submit" value="Upload" onClick={uploadSub} />
+          </div>
+        </div>
+        <NavLink className="nav-link" to="/login">
+          <button class="ghost" id="logIn" onClick={() => {
+            logOut = true;
+          }}>Log out</button>
+        </NavLink>
+        <h1>Phone # Here</h1>
+        <button>Add Phone</button>
+        <div className='row'>
+          <div className="column">
+            <NavLink to="/ChangeEmail">
+              <button>Change Email</button>
+            </NavLink> 
+          </div>
+        </div>
+        <div className="column">
+          <NavLink to="/ResetPassword">
+            <button>Change Password</button>
+          </NavLink> 
+        </div>
+      </div>
+    </div>
+  </div>
 	)
 }
 
