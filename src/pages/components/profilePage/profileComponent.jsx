@@ -148,19 +148,6 @@ export const ProfileComponent = (props) => {
                         </div>
                     </div>
 
-                    <h3 data-testid="displayEmail" className="emailAddress">{loginStatus}</h3>
-                    <h1>Submission Portal</h1>
-                    <div className='row'>
-                        <div class="login-form">
-                            <input type="file" onChange={(e) => {
-                                setSubmit(e.target.files[0]);
-                                setUploadedSub(e.target.files[0].name);
-                            }}/>
-                            <input type="submit" value="Upload" onClick={uploadSub}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 	*/
@@ -301,9 +288,26 @@ export const ProfileComponent = (props) => {
 							logOut = true;
 						}}>Log out</button>
 					</NavLink>
+					<h1>Phone # Here</h1>
+					<button>Add Phone</button>
+					<div className='row'>
+						<div className="column">
+							<Link to="/ChangeEmail">
+								<button>Change Email</button>
+							</Link> 
+						</div>
+					</div>
+					<div className="column">
+						<Link to="/ResetPassword">
+							<button>Change Password</button>
+						</Link> 
+					</div>
 				</div>
 			</div>
 		</div>
+		/////////
+
+		
 	)
 }
 

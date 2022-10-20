@@ -490,7 +490,7 @@ header .intro-text {
   background: rgb(32, 33, 36);
 }
 .gallery-item {
-  margin: 1px -15px 0 -14px;
+  margin: 10px -5px 10 -4px;
   padding: 0;
 }
 .gallery-item .hover-bg {
@@ -862,6 +862,96 @@ header .intro-text {
 #contact p {
   line-height: 24px;
   margin: 30px 0;
+}
+
+/* Student Page Section */
+
+#student {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+
+#student .column {
+  padding-top: 30px;
+  float: left;
+  width: 50%;
+}
+
+#student img {
+  border-width: 10px;
+  border-style: solid;
+  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
+  width: 500px;
+  height: auto;
+}
+
+#student h1 {
+  font-size: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#student h3 {
+  text-align: center;
+  font-size: 20px;
+}
+
+#student button {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+/* Admin Page Section */
+
+#admin {
+  padding: 100px 0;
+  background: rgb(32, 33, 36);
+}
+
+#admin .column {
+  padding-top: 30px;
+  float: left;
+  width: 50%;
+}
+
+#admin img {
+  border-width: 10px;
+  border-style: solid;
+  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
+  width: 500px;
+  height: auto;
+}
+
+#admin h1 {
+  font-size: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#admin h3 {
+  text-align: center;
+  font-size: 20px;
+}
+
+#admin button {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
 }
 
 /* Profile Section */
@@ -1498,6 +1588,539 @@ header .intro-text {
 
 #sign-up sign-up-form {
   padding: 20%;
+}
+
+/** ResetPassword Page Section **/
+
+#reset-password body {
+	background: #f6f5f7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	margin: -20px 0 50px;
+}
+
+#reset-password h1 {
+	font-weight: bold;
+	margin: 0;
+}
+
+#reset-password h2 {
+	text-align: center;
+}
+
+#reset-password .password-title h2 {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 30px;
+}
+#reset-password .password-title h2::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  height: 4px;
+  width: 60px;
+  bottom: 0;
+  margin-left: -30px;
+  margin-bottom: 10px;
+  left: 50%;
+}
+
+#reset-password p {
+	font-size: 14px;
+	line-height: 20px;
+  color: white;
+	margin: 20px 0 30px;
+}
+
+#reset-password span {
+	font-size: 12px;
+}
+
+#reset-password a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+
+#reset-password button {
+	border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#reset-password button:active {
+	transform: scale(0.95);
+}
+
+#reset-password button:focus {
+	outline: none;
+}
+
+#reset-password button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+#reset-password form {
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+
+#reset-password input {
+	background-color: rgb(204, 204, 204);
+	border: none;
+	padding: 15px 18px;
+	margin: 13px 0;
+	width: 100%;
+}
+
+#reset-password .container {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 1000px;
+	max-width: 100%;
+	min-height: 600px;
+  margin-top: 10%;
+}
+
+#reset-password .form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+}
+
+#reset-password .submit-container {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+  color:black;
+}
+
+#reset-password .password-container.right-panel-active .submit-container {
+	transform: translateX(100%);
+}
+
+#reset-password .reset-password-container {
+	left: 0;
+	width: 50%;
+	opacity: 0;
+	z-index: 1;
+}
+
+#reset-password .password-container.right-panel-active .reset-password-container {
+	transform: translateX(100%);
+	opacity: 1;
+	z-index: 5;
+	animation: show 0.6s;
+}
+
+#reset-password .overlay-container {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 100;
+}
+
+#reset-password .password-container.right-panel-active .overlay-container{
+	transform: translateX(-100%);
+}
+
+#reset-password .overlay {
+	background: #387eff;
+	background: -webkit-linear-gradient(to right, #0a1aff, #387eff);
+	background: linear-gradient(to right, #0a1aff, #387eff);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+  	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+#reset-password .password-container.right-panel-active .overlay {
+  	transform: translateX(50%);
+}
+
+#reset-password .overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+#reset-password .overlay-left {
+	transform: translateX(-20%);
+}
+
+#reset-password .password-container.right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+#reset-password .overlay-right {
+	right: 0;
+	transform: translateX(0);
+}
+
+#reset-password .password-container.right-panel-active .overlay-right {
+	transform: translateX(20%);
+  flex-direction: row;
+}
+
+#reset-password reset-password-form {
+  padding: 20%;
+}
+
+#reset-password img {
+  width: auto;
+  height: 100%
+}
+
+/** Change-Email Page Section **/
+
+#change-email body {
+	background: #f6f5f7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	margin: -20px 0 50px;
+}
+
+#change-email h1 {
+	font-weight: bold;
+	margin: 0;
+}
+
+#change-email h2 {
+	text-align: center;
+}
+
+#change-email .email-title h2 {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 30px;
+}
+#change-email .email-title h2::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
+  height: 4px;
+  width: 60px;
+  bottom: 0;
+  margin-left: -30px;
+  margin-bottom: 10px;
+  left: 50%;
+}
+
+#change-email p {
+	font-size: 14px;
+	line-height: 20px;
+  color: white;
+	margin: 20px 0 30px;
+}
+
+#change-email span {
+	font-size: 12px;
+}
+
+#change-email a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+
+#change-email button {
+	border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#change-email button:active {
+	transform: scale(0.95);
+}
+
+#change-email button:focus {
+	outline: none;
+}
+
+#change-email button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+#change-email form {
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+
+#change-email input {
+	background-color: rgb(204, 204, 204);
+	border: none;
+	padding: 15px 18px;
+	margin: 13px 0;
+	width: 100%;
+}
+
+#change-email .container {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 1000px;
+	max-width: 100%;
+	min-height: 600px;
+  margin-top: 10%;
+}
+
+#change-email .form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+}
+
+#change-email .submit-container {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+  color:black;
+}
+
+#change-email .email-container.right-panel-active .submit-container {
+	transform: translateX(100%);
+}
+
+#change-email .change-email-container {
+	left: 0;
+	width: 50%;
+	opacity: 0;
+	z-index: 1;
+}
+
+#change-email .email-container.right-panel-active .change-email-container {
+	transform: translateX(100%);
+	opacity: 1;
+	z-index: 5;
+	animation: show 0.6s;
+}
+
+#change-email .overlay-container {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 100;
+}
+
+#change-email .email-container.right-panel-active .overlay-container{
+	transform: translateX(-100%);
+}
+
+#change-email .overlay {
+	background: #387eff;
+	background: -webkit-linear-gradient(to right, #0a1aff, #387eff);
+	background: linear-gradient(to right, #0a1aff, #387eff);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+  	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+#change-email .email-container.right-panel-active .overlay {
+  	transform: translateX(50%);
+}
+
+#change-email .overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+#change-email .overlay-left {
+	transform: translateX(-20%);
+}
+
+#change-email .email-container.right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+#change-email .overlay-right {
+	right: 0;
+	transform: translateX(0);
+}
+
+#change-email .email-container.right-panel-active .overlay-right {
+	transform: translateX(20%);
+  flex-direction: row;
+}
+
+#change-email change-email-form {
+  padding: 20%;
+}
+
+#change-email img {
+  width: auto;
+  height: 100%
+}
+
+
+/* Forgot Section */
+
+#forgot h1 {
+	font-weight: bold;
+	margin: 0;
+  color:black;
+}
+
+#forgot h3 {
+  padding: 12px;
+  font-size: 14px;
+	line-height: 20px;
+	text-align: center;
+	margin: 0;
+  color:black;
+}
+
+#forgot button {
+	border-radius: 20px;
+	border: 1px solid #ff2f0a;
+	background-color: #ff2f0a;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#forgot button:active {
+	transform: scale(0.95);
+}
+
+#forgot button:focus {
+	outline: none;
+}
+
+#forgot button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+#forgot form {
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+
+#forgot input {
+	background-color: rgb(204, 204, 204);
+  color:black;
+	border: none;
+	padding: 15px 18px;
+	margin: 13px 0;
+	width: 100%;
+}
+
+#forgot .container {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 500px;
+	max-width: 50%;
+	min-height: 600px;
+  margin-top: 10%;
+}
+
+#forgot .form-container {
+	position: absolute;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+	width: 100%;
+	z-index: 2;
 }
 
 /* Footer Section*/

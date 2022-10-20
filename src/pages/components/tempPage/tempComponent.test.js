@@ -1,6 +1,6 @@
 import { fireEvent, getByRole, getByTestId, render } from "@testing-library/react";
-import { ProfileComponent } from "./profileComponent";
-import Login from "./profileComponent";
+import { TempComponent } from "./tempComponent";
+import Login from "./tempComponent";
 
 /*requires following packages: 
     "axios": "^0.27.2",
