@@ -13,6 +13,22 @@ export const ForgotComponent = (props) => {
 
   const inputEmail=useRef(null);
 
+  const handleSubmit = async (e) => {
+    document.getElementById("submitMessage").innerHTML = "Success! If an account associated with that email address was found, a password reset email has been sent."
+    e.preventDefault();
+    const { email } = e.target.elements;
+    let details = {
+      email: email.value,
+    };
+    let response = await fetch("http://localhost:3001/forgot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(details),
+    });
+  };
+
   function validate() {
     if(inputEmail.current.value === ""){
       console.log("No email provided")
@@ -31,12 +47,13 @@ export const ForgotComponent = (props) => {
         <div className='container'>
           <div className='row'>
             <div className="form-container">
-              <form action="#">
+              <form onSubmit={handleSubmit}>
                 <h1>Forgot Password?</h1>
                 <h3>Enter your email below and you will receive a link to reset your password.</h3>
                 <div id="emailError"></div>
                 <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
-                <button type="button" onClick={validate}>Submit</button>
+                <button type="submit" onClick={validate}>Submit</button>
+                <div id="submitMessage"></div>
               </form>
             </div>
           </div>

@@ -166,30 +166,6 @@ export const LoginComponent = (props) => {
         <div className='container'>
           <div className='row'>
             <div class="login-form">
-              {/*
-              <div class="form-container sign-in-container">
-                  <form action="#">
-                      <h1>Sign in</h1>
-                      <div id="emailError"></div>
-                      <div id="passwordError"></div>
-                      <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
-                      <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
-                      <a href="#">Forgot your password?</a>
-                      <button type="button" onClick={validate} >Sign In</button>
-                  </form>
-              </div>
-              <div class="overlay-container">
-                  <div class="overlay">
-                      <div class="overlay-panel overlay-right">
-                          <h1>Don't have an account with us yet?</h1>
-                          <p>Click the button below to go to the Sign Up page.</p>
-                          <NavLink className="nav-link" to="/signup">
-                            <button class="ghost" id="logIn">Sign Up</button>
-                          </NavLink>
-                      </div>
-                  </div>
-              </div>
-              */}
               <div class="form-container sign-in-container">
                 <form action="#">
                   <h1>Sign in</h1>
@@ -205,7 +181,7 @@ export const LoginComponent = (props) => {
                     setPassword(e.target.value);
                     Validate();
                   }} required/>
-                  <a href="#">Forgot your password?</a>
+                  <a href="/forgot">Forgot your password?</a>
                   <button type="button" onClick={MoveToProfile}>Sign In</button>
                 </form>
               </div>

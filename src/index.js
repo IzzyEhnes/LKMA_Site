@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
+import TokenExpired from './pages/TokenExpired';
 import ChangeEmail from './pages/ChangeEmail';
 import Temp from './pages/Temp';
 import Forgot from './pages/Forgot';
@@ -39,6 +40,7 @@ ReactDOM.render(
         <Route path="/changeemail" element={<ChangeEmail />} />
         <Route path="/temp" element={<Temp />} />
         <Route path="/forgot" element={<Forgot />} />
+        <Route path="/tokenexpired" element={<TokenExpired />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
