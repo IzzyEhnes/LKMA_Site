@@ -7,6 +7,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "database.js": "^0.0.1",
     "detect-file": "^1.0.0",
