@@ -240,7 +240,7 @@ export const LoginComponent = (props) => {
                       setPassword(e.target.value);
                       Validate();
                   }} required/>
-                  <a href="#">Forgot your password?</a>
+                  <a href="/forgot">Forgot your password?</a>
                   <button type="button" data-testid="loginSubmit" 
                     onClick={MoveToProfile}>Sign In
                   </button>

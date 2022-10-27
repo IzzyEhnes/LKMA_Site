@@ -14,6 +14,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
 app.use(cors());
 
+// For sending Forgot Password emails
+const fromEmail = "teamname404@gmail.com";  // temporary, for testing purposes; change to client's email
+const nodemailer = require("nodemailer");
+const crypto = require('crypto');
+
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
@@ -184,4 +190,166 @@ app.post("/email", (req, res) => {
             console.log(err);
         } 
     });
+});
+
+
+var passwordResetEmail = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: fromEmail,
+      pass: 'zpypjzurpmcclpxn' // client needs to set up an app password: go to https://myaccount.google.com/security -> enable 2FA -> App passwords
+    }
+});
+
+// // Indicates if email capabilities are working
+// passwordResetEmail.verify((error) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Ready to Send Email");
+//     }
+// });
+
+// when the user submits the form on the /forgot page
+app.post("/forgot", (req, res) => {
+    
+    // the email entered in the form; may or may not exist in the DB
+    const email = req.body.email;
+
+    connection.query("SELECT * FROM account WHERE email = ?",
+    [email], (err, result) => {
+        
+        if (err) {
+            return log("Query failed. Error: %s. Query: %s", err, query);
+        }
+        
+        // if an account matching the provided email address was found, send a password reset request email to that email address
+        if (result.length > 0) {
+
+            const accountId = result[0].account_id;
+
+            var token;
+            var expiration;
+            var createdAt;
+
+            // check if an account has been issued a reset token
+            connection.query("SELECT * FROM resetTokens WHERE account_id = ?",
+            [accountId], (err, result) => {
+
+                if (err) {
+                    return log("Query failed. Error: %s. Query: %s", err, query);
+                }
+
+                // if a reset token already exists for the account
+                if (result.length > 0) {
+                    // we only care if the existing token for an account is expired
+                    // if it is, we replace it with a new one
+                    if (Date.parse(result[0].expiration) <= Date.now()) {
+                        token = crypto.randomBytes(40).toString('hex');
+                        expiration = new Date(Date.now() + 60*60*1000); // token only valid for one hour
+                        createdAt = new Date(Date.now());
+
+                        connection.query("UPDATE resetTokens SET token=\"" + token + "\", expiration=\"" + expiration + "\", created_at=\"" + createdAt + "\" WHERE account_id=\"" + accountId + "\"",
+                        (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }
+
+                // no reset token found, so create one
+                else {
+                    token = crypto.randomBytes(40).toString('hex');
+                    expiration = new Date(Date.now() + 60*60*1000); // token only valid for one hour
+                    createdAt = new Date(Date.now());
+
+                    // add token record to resetTokens table
+                    connection.query("INSERT INTO resetTokens (account_id, token, expiration, created_at) VALUES (?,?,?,?)",
+                    [accountId, token, expiration, createdAt], (err, result) => {
+                        if (err) {
+                            return log("Query failed. Error: %s. Query: %s", err, query);
+                        }
+                    });
+                }
+
+                // send email containing valid token
+                connection.query("SELECT token FROM resetTokens WHERE account_id = ?",
+                [accountId], (err, result) => {
+
+                    if (err) {
+                        return log("Query failed. Error: %s. Query: %s", err, query);
+                    }
+
+                    var token = result[0].token;
+                
+                    var mailOptions = {
+                        from: fromEmail,
+                        to: email,
+                        subject: 'Password Reset Request - Lee\'s Korean Martial Arts',
+                        html: "<p>Hello,<br><br>Somebody requested a new password for the Lee's Korean Martial Arts</strong> account associated with " + email + ".<br><br>If you requested this change, you can reset your password by clicking the link below, which expires in one hour:<br><br><a href=\"http://localhost:3001/resetpassword?token="+encodeURIComponent(token)+"\">http://localhost:3001/resetpassword?token="+encodeURIComponent(token)+"</a><br><br>If you did not request a new password, you can ignore this email.<br><br>Regards,<br><br><strong>Lee's Korean Marial Arts</strong><br><br>2801 Zinfandel Drive, Rancho Cordova, CA, 95670<br>(916) 368-8824<br>leeskoreanmartialarts@gmail.com</p>"
+                        
+                    };
+                
+                    // for internal use (console output)
+                    passwordResetEmail.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                        res.json({ status: "Error: " + error});
+                        console.log(error);
+                        } else {
+                        res.json({ status: "Message Sent" });
+                        console.log('Email sent: ' + info.response);
+                        }
+                    });
+                
+                });
+                
+            });
+        }
+            
+        else {
+            console.log('No account associated with the provided email address was found.'); // remove before site goes live
+        }
+    });
+});
+
+// when a user clicks a password reset link
+app.get('/resetpassword', (req, res) => {
+
+    const token = req.query.token;
+
+    if (!token) {
+        console.log("token missing from request.");
+        return res.sendStatus(400);
+    }
+
+    // token validation
+    connection.query("SELECT expiration FROM resetTokens WHERE token = ?",
+    [token], (err, result) => {
+
+        if (err) {
+            return log("Query failed. Error: %s. Query: %s", err, query);
+        }
+
+        if (result.length > 0) {
+            
+            const expiration = Date.parse(result[0].expiration);
+
+            // if token is expired, redirect them to the tokenexpired page
+            if (expiration <= Date.now()) {
+
+                return res.redirect('http://localhost:3000/tokenexpired');
+            }
+
+            // if token is valid, redirect them to the resetpassword page
+            else {
+                return res.redirect('http://localhost:3000/resetpassword');
+            }
+
+        }
+
+        else {
+            return res.redirect('http://localhost:3000/tokenexpired');
+        }
+    })
 });
