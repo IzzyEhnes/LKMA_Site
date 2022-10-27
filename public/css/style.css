@@ -881,7 +881,9 @@ header .intro-text {
   border-width: 10px;
   border-style: solid;
   border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
-  width: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  width: auto;
   height: auto;
 }
 
@@ -909,6 +911,42 @@ header .intro-text {
 	transition: transform 80ms ease-in;
 }
 
+#student input {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 35px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#student label {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 35px;
+  margin-top: 20px;
+  margin-right: 40px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+  display: inline-block;
+	transition: transform 80ms ease-in;
+  cursor: pointer;
+}
+
+#student input[type=file], textarea {
+  color: #FFFFFF;
+  margin-top: 20px;
+  display: none;
+}
+
 /* Admin Page Section */
 
 #admin {
@@ -916,10 +954,14 @@ header .intro-text {
   background: rgb(32, 33, 36);
 }
 
+#admin .row {
+  padding-bottom: 30px;
+}
+
 #admin .column {
   padding-top: 30px;
   float: left;
-  width: 50%;
+  width: 33%;
 }
 
 #admin img {
@@ -1007,31 +1049,26 @@ header .intro-text {
   text-align: center;
 }
 #profile .profileInfo input {
-  margin-top: 10px;
-}
-/*#profile .uploadImage input[type=file] {
+  margin-top: 0px;
+} 
+#profile .uploadImage input[type=file] {
   position: relative;
   text-align: center;
-  
 }
 #profile .uploadImage input[type=submit] {
   position: relative;
   text-align: center;
-}*/
-#profile .subPortal {
+}
+ #profile .subPortal {
   margin-left: 20px;
-}
+} 
 #profile .login-form {
-  float: left;
-  position: relative;
-}
-#profile .login-form input {
-  float: left;
   position: relative;
 }
 #profile .container h1 {
   padding-top: 30px;
 }
+
 /* FAQ Section */
 
 #faq {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import image from "./tempImage.jpg";
 import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, exportPassword, inputName, filePath, login } from "../loginPage/loginComponent";
+import { exportEmail, exportPassword, inputFirstName, inputLastName, filePath, 
+  login } from "../loginPage/loginComponent";
 
 var loggedIn = true;
 var logOut = true;
@@ -15,6 +16,10 @@ var uploadImage = false;
 
 export const logIn = () => {
 	logOut = false;
+}
+
+export const studentLogout = () => {
+	logOut = true;
 }
 
 export const ProfileComponent = (props) => {
@@ -140,7 +145,7 @@ export const ProfileComponent = (props) => {
                     <h1>Profile Picture</h1>
                     <img src={uploadedFile.filePath} alt="" /> 
                     <div className='row'>
-                        <div class="login-form">
+                        <div className="login-form">
                             <input type="file" name="imageFile" accept="image/*" onChange={(e) => {
                                 setImage(e.target.files[0]);
                                 setImageName(e.target.files[0].name);
@@ -153,12 +158,10 @@ export const ProfileComponent = (props) => {
     )
 	*/
 
-	const [profileName, setProfileName] = useState("");
+	const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 	const [profileEmail, setProfileEmail] = useState("");
 	const [imageFilePath, setImageFilePath] = useState("");
-
-	const [submit, setSubmit] = useState("");
-	const [uploadedSub, setUploadedSub] = useState("");
 
 	const navigate = useNavigate();
 
@@ -168,7 +171,9 @@ export const ProfileComponent = (props) => {
 				setImageFilePath(filePath);
 				firstLogin++;
 			}
-			setProfileName(inputName);
+      
+      setFirstName(inputFirstName);
+      setLastName(inputLastName);
 			setProfileEmail(exportEmail);
 			setImageFilePath(filePath);
 		} else {
@@ -210,8 +215,6 @@ export const ProfileComponent = (props) => {
 	
 				try {
 					axios.post("http://localhost:3001/uploadImage", formData).then((response) => {	
-						document.getElementById("imageUploaded").innerHTML 
-							= response.data.message;
 						const filePath = response.data.filePath;
 		
 						changeFilePath(filePath);
@@ -231,122 +234,82 @@ export const ProfileComponent = (props) => {
 		
 		if (logOut) {
 			loggingOut();
-			setProfileName("N/A");
+      setFirstName("N/A");
+      setLastName("N/A");
 			setProfileEmail("N/A");
 			setImageFilePath("\\img\\profile-blank-whitebg.png");
 		}
 	}, [uploadImage, tempImage, resetImage]);
 	
-	const uploadSub = async e => {
-		e.preventDefault();
-	}
-
-  // Will go inside the return() statement to be integrated with currently 
-  // working profile page -> was causing issues for page to work
-  //
-  /*
-		<div id='student' className='text-center'>
+	return (  
+    <div id='student' className='text-center'>
 		  <div className='container'>
 			  <div className='section-title'>
 				  <h2>Profile</h2>
 			  </div>
         <div className='row'>
           <div className='row'>
-            <img src={image} />
+            <img data-testid="profilePic" src={imageFilePath} />
+            <h1 id="chosenImage"></h1>
+          </div>
+          <div className='row'>
+            <div className="login-form">
+              <label htmlFor="file-upload" className="custom-file">Choose File</label>
+                <input data-testid="uploadFile" type="file" id="file-upload" 
+                name="imageFile" accept="image/*" onChange={(e) => {
+                  tempImage = e.target.files[0];
+
+                  if (tempImage == undefined) {
+                    resetImage = true;
+                    document.getElementById("chosenImage").innerHTML = "";
+                  }	else {
+                    document.getElementById("chosenImage").innerHTML 
+                      = tempImage.name;
+                  }							
+                  uploadImage = false;
+                }} />
+              <NavLink className="nav-link" to="/profile">
+                <input data-testid="uploadSubmit" type="submit" 
+                value="Upload Image" onClick={() => {
+                  if (tempImage != undefined) {
+                    uploadImage = true;
+                    resetImage = false;
+                    document.getElementById("chosenImage").innerHTML = "";
+                  }
+                }} />
+              </NavLink>
+            </div>
           </div>
           <div className="column">
-            <h1>First Name</h1>
-            <h1>Last Name</h1>
+            <h1 data-testid="firstName">{firstName}</h1>
+            <h1 data-testid="lastName">{lastName}</h1>
+            <NavLink className="nav-link" to="/login">
+              <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
+                logOut = true;
+              }}>Log out</button>
+            </NavLink>
           </div>
           <div className="column">
-            <h1>Email Here</h1>
-            //If Phone # is in DB, display, else display Add Phone Button.
+            <h1 data-testid="profileEmail">{profileEmail}</h1>
+            {/*If Phone # is in DB, display, else display Add Phone Button.*/}
             <h1>Phone # Here</h1>
             <button>Add Phone</button>
           </div>
         </div>
         <div className='row'>
           <div className="column">
-            <Link to="/ChangeEmail">
-              <button>Change Email</button>
-            </Link> 
-          </div>
-
-          <div className="column">
-            <Link to="/ResetPassword">
-              <button>Change Password</button>
-            </Link> 
-          </div>
-        </div>
-      </div>
-		</div>
-  */
-
-	return (  
-    <div id='profile'>
-    <div className="profileInfo">
-      <div className="subPortal">
-        <h1>Profile Picture</h1>
-        <br/>
-        <h1><img src={imageFilePath} alt="" /></h1>
-        <div id="imageUploaded"></div>
-        <div className='row'>
-          <div class="login-form">
-            <input type="file" name="imageFile" accept="image/*" onChange={(e) => {
-              tempImage = e.target.files[0];
-
-              if (tempImage == undefined) {
-                resetImage = true;
-              }								
-              uploadImage = false;
-            }} />
-            <NavLink className="nav-link" to="/profile">
-              <input data-testid="uploadSubmit" type="submit" value="Upload Image" onClick={() => {
-                if (tempImage != undefined) {
-                  uploadImage = true;
-                  resetImage = false;
-                }
-              }} />
-            </NavLink>
-          </div>
-        </div>
-
-        <h1>{profileName}</h1>
-        <br/>
-        <h1>Email: {profileEmail}</h1>
-        <h2></h2>
-        <h1>Submission Portal</h1>
-        <div className='row'>
-          <div class="login-form">
-            <input type="file" onChange={(e) => {
-              setSubmit(e.target.files[0]);
-              setUploadedSub(e.target.files[0].name);
-            }} />
-            <input type="submit" value="Upload" onClick={uploadSub} />
-          </div>
-        </div>
-        <NavLink className="nav-link" to="/login">
-          <button class="ghost" id="logIn" onClick={() => {
-            logOut = true;
-          }}>Log out</button>
-        </NavLink>
-        <h1>Phone # Here</h1>
-        <button>Add Phone</button>
-        <div className='row'>
-          <div className="column">
             <NavLink to="/ChangeEmail">
               <button>Change Email</button>
             </NavLink> 
           </div>
-        </div>
-        <div className="column">
-          <NavLink to="/ResetPassword">
-            <button>Change Password</button>
-          </NavLink> 
+          <div className="column">
+            <NavLink to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink> 
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+		</div>
 	)
 }
 

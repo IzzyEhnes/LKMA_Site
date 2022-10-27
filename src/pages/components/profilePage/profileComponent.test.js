@@ -1,12 +1,81 @@
-/*requires following packages: 
-    "axios": "^0.27.2",
-    "cors": "^2.8.5",
-    "detect-file": "^1.0.0",
-    "express": "^4.18.1",
-    "mv": "^2.1.1",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.23.2"
-*/
+import React from "react";
+import { render, screen, fireEvent, getByRole, getByTestId  } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { mount } from 'enzyme';
+import { useNavigate } from "react-router-dom";
+import { ProfileComponent, logOut, loggedIn } from "./profileComponent";
+import { filePath } from "../loginPage/loginComponent";
+
+const mockLogin = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockLogin,
+}));
+
+describe(ProfileComponent, () => {
+    it("Uploading an image updates the profile picture", () => {
+        
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const user = userEvent.setup();
+        const exampleFile = new File(['hello world'], 'hello-world.png', 
+            { type: 'image/png'});
+
+        const imageValue = getByTestId(container, "uploadFile");
+        const imageSubmit = getByTestId(container, "uploadSubmit");
+        const profilePic = getByTestId(container, "profilePic");
+
+        fireEvent.click(imageSubmit);
+        userEvent.upload(imageValue, exampleFile);
+console.log('est');
+        expect(profilePic.textContent).toEqual(imageValue.textContent);
+    });
+});
+
+describe(ProfileComponent, () => {
+    it("profile page's profile pic should be initialized to blank profile image", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const profilePic = getByTestId(container, "profilePic");
+        const blankPic = "/img/profile-blank-whitebg.png";
+
+        expect(profilePic).toBeInTheDocument;
+        expect(profilePic.src).toContain(blankPic);
+        console.log("Initialized profile pic url: " + profilePic.src);
+    });
+});  
+
+describe(ProfileComponent, () => {
+    it("profile page's name and email data are initialized to 'N/A'", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const firstName = getByTestId(container, "firstName");
+        const lastName = getByTestId(container, "lastName");
+        const profileEmail = getByTestId(container, "profileEmail");
+
+        expect(firstName.textContent).toEqual("N/A");
+        expect(lastName.textContent).toEqual("N/A");
+        expect(profileEmail.textContent).toEqual("N/A");
+        console.log("Initialized first name: " + firstName.textContent);
+        console.log("Initialized last name: " + lastName.textContent);
+        console.log("Initialized email: " + profileEmail.textContent);
+    });
+});
+
+describe(ProfileComponent, () => {
+    it("Logout button should set profile name and email data to 'N/A'", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const firstName = getByTestId(container, "firstName");
+        const lastName = getByTestId(container, "lastName");
+        const profileEmail = getByTestId(container, "profileEmail");
+        const logOut = getByTestId(container, "logOut");
+
+        fireEvent.click(logOut);
+        expect(firstName.textContent).toEqual("N/A");
+        expect(lastName.textContent).toEqual("N/A");
+        expect(profileEmail.textContent).toEqual("N/A");
+    });
+});  
+
 
 //edge cases to test for:
 // test 1: login, then sign up for a new account and see if the profile info changes
