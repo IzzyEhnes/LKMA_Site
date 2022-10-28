@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "root",
+    password: "CicadaCode@7",
     database: "lkmadb",
 });
 
@@ -86,6 +86,16 @@ app.post("/login", (req, res) => {
         } else {
             res.status(200).json({ message: "Wrong combination", result });
         }       
+    });
+});
+
+app.post("/admin", (req, res) => {
+    connection.query("SELECT * FROM admin", (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.status(200).json({ message: "Retrieved admin emails", result});
+        }  
     });
 });
 

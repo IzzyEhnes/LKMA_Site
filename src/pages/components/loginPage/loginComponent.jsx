@@ -3,16 +3,19 @@ import { useLocation, useNavigate } from "react-router";
 import { useRef } from 'react';
 import React, { useState } from "react";
 import axios from "axios";
-import { logIn } from "../profilePage/profileComponent";
-import { expRegEmail, expRegPassword, inputRegName, regFilePath } from "../signUpPage/signUpComponent";
+import { studentLogout, logIn } from "../profilePage/profileComponent";
+import { adminLogout, adminLogIn } from "../adminPage/adminComponent";
+import { expRegEmail, expRegPassword, regFirstName, regLastName, exportImage } from "../signUpPage/signUpComponent";
 
 var exportEmail = 'N/A';
 var exportPassword = '';
-var inputName = 'N/A';
+var inputFirstName = 'N/A';
+var inputLastName = 'N/A';
 var filePath = '';
 var uploadFile = '';
 var validLogin = false;
 var login = false;
+var adminLogin = "";
 
 const validateEmail = (email) => {
   return String(email)
@@ -46,31 +49,26 @@ export const changeFilePath = (newFilePath) => {
 
 export const loggingOut = () => {
   login = false;
+  adminLogout();
+  studentLogout();
 }
 
-//fix issue with exports --> possibly change all const email and const password
-// to var email and var password
-
-export const goToLogin = () => {
+export const GoToLogin = () => {
   exportEmail = expRegEmail;
   exportPassword = expRegPassword;
-  inputName = inputRegName;
-  filePath = regFilePath;
+  inputFirstName = regFirstName;
+  inputLastName = regLastName;
+  filePath = "\\img\\" + exportImage;
   login = true;
   logIn();
+  adminLogIn();
 }
 
 export const LoginComponent = (props) => {
-
-  /*
-  const inputEmail=useRef(null);
-  const inputPassword=useRef(null);
-  */
   const location = useLocation();
   const navigate = useNavigate();
   const inputEmail = useRef(null);
   const inputPassword = useRef(null);
-  //inputName = useRef(null);
 
   var [email, setEmail] = useState("");
   var [password, setPassword] = useState("");
@@ -88,10 +86,10 @@ export const LoginComponent = (props) => {
       axios.post("http://localhost:3001/login", formData).then((response) => {
         if (response.data.message !== "Wrong combination") {
           validLogin = true;
-          setLoginStatus("Email: " + response.data.result[0].email);
+          setLoginStatus("Successfully logged in");
     
-          inputName = response.data.result[0].first_name + " "
-            + response.data.result[0].last_name;    
+          inputFirstName = response.data.result[0].first_name;
+          inputLastName = response.data.result[0].last_name;    
           const fileName = response.data.fileName;
           filePath = response.data.filePath;
 
@@ -149,11 +147,46 @@ export const LoginComponent = (props) => {
     } 
   }
 
-  function MoveToProfile() {
+  const checkAdmin = async () => {
+    adminLogin = false;
+
+    try {
+      axios.post("http://localhost:3001/admin").then((response) => {
+        const adminEmails = response.data.result;
+        var i;
+
+        for (i = 0; i < adminEmails.length; i++) {
+          if (adminEmails[i].email == exportEmail) {
+            adminLogin = true;
+          }
+        }
+
+        if (adminLogin) {
+          navigate("/admin");
+        } else {
+          navigate("/profile");
+        }
+      });
+    } catch(err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  };
+
+  const MoveToProfile = async (e) => {
+    e.preventDefault();
+    
     if (validLogin) {
       login = true;
       logIn();
-      navigate("/profile");
+      adminLogIn();
+
+      //populate adminLogin with the admin email address
+      checkAdmin();
+      return 0;      
     } else {
       console.log("Incorrect login info. Please enter the correct email and password.")
       document.getElementById("passwordError").innerHTML 
@@ -165,33 +198,61 @@ export const LoginComponent = (props) => {
       <div id='login' className='text-center'>
         <div className='container'>
           <div className='row'>
-            <div class="login-form">
+            <div className="login-form">
+              {/*
               <div class="form-container sign-in-container">
+                  <form action="#">
+                      <h1>Sign in</h1>
+                      <div id="emailError"></div>
+                      <div id="passwordError"></div>
+                      <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
+                      <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
+                      <a href="#">Forgot your password?</a>
+                      <button type="button" onClick={validate} >Sign In</button>
+                  </form>
+              </div>
+              <div class="overlay-container">
+                  <div class="overlay">
+                      <div class="overlay-panel overlay-right">
+                          <h1>Don't have an account with us yet?</h1>
+                          <p>Click the button below to go to the Sign Up page.</p>
+                          <NavLink className="nav-link" to="/signup">
+                            <button class="ghost" id="logIn">Sign Up</button>
+                          </NavLink>
+                      </div>
+                  </div>
+              </div>
+              */}
+              <div className="form-container sign-in-container">
                 <form action="#">
                   <h1>Sign in</h1>
                   <div id="emailError"></div>
                   <div id="passwordError"></div>
-                  <input ref={inputEmail} id="email" type="email" 
-                  placeholder="Enter your email" onChange={(e) => {
-                    setEmail(e.target.value);
-                    Validate();
+                  <input ref={inputEmail} data-testid="inputEmail" id="email" 
+                    type="email" placeholder="Enter your email"
+                    className="emailInput" onChange={(e) => {
+                      setEmail(e.target.value);
+                      Validate();
                   }} required/>
-                  <input ref={inputPassword} id="password" type="password" 
-                  placeholder="Password" minlength="8" onChange={(e) => {
-                    setPassword(e.target.value);
-                    Validate();
+                  <input ref={inputPassword} data-testid="inputPassword" 
+                    id="password" type="password" placeholder="Password" 
+                    className="passwordInput" minLength="8" onChange={(e) => {
+                      setPassword(e.target.value);
+                      Validate();
                   }} required/>
                   <a href="/forgot">Forgot your password?</a>
-                  <button type="button" onClick={MoveToProfile}>Sign In</button>
+                  <button type="button" data-testid="loginSubmit" 
+                    onClick={MoveToProfile}>Sign In
+                  </button>
                 </form>
               </div>
-              <div class="overlay-container">
-                <div class="overlay">
-                  <div class="overlay-panel overlay-right">
+              <div className="overlay-container">
+                <div className="overlay">
+                  <div className="overlay-panel overlay-right">
                     <h1>Don't have an account with us yet?</h1>
                     <p>Click the button below to go to the Sign Up page.</p>
                     <NavLink className="nav-link" to="/signup">
-                      <button class="ghost" id="logIn">Sign Up</button>
+                      <button className="ghost" id="logIn">Sign Up</button>
                     </NavLink>
                   </div>
                 </div>
@@ -203,4 +264,4 @@ export const LoginComponent = (props) => {
     )
   }
 
-  export {exportEmail, exportPassword, inputName, filePath, uploadFile, login};
+  export {exportEmail, exportPassword, inputFirstName, inputLastName, filePath, uploadFile, login};

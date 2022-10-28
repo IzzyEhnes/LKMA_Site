@@ -1,11 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { resetTempImage } from "./profilePage/profileComponent";
+import { resetRender } from "./adminPage/adminComponent";
 
 export const Navigation = (props) => {
 
   const resetChooseFile = () => {
     resetTempImage();
+  }
+
+  const resetAdmin = () => {
+    resetRender();
   }
 
   return (
@@ -29,6 +34,7 @@ export const Navigation = (props) => {
 
           <NavLink className='nav-link navbar-brand page-scroll' to="/" onClick={() => {
             resetChooseFile();
+            resetAdmin();
           }}>
             <img src='/img/logo.png' width="50" height="50" />
             Lee's Korean Martial Arts
@@ -44,6 +50,7 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/about" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 About
               </NavLink>
@@ -51,6 +58,7 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/faq" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 FAQ
               </NavLink>
@@ -58,6 +66,7 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/programs" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Programs
               </NavLink>
@@ -65,6 +74,7 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/gallery" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Gallery
               </NavLink>
@@ -72,6 +82,7 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/calendar" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Calendar
               </NavLink>
@@ -79,18 +90,22 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/contact" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Contact
               </NavLink>
             </li>
             <li>
-              <NavLink className="nav-link" to="/profile">
+              <NavLink className="nav-link" to="/profile" onClick={() => {
+                resetAdmin();
+              }}>
                 Profile
               </NavLink>
             </li>
             <li>
               <NavLink className="nav-link" to="/signup" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Sign Up
               </NavLink>
@@ -98,17 +113,23 @@ export const Navigation = (props) => {
             <li>
               <NavLink className="nav-link" to="/login" onClick={() => {
                 resetChooseFile();
+                resetAdmin();
               }}>
                 Login
               </NavLink>
             </li>
             <li>
-              <NavLink className="nav-link" to="/temp">
+              <NavLink className="nav-link" to="/temp" onClick={() => {
+                resetChooseFile();
+                resetAdmin();
+              }}>
                 Temp
               </NavLink>
             </li>
             <li>
-              <NavLink className="nav-link" to="/admin">
+              <NavLink className="nav-link" to="/admin" onClick={() => {
+                resetChooseFile();
+              }}>
                 Admin
               </NavLink>
             </li>

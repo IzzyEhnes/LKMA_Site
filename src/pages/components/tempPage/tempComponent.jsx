@@ -176,7 +176,7 @@ export const TempComponent = (props) => {
                     <h1>Profile Picture</h1>
                     <img src={uploadedFile.filePath} alt="" /> 
                     <div className='row'>
-                        <div class="login-form">
+                        <div className="login-form">
                             <input type="file" name="imageFile" accept="image/*" onChange={(e) => {
                                 setImage(e.target.files[0]);
                                 setImageName(e.target.files[0].name);
@@ -188,7 +188,7 @@ export const TempComponent = (props) => {
                     <h3 data-testid="displayEmail" className="emailAddress">{loginStatus}</h3>
                     <h1>Submission Portal</h1>
                     <div className='row'>
-                        <div class="login-form">
+                        <div className="login-form">
                             <input type="file" onChange={(e) => {
                                 setSubmit(e.target.files[0]);
                                 setUploadedSub(e.target.files[0].name);
