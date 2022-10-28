@@ -50,41 +50,15 @@ function checkLowercase(str) {
   }
   return false;
 };
-/*
-const validateAccessCode = async (code) => {
-  const formData = new FormData();
-  formData.append('access_code', code);
-  matchingCode = false;
 
-  useEffect(() => {
-    let isMounted = true;
-    fetchCode();
-    return () => {
-      isMounted = false;
-    };
-
-    function fetchCode() {
-      if(String(code).toLowerCase().match(/^[a-zA-Z]+$/)) {
-        try {
-          axios.post("http://localhost:3001/accessCode", formData).then((response) => {
-            console.log(response.data.message);
-            if(response.data.message !== "Invalid Access Code") {
-              matchingCode = true; //Given access code matches code in DB
-            }
-          });
-        } catch (err) {
-          if (err.response.status === 500) {
-            console.log("There was a problem with server.");
-          } else {
-            console.log(err.response.data.message);
-          }
-        }
-      }
-    }
-  }, []);
-  return matchingCode;
+const validateCode = (code) => {
+  return String(code)
+    .toLowerCase()
+    .match(
+      /^[a-zA-Z]+$/
+    );
 };
-*/
+
 export const SignUpComponent = (props) => {
 
   const navigate = useNavigate();
@@ -131,32 +105,6 @@ export const SignUpComponent = (props) => {
       }
     }
   };
-  /*
-  const checkCode = async () => {
-    const formData = new FormData();
-    formData.append('access_code', accessCode);
-    setAccessStatus("Invalid");
-
-    if(String(accessCode).toLowerCase().match(/^[a-zA-Z]+$/)) {
-      try {
-        axios.post("http://localhost:3001/accessCode", formData).then((response) => {
-          console.log(response.data.message);
-          if(response.data.message !== "Invalid Access Code") {
-            setAccessStatus("Valid"); //Given access code matches code in DB
-          } else {
-            setAccessStatus("Invalid");
-          }
-        });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
-        }
-      }
-    }
-  }
-  */
 
   const HandleClick = () => {
     const data = {
@@ -263,7 +211,7 @@ export const SignUpComponent = (props) => {
     if(inputAccessCode.current.value === "") {
       console.log("No access code provided")
       document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
-    } else if(validateName(inputAccessCode.current.value)) {
+    } else if(validateCode(inputAccessCode.current.value)) {
       validAccessCode = true;
       console.log("Access Code Match");
       document.getElementById("accessCodeError").innerHTML = ""
