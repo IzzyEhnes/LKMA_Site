@@ -17,6 +17,7 @@
     "mv": "^2.1.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.8.0",
     "react": "^17.0.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.1",
