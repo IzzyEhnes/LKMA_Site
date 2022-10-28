@@ -19,9 +19,7 @@ export const CalendarComponent = (props) => {
                 <div className='weekly schedule'>
                     <h3>
                         Weekly Calendar
-                        <br /><br /><br />
-                        <br /><br /><br />
-                        <br /><br /><br />
+                        <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG"/>
                     </h3>
                     
                 </div>
@@ -30,7 +28,7 @@ export const CalendarComponent = (props) => {
                     <h4>
                         Monthly Calendar
                         <br></br>
-                        <iframe src="https://calendar.google.com/calendar/embed?src=justinvierstra%40gmail.com&ctz=America%2FLos_Angeles" width="700" height="500" frameBorder="0" scrolling="no"></iframe>
+                        <iframe src="https://calendar.google.com/calendar/embed?src=justinvierstra%40gmail.com&ctz=America%2FLos_Angeles" className="scheduleMonthly" frameBorder="0" scrolling="no"></iframe>
                     </h4>
                 </div>
 

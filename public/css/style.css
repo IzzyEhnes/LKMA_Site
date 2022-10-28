@@ -764,6 +764,19 @@ header .intro-text {
   left: 50%
 }
 
+#calendar .scheduleWeeklyIMG{
+  position: relative;
+  margin-top: 5%;
+  width: 70%;
+}
+
+#calendar .scheduleMonthly{
+  position: relative;
+  margin-top: 5%;
+  height: 50%;
+  width: 70%;
+}
+
 /* Contact Page */
 
 #contact {
