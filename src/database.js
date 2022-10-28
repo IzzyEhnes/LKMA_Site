@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const bcrypt = require('bcryptjs');
 
 //for uploading images
 const path = require("path");
@@ -41,7 +42,14 @@ app.post("/", (req, res) => {
     const last_name = req.body.lname;
     const file_path = req.body.imageFile;
 
-    //implement password hashing algorithm here before password enters database
+    //implement password hashing algorithm here before password enters database:
+    bcrypt.genSalt(12).then(salt => {
+        bcrypt.hash(password, salt).then(hash => {
+            console.log(salt);
+            console.log(hash);
+            bcrypt.compare(password, hash).then(result => console.log(result)); 
+        });
+    })
 
     if (email != "" && password != "") {
         /*
