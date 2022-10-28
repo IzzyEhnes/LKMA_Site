@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import image from "./tempImage.jpg";
 import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
 import { exportEmail, exportPassword, inputFirstName, inputLastName, filePath, 
   login } from "../loginPage/loginComponent";
@@ -157,6 +156,7 @@ export const ProfileComponent = (props) => {
         </div>
     )
 	*/
+  
 
 	const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -306,6 +306,18 @@ export const ProfileComponent = (props) => {
             <NavLink to="/ResetPassword">
               <button>Change Password</button>
             </NavLink> 
+          </div>
+        </div>
+        <div className='row'>
+          <div className="column">
+            <a href={props.data ? props.data.uploadLink : ""} target="_blank">
+              <button>Upload Assignment</button>
+            </a>
+          </div>
+          <div className="column">
+            <a href={props.data ? props.data.downloadLink : ""} target="_blank">
+              <button>Download Assignment</button>
+            </a>
           </div>
         </div>
       </div>

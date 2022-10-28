@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { GoToLogin } from "../loginPage/loginComponent";
+import { useEffect } from "react";
 
 var regFirstName = "";
 var regLastName = "";
@@ -12,7 +13,7 @@ var expRegPassword = "";
 var regFilePath = "profile-blank-whitebg.png";
 var exportImage = "";
 var validFirstName, validLastName, validEmail, validPassword,
-  validConfirm = false;
+  validConfirm, validAccessCode = false;
 var signUp = false;
 var adminLogin = "";
 
@@ -49,7 +50,41 @@ function checkLowercase(str) {
   }
   return false;
 };
+/*
+const validateAccessCode = async (code) => {
+  const formData = new FormData();
+  formData.append('access_code', code);
+  matchingCode = false;
 
+  useEffect(() => {
+    let isMounted = true;
+    fetchCode();
+    return () => {
+      isMounted = false;
+    };
+
+    function fetchCode() {
+      if(String(code).toLowerCase().match(/^[a-zA-Z]+$/)) {
+        try {
+          axios.post("http://localhost:3001/accessCode", formData).then((response) => {
+            console.log(response.data.message);
+            if(response.data.message !== "Invalid Access Code") {
+              matchingCode = true; //Given access code matches code in DB
+            }
+          });
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log("There was a problem with server.");
+          } else {
+            console.log(err.response.data.message);
+          }
+        }
+      }
+    }
+  }, []);
+  return matchingCode;
+};
+*/
 export const SignUpComponent = (props) => {
 
   const navigate = useNavigate();
@@ -59,11 +94,13 @@ export const SignUpComponent = (props) => {
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [imageReg, setImageReg] = useState("");
+  const [accessCode, setAccessCode] = useState("");
   const inputFirstName = useRef(null);
   const inputLastName = useRef(null);
   const inputEmail = useRef(null);
   const inputPassword = useRef(null);
   const inputPasswordConfirm = useRef(null);
+  const inputAccessCode = useRef(null);
 
   const checkAdmin = async () => {
     adminLogin = false;
@@ -94,25 +131,55 @@ export const SignUpComponent = (props) => {
       }
     }
   };
+  /*
+  const checkCode = async () => {
+    const formData = new FormData();
+    formData.append('access_code', accessCode);
+    setAccessStatus("Invalid");
+
+    if(String(accessCode).toLowerCase().match(/^[a-zA-Z]+$/)) {
+      try {
+        axios.post("http://localhost:3001/accessCode", formData).then((response) => {
+          console.log(response.data.message);
+          if(response.data.message !== "Invalid Access Code") {
+            setAccessStatus("Valid"); //Given access code matches code in DB
+          } else {
+            setAccessStatus("Invalid");
+          }
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
+        }
+      }
+    }
+  }
+  */
 
   const HandleClick = () => {
     const data = {
       fname: fnameReg, lname: lnameReg, email: emailReg,
-      password: passwordReg, imageFile: imageReg
+      password: passwordReg, imageFile: imageReg, accCode: accessCode
     };
     axios.post("http://localhost:3001/", data).then((response) => {
       setRegStatus(response.data.message);
+      console.log(response.data.message);
+      if(response.data.message === "registration successful") {
+        exportImage = imageReg;
+        regFirstName = fnameReg;
+        regLastName = lnameReg;
+        expRegEmail = emailReg;
+        expRegPassword = passwordReg;
+        signUp = true;
+
+        GoToLogin();
+        checkAdmin();
+      } else if(response.data.message === "Invalid Access Code") {
+        document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
+      }
     });
-
-    exportImage = imageReg;
-    regFirstName = fnameReg;
-    regLastName = lnameReg;
-    expRegEmail = emailReg;
-    expRegPassword = passwordReg;
-    signUp = true;
-
-    GoToLogin();
-    checkAdmin();
   };
 
   function functions() {
@@ -193,8 +260,20 @@ export const SignUpComponent = (props) => {
       document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
     }
 
+    if(inputAccessCode.current.value === "") {
+      console.log("No access code provided")
+      document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
+    } else if(validateName(inputAccessCode.current.value)) {
+      validAccessCode = true;
+      console.log("Access Code Match");
+      document.getElementById("accessCodeError").innerHTML = ""
+    } else {
+      console.log("Access Code Incorrect")
+      document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
+    }
+
     if (validFirstName && validLastName && validEmail && validPassword &&
-      validConfirm) {
+      validConfirm && validAccessCode) {
       HandleClick();
     }
   }
@@ -213,6 +292,7 @@ export const SignUpComponent = (props) => {
                 <div id="passwordError"></div>
                 <div id="passwordConfirmError"></div>
                 <div id="matchingError"></div>
+                <div id="accessCodeError"></div>
                 <input ref={inputFirstName} data-testid="firstName"
                   id="firstName" type="text" placeholder="First Name"
                   onChange={(e) => {
@@ -236,6 +316,11 @@ export const SignUpComponent = (props) => {
                   name="passwordConfirm" type="password"
                   placeholder="Confirm Password" minLength="8" onChange={(e) => {
                     setPasswordReg(e.target.value);
+                  }} required />
+                <input ref={inputAccessCode} id="accessCode"
+                  name="accessCode" type="text"
+                  placeholder="Enter Access Code (Given by LKMA)" onChange={(e) => {
+                    setAccessCode(e.target.value);
                   }} required />
                 <button type="button" data-testid="submit"
                   onClick={functions} >Sign Up</button>

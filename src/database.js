@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "CicadaCode@7",
+    password: "LKMAWdevNoah",
     database: "lkmadb",
 });
 
@@ -40,6 +40,8 @@ app.post("/", (req, res) => {
     const first_name = req.body.fname;
     const last_name = req.body.lname;
     const file_path = req.body.imageFile;
+    const access_code = req.body.accCode;
+    var validAccess = false;
 
     //implement password hashing algorithm here before password enters database
 
@@ -48,20 +50,33 @@ app.post("/", (req, res) => {
         connection.query("INSERT INTO account (email, password) VALUES (?,?)",
         [email, password], (err, result) => {
             */
-        connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
-        [first_name, last_name, email, password, file_path], (err, result) => {
+
+        connection.query("SELECT * FROM access_code WHERE access_code = ?",
+        [access_code], (err, result) => {
             if (err) {
                 console.log(err);
-            } 
+            }
                 
-            if ((result.email != "" && result.password != "")) {
-                res.status(200).json({ message: "registration successful", 
-                    result });
+            if (result.length > 0) {
+                connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
+                [first_name, last_name, email, password, file_path], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } 
+                    
+                if ((result.email != "" && result.password != "")) {
+                    res.status(200).json({ message: "registration successful", 
+                        result });
+                } else {
+                    res.status(200).json({ message: "no input", 
+                        result });
+                }       
+            });
             } else {
-                res.status(200).json({ message: "no input", 
-                    result });
+                res.status(200).json({ message: "Invalid Access Code", result });
             }       
         });
+
     } else {
         res.status(200).json({ message: "no input" });
     }
@@ -85,6 +100,23 @@ app.post("/login", (req, res) => {
                 fileName: profilePic, filePath: filePath });
         } else {
             res.status(200).json({ message: "Wrong combination", result });
+        }       
+    });
+});
+
+app.post("/accessCode", (req, res) => {
+    const access_code = req.body.accCode;
+
+    connection.query("SELECT * FROM access_code WHERE access_code = ?",
+    [access_code], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+            
+        if (result.length > 0) {
+            res.status(200).json({ message: "Valid Access Code", result });
+        } else {
+            res.status(200).json({ message: "Invalid Access Code", result });
         }       
     });
 });
