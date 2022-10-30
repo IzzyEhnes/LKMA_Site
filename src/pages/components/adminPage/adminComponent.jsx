@@ -56,7 +56,9 @@ export const AdminComponent = (props) => {
         </div>
         <div className='row'>
           <div className="column">
-            <button>Change Password</button>
+            <NavLink to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink>
           </div>
           <div className="column">
             <NavLink className="nav-link" to="/login">
