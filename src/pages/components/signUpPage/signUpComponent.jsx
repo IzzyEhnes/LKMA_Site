@@ -13,7 +13,7 @@ var expRegPassword = "";
 var regFilePath = "profile-blank-whitebg.png";
 var exportImage = "";
 var validFirstName, validLastName, validEmail, validPassword,
-  validConfirm, validAccessCode = false;
+    validConfirm, validAccessCode = false;
 var signUp = false;
 var adminLogin = "";
 
@@ -51,6 +51,40 @@ function checkLowercase(str) {
   return false;
 };
 
+/*
+const validateAccessCode = async (code) => {
+  const formData = new FormData();
+  formData.append('access_code', code);
+  matchingCode = false;
+  useEffect(() => {
+    let isMounted = true;
+    fetchCode();
+    return () => {
+      isMounted = false;
+    };
+    function fetchCode() {
+      if(String(code).toLowerCase().match(/^[a-zA-Z]+$/)) {
+        try {
+          axios.post("http://localhost:3001/accessCode", formData).then((response) => {
+            console.log(response.data.message);
+            if(response.data.message !== "Invalid Access Code") {
+              matchingCode = true; //Given access code matches code in DB
+            }
+          });
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log("There was a problem with server.");
+          } else {
+            console.log(err.response.data.message);
+          }
+        }
+      }
+    }
+  }, []);
+  return matchingCode;
+};
+*/
+
 const validateCode = (code) => {
   return String(code)
     .toLowerCase()
@@ -67,6 +101,7 @@ export const SignUpComponent = (props) => {
   const [lnameReg, setLnameReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [user, setUser] = useState();
   const [imageReg, setImageReg] = useState("");
   const [accessCode, setAccessCode] = useState("");
   const inputFirstName = useRef(null);
@@ -112,6 +147,8 @@ export const SignUpComponent = (props) => {
       password: passwordReg, imageFile: imageReg, accCode: accessCode
     };
     axios.post("http://localhost:3001/", data).then((response) => {
+      const user = {emailReg, fnameReg, lnameReg};
+      window.localStorage.setItem("user", JSON.stringify(user));
       setRegStatus(response.data.message);
       console.log(response.data.message);
       if(response.data.message === "registration successful") {

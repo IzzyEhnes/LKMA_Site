@@ -6,6 +6,7 @@ import axios from "axios";
 import { studentLogout, logIn } from "../profilePage/profileComponent";
 import { adminLogout, adminLogIn } from "../adminPage/adminComponent";
 import { expRegEmail, expRegPassword, regFirstName, regLastName, exportImage } from "../signUpPage/signUpComponent";
+import { useEffect } from "react";
 
 var exportEmail = 'N/A';
 var exportPassword = '';
@@ -16,6 +17,7 @@ var uploadFile = '';
 var validLogin = false;
 var login = false;
 var adminLogin = "";
+var inputName;
 
 const validateEmail = (email) => {
   return String(email)
@@ -74,6 +76,11 @@ export const LoginComponent = (props) => {
   var [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const [uploadedFile, setUploadedFile] = useState({});
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    console.log((localStorage.getItem("user")));
+  }, [user]);
 
   const Login = () => {
     const formData = new FormData();
@@ -99,6 +106,10 @@ export const LoginComponent = (props) => {
 
           setUploadedFile({fileName, filePath});
           uploadFile = uploadedFile.filePath;
+          const user = {exportEmail, inputFirstName, inputLastName};
+          setUser(response.data);
+          window.localStorage.setItem("user", JSON.stringify(user));
+          window.localStorage.setItem("filePath", JSON.stringify(filePath));
         } else {
           setLoginStatus(response.data.message);
         }
