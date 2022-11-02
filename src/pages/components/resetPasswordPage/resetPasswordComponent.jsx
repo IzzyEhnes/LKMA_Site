@@ -1,8 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {useRef} from 'react';
-
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { exportPassword, changePassword } from "../loginPage/loginComponent";
+import { exportEmail, email } from "../loginPage/loginComponent";
+
+
+var validPassword = false;
 
 function checkUppercase(str){
   for (var i=0; i<str.length; i++){
@@ -28,20 +32,33 @@ export const ResetPasswordComponent = (props) => {
   const inputPassword=useRef(null);
   const inputPasswordConfirm=useRef(null);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
-  /*const changePassword = () => {
-  const data = {email: email, password: password};
-      axios.post("http://localhost:3001/password", data).then((response) => {
-        console.log(response.data);
-        }); 
-    };*/
+  const navigate = useNavigate();
 
+  const changeProfilePassword = () => {
+    const data = { email: exportEmail, newPassword: newPassword };
+        if (validPassword) {
+            try {
+        axios.post("http://localhost:3001/password", data).then((response) => {
+          changePassword(response.data.changedPassword);
+          validPassword = false;
+          navigate("/profile");
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
+        }
+      }
+    }
+  };
 
 
 
   function validate() {
+      validPassword = false;
     if(inputPassword.current.value === ""){
       console.log("No password provided")
       document.getElementById("passwordError").innerHTML = "Please provide a password"
@@ -61,20 +78,17 @@ export const ResetPasswordComponent = (props) => {
       console.log("Password must contain at least one uppercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
     }
-
     if(inputPasswordConfirm.current.value === ""){
       console.log("Confirmation password not provided")
       document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
     }else{
       document.getElementById("passwordConfirmError").innerHTML = ""
     }
-
     //IF passwords match then it is sent to the DB. NEED AUTH TOKEN
     if(inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
       console.log("Passwords match")
       document.getElementById("matchingError").innerHTML = ""
-      //{changePassword};
-      changePassword();
+      validPassword = true;
 
     }else if(inputPassword.current.value === "" || inputPasswordConfirm.current.value === ""){
       //Doing nothing as error already given by another error message
@@ -86,7 +100,7 @@ export const ResetPasswordComponent = (props) => {
   }
 
 const changePassword = () => {
-  const data = {email: email, password: password};
+  const data = {password: newPassword};
       axios.post("http://localhost:3001/password", data).then((response) => {
         console.log(response.data);
         }); 
@@ -105,12 +119,15 @@ const changePassword = () => {
                         <div id="passwordConfirmError"></div>
                         <div id="matchingError"></div>
 
-                        {/* THIS IS A TEMP SOLUTION FOR EMAIL PASSWORD CHANGE*/}
-                        <input onChange={(e) => {setEmail(e.target.value);}} ref={setEmail} id="email" type="email" placeholder="Email"/>
+                        <input ref={inputPassword} id="password" type="password" 
+                            placeholder="Password" minlength="8" required/>
 
-                        <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
-                        <input onChange={(e) => {setPassword(e.target.value);}} ref={setPassword} id="passwordConfirm" name="passwordConfirm" type="password"  placeholder="Confirm Password" minlength="8" required/>
-                        <button type="button" onClick={changePassword}>Submit</button>
+                        <input ref={inputPasswordConfirm} id="PasswordConfirm" type="password"
+                        placeholder="Confirm Password" minlength="8" onChange={(e) => {
+                    setNewPassword(e.target.value);
+                    validate(); 
+                        }} required/>
+                        <button type="button" onClick={changeProfilePassword}>Submit</button>
                     </form>
                 </div>
                 <div class="overlay-container">
