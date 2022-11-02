@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "root",
+    password: "Sen10!",
     database: "lkmadb",
 });
 
@@ -208,20 +208,24 @@ app.post("/uploadImage", (req, res) => {
     });   
 });
 
-// DB Method to change password of account (prob want to use ID here too)
+// DB Method to change password of account
 app.post("/password", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
+    const newPassword = req.body.newPassword;
 
     connection.query("UPDATE account SET password = ? WHERE email = ?",
-    [password, email], (err, result) => {
+    [newPassword, email], (err, result) => {
             if (err) {
             console.log(err);
-        } 
+            res.status(200).json({ message: "Password is not valid", err});
+        }
+        res.status(200).json({ message: "Password changed successfully.", result,
+            changedPassword: newPassword});
     });
 });
 
-//NEEDS TO BE CHANGED WHEN ID IS GRABBED NOT PASS ie: Need to grab UQ ID
+// Method for Email change
 app.post("/email", (req, res) => {
     const email = req.body.email;
     const newEmail = req.body.newEmail;

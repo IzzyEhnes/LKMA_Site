@@ -45,6 +45,10 @@ function checkLowercase(str){
   return false;
 };
 
+// Exports Password for use in other components (reset)
+export const changePassword = (newPassword) => {
+    exportPassword = newPassword;
+}
 export const changeFilePath = (newFilePath) => {
   filePath = newFilePath;
 }
