@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "LKMAWdevNoah",
+    password: "root",
     database: "lkmadb",
 });
 
@@ -119,6 +119,18 @@ app.post("/accessCode", (req, res) => {
             res.status(200).json({ message: "Invalid Access Code", result });
         }       
     });
+});
+
+app.post("/changeAccessCode", (req, res) => {
+    const accessCode = req.body.code;
+    
+    connection.query("UPDATE access_code SET access_code=" + accessCode,
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+
 });
 
 app.post("/admin", (req, res) => {

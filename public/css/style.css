@@ -1059,6 +1059,23 @@ header .intro-text {
 	transition: transform 80ms ease-in;
 }
 
+#admin .access-code {
+  margin: 10%;
+}
+
+#admin .form-container h3 {
+  margin: 2%;
+}
+
+#admin .form-container button {
+  margin: 1%;
+}
+
+#admin .form-container input {
+  margin: 2%;
+  color: black;
+}
+
 /* Profile Section */
 
 #profile {
