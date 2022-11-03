@@ -8,6 +8,9 @@ import axios from "axios";
 
 var validEmail = false;
 
+var expRegEmail = "";
+var expRegNewEmail = "";
+
 const validateEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -21,6 +24,8 @@ export const ChangeEmailComponent = (props) => {
   const inputEmail = useRef(null);
   const inputEmailConfirm = useRef(null);
   const [newEmail, setNewEmail] = useState("");
+  var dupeEmail = "";
+  var validEmail, validConfirm = false;
 
   const navigate = useNavigate();
 
@@ -119,3 +124,5 @@ export const ChangeEmailComponent = (props) => {
     </div>
   )
 }
+
+  export { expRegEmail, expRegNewEmail };
