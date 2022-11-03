@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "Sen10!",
+    password: "JustinDev",
     database: "lkmadb",
 });
 
@@ -46,40 +46,42 @@ app.post("/", (req, res) => {
     //implement password hashing algorithm here before password enters database
 
     if (email != "" && password != "") {
-        /*
-        connection.query("INSERT INTO account (email, password) VALUES (?,?)",
-        [email, password], (err, result) => {
-            */
+        // connection.query("SELECT * FROM access_code WHERE access_code = ?",
+        //     [access_code], (err, result) => {
+        //         if (err) {
+        //             console.log(err);
+        //         } 
 
-        connection.query("SELECT * FROM access_code WHERE access_code = ?",
-        [access_code], (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-                
-            if (result.length > 0) {
-                connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
+        connection.query("SELECT * FROM account WHERE email = ?",
+            [email], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } 
+        
+
+        if (result.length === 0 ) {
+            connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
                 [first_name, last_name, email, password, file_path], (err, result) => {
                 if (err) {
                     console.log(err);
                 } 
-                    
+
                 if ((result.email != "" && result.password != "")) {
-                    res.status(200).json({ message: "registration successful", 
+                    res.status(200).json({ message: "Registration successful", 
                         result });
                 } else {
-                    res.status(200).json({ message: "no input", 
+                    res.status(400).json({ message: "no input", 
                         result });
                 }       
             });
-            } else {
-                res.status(200).json({ message: "Invalid Access Code", result });
-            }       
-        });
-
-    } else {
-        res.status(200).json({ message: "no input" });
-    }
+        } else {
+            res.status(400).json({ message: "No input", 
+                result });
+            //res.status(200).json({ message: "Invalid Access Code", result });
+        }
+    });
+    // });
+    }      
 });
 
 app.post("/login", (req, res) => {
@@ -229,14 +231,11 @@ app.post("/password", (req, res) => {
 app.post("/email", (req, res) => {
     const email = req.body.email;
     const newEmail = req.body.newEmail;
-    const password = req.body.password;
 
     //connection.query("SELECT email FROM [account] WHERE account_id = ?")
-    connection.query("UPDATE account SET email = ? WHERE account_id = ?",
-    [email, newEmail], (err, result) => {
-            if (err) {
-            console.log(err);
-        } 
+    connection.query("UPDATE account SET email = ? WHERE email = ?",
+    [newEmail, email], function(err, results, fields) {
+        console.log(results); // results contains rows returned by server
     });
 });
 

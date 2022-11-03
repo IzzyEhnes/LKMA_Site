@@ -15,7 +15,7 @@ var exportImage = "";
 var validFirstName, validLastName, validEmail, validPassword,
     validConfirm, validAccessCode = false;
 var signUp = false;
-var adminLogin = "";
+var adminLogin, dupeEmail = "";
 
 const validateEmail = (email) => {
   return String(email)
@@ -126,10 +126,12 @@ export const SignUpComponent = (props) => {
         }
 
         console.log("adminLogin: " + adminLogin);
-        if (adminLogin) {
+        if (adminLogin && validFirstName && validLastName && validEmail && validPassword && validConfirm) {
           navigate("/admin");
-        } else {
+        } else if (dupeEmail === false && validFirstName && validLastName && validEmail && validPassword && validConfirm) {
           navigate("/profile");
+        }else if(dupeEmail){
+          document.getElementById("emailError").innerHTML = "Email already in use.";
         }
       });
     } catch (err) {
@@ -141,35 +143,70 @@ export const SignUpComponent = (props) => {
     }
   };
 
+  const checkDupeEmail = async () => {
+    dupeEmail = false;
+
+    try {
+      axios.post("http://localhost:3001/emailCheck").then((response) => {
+        const dupeEmails = response.data.result;
+        var i;
+
+        for (i = 0; i < dupeEmails.length; i++) {
+          if (dupeEmails[i].email == expRegEmail) {
+            console.log("expRegEmail: " + expRegEmail);
+            dupeEmail = true;
+            console.log(dupeEmails[i].email);
+          }
+        }
+
+        console.log("dupeLogin: " + dupeEmail);
+        if (dupeEmail === false && validFirstName && validLastName && validEmail && validPassword && validConfirm) {
+          navigate("/profile");
+        }else if(dupeEmail){
+          document.getElementById("emailError").innerHTML = "Email already in use.";
+        }
+      });
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  };
+
+
   const HandleClick = () => {
     const data = {
       fname: fnameReg, lname: lnameReg, email: emailReg,
       password: passwordReg, imageFile: imageReg, accCode: accessCode
     };
-    axios.post("http://localhost:3001/", data).then((response) => {
+
+    checkDupeEmail();
+
+    if (dupeEmail === false && validateEmail(inputEmail.current.value)){
+      axios.post("http://localhost:3001/", data).then((response) => {
       const user = {emailReg, fnameReg, lnameReg};
       window.localStorage.setItem("user", JSON.stringify(user));
-      setRegStatus(response.data.message);
+        setRegStatus(response.data.message);
+  
       console.log(response.data.message);
       if(response.data.message === "registration successful") {
-        exportImage = imageReg;
-        regFirstName = fnameReg;
-        regLastName = lnameReg;
-        expRegEmail = emailReg;
-        expRegPassword = passwordReg;
-        signUp = true;
-
-        GoToLogin();
-        checkAdmin();
+          exportImage = imageReg;
+          regFirstName = fnameReg;
+          regLastName = lnameReg;
+          expRegEmail = emailReg;
+          expRegPassword = passwordReg;
+          signUp = true;
+  
+          GoToLogin();
+          checkAdmin();
       } else if(response.data.message === "Invalid Access Code") {
         document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
       }
     });
+    }
   };
-
-  function functions() {
-    validate();
-  }
 
   function validate() {
     if (inputFirstName.current.value === "") {
@@ -241,24 +278,11 @@ export const SignUpComponent = (props) => {
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
     } else {
-      console.log("Password and conformation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
+      console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
     }
 
-    if(inputAccessCode.current.value === "") {
-      console.log("No access code provided")
-      document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
-    } else if(validateCode(inputAccessCode.current.value)) {
-      validAccessCode = true;
-      console.log("Access Code Match");
-      document.getElementById("accessCodeError").innerHTML = ""
-    } else {
-      console.log("Access Code Incorrect")
-      document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
-    }
-
-    if (validFirstName && validLastName && validEmail && validPassword &&
-      validConfirm && validAccessCode) {
+    if (validFirstName && validLastName && validEmail && validPassword && validConfirm) {
       HandleClick();
     }
   }
@@ -308,7 +332,7 @@ export const SignUpComponent = (props) => {
                     setAccessCode(e.target.value);
                   }} required />
                 <button type="button" data-testid="submit"
-                  onClick={functions} >Sign Up</button>
+                  onClick={validate} >Sign Up</button>
                 <label></label>
               </form>
             </div>
