@@ -5,6 +5,7 @@ import { loggingOut } from "../loginPage/loginComponent";
 import { exportEmail, inputFirstName, inputLastName, login } 
   from "../loginPage/loginComponent";
 import {useRef} from 'react';
+import data from "../../data/studentInfoData.json";
 
 var logOut = true;
 var changeAdminInfo = false;
@@ -30,6 +31,7 @@ export const AdminComponent = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
+  const [students, setStudents] = useState(data);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -106,7 +108,35 @@ export const AdminComponent = (props) => {
           </div>
         </div>
         <div className='row'>
-          <button>See Student Info</button>
+          {/* MAKE TABLE HERE */}
+          <table>
+            <thead>
+              <tr>
+                <th> Account ID </th>
+                <th> Student ID </th>
+                <th> First Name </th>
+                <th> Last Name </th>
+                <th> Email </th>
+                <th> Password </th>
+                <th> Phone Number </th>
+                <th> Account Image </th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.StudentInfoData.map((student) => (
+                <tr>
+                  <td>{student.account_id}</td>
+                  <td>{student.student_id}</td>
+                  <td>{student.first_name}</td>
+                  <td>{student.last_name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.password}</td>
+                  <td>{student.phone_number}</td>
+                  <td>{student.account_image}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className="access-code">
           <div className="form-container">

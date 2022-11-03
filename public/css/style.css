@@ -1089,6 +1089,26 @@ header .intro-text {
   color: black;
 }
 
+#admin table {
+  border-collapse: collapse;
+  width: 100%
+}
+
+th,
+td {
+  border: 1px solid #ffffff;
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: rgb(32, 33, 36);
+}
+
+td {
+  background-color: rgbrgb(32, 33, 36);
+}
+
 /* Profile Section */
 
 #profile {
