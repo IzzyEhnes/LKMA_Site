@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "Sen10!",
+    password: "CicadaCode@7",
     database: "lkmadb",
 });
 
@@ -46,37 +46,45 @@ app.post("/", (req, res) => {
     //implement password hashing algorithm here before password enters database
 
     if (email != "" && password != "") {
-        /*
-        connection.query("INSERT INTO account (email, password) VALUES (?,?)",
-        [email, password], (err, result) => {
-            */
-
         connection.query("SELECT * FROM access_code WHERE access_code = ?",
         [access_code], (err, result) => {
             if (err) {
                 console.log(err);
             }
                 
+            //if access code is correct
             if (result.length > 0) {
-                connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
-                [first_name, last_name, email, password, file_path], (err, result) => {
-                if (err) {
-                    console.log(err);
-                } 
-                    
-                if ((result.email != "" && result.password != "")) {
-                    res.status(200).json({ message: "registration successful", 
-                        result });
-                } else {
-                    res.status(200).json({ message: "no input", 
-                        result });
-                }       
-            });
+                connection.query("SELECT * FROM account WHERE email = ?",
+                [email], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(200).json({ message: "email is not valid", err});
+                    } 
+
+                    //if email is already being used
+                    if (result.length > 0) {
+                        res.status(200).json({ message: "email is already being used"});
+                    } else {
+                        connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
+                        [first_name, last_name, email, password, file_path], (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } 
+                                
+                            if ((result.email != "" && result.password != "")) {
+                                res.status(200).json({ message: "registration successful", 
+                                    result });
+                            } else {
+                                res.status(200).json({ message: "no input", 
+                                    result });
+                            } 
+                        });
+                    }
+                });
             } else {
                 res.status(200).json({ message: "Invalid Access Code", result });
             }       
         });
-
     } else {
         res.status(200).json({ message: "no input" });
     }
@@ -124,8 +132,8 @@ app.post("/accessCode", (req, res) => {
 app.post("/changeAccessCode", (req, res) => {
     const accessCode = req.body.code;
     
-    connection.query("UPDATE access_code SET access_code=" + accessCode,
-    (err, result) => {
+    connection.query("UPDATE access_code SET access_code = ?",
+    [accessCode], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -229,15 +237,28 @@ app.post("/password", (req, res) => {
 app.post("/email", (req, res) => {
     const email = req.body.email;
     const newEmail = req.body.newEmail;
-    const password = req.body.password;
 
-    //connection.query("SELECT email FROM [account] WHERE account_id = ?")
-    connection.query("UPDATE account SET email = ? WHERE account_id = ?",
-    [email, newEmail], (err, result) => {
-            if (err) {
+    connection.query("SELECT * FROM account WHERE email = ?",
+    [newEmail], (err, result) => {
+        if (err) {
             console.log(err);
+            res.status(200).json({ message: "email is not valid", err});
         } 
-    });
+
+        if (result.length > 0) {
+            res.status(200).json({ message: "email is already being used"});
+        } else {
+            connection.query("UPDATE account SET email = ? WHERE email = ?",
+            [newEmail, email], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(200).json({ message: "email is not valid", err});
+                } 
+                res.status(200).json({ message: "email succesfully changed", result, 
+                    changedEmail: newEmail});
+            });
+        }
+    });    
 });
 
 

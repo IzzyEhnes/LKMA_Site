@@ -164,7 +164,6 @@ export const ProfileComponent = (props) => {
   const [lastName, setLastName] = useState("");
 	const [profileEmail, setProfileEmail] = useState("");
 	const [imageFilePath, setImageFilePath] = useState("");
-  const [user, setUser] = useState();
 
 	const navigate = useNavigate();
 
@@ -225,9 +224,9 @@ export const ProfileComponent = (props) => {
 						changeFilePath(filePath);
 						setImageFilePath(filePath);
 						tempImage = "";
-            const user = {exportEmail, inputFirstName, inputLastName, filePath};
-            setUser(response.data);
+
             window.localStorage.setItem("filePath", JSON.stringify(filePath));
+            storageDataFile = JSON.parse(localStorage.getItem("filePath"));
 						uploadImage = false;
 					});
 				} catch (err) {
@@ -257,7 +256,6 @@ export const ProfileComponent = (props) => {
 			  </div>
         <div className='row'>
           <div className='row'>
-            {/* NEED TO ADD SOMETHING HERE FOR PROFILE PIC*/}
             {storageDataFile? (<img data-testid="profilePic" src={storageDataFile} />) : (<img data-testid="profilePic" src={imageFilePath} />) }
             <h1 id="chosenImage"></h1>
           </div>

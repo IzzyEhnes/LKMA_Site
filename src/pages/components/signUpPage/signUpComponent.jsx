@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { GoToLogin } from "../loginPage/loginComponent";
 import { useEffect } from "react";
+import { fromAdmin, fromStudent } from "../adminPage/adminComponent";
 
 var regFirstName = "";
 var regLastName = "";
@@ -89,7 +90,7 @@ const validateCode = (code) => {
   return String(code)
     .toLowerCase()
     .match(
-      /^[a-zA-Z]+$/
+      /^[a-zA-Z\-0-9]+$/
     );
 };
 
@@ -127,8 +128,10 @@ export const SignUpComponent = (props) => {
 
         console.log("adminLogin: " + adminLogin);
         if (adminLogin) {
+          fromAdmin();
           navigate("/admin");
         } else {
+          fromStudent();
           navigate("/profile");
         }
       });
@@ -146,6 +149,7 @@ export const SignUpComponent = (props) => {
       fname: fnameReg, lname: lnameReg, email: emailReg,
       password: passwordReg, imageFile: imageReg, accCode: accessCode
     };
+
     axios.post("http://localhost:3001/", data).then((response) => {
       const user = {emailReg, fnameReg, lnameReg};
       window.localStorage.setItem("user", JSON.stringify(user));
@@ -163,6 +167,10 @@ export const SignUpComponent = (props) => {
         checkAdmin();
       } else if(response.data.message === "Invalid Access Code") {
         document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
+      } else { 
+        console.log("email is already being used");
+        document.getElementById("emailError").innerHTML 
+          = "That email already has an account. Please choose another email.";
       }
     });
   };
@@ -250,7 +258,7 @@ export const SignUpComponent = (props) => {
       document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
     } else if(validateCode(inputAccessCode.current.value)) {
       validAccessCode = true;
-      console.log("Access Code Match");
+      console.log("Access Code Valid");
       document.getElementById("accessCodeError").innerHTML = ""
     } else {
       console.log("Access Code Incorrect")
@@ -330,4 +338,5 @@ export const SignUpComponent = (props) => {
   )
 }
 
-export { expRegEmail, expRegPassword, regFirstName, regLastName, exportImage, signUp };
+export { expRegEmail, expRegPassword, regFirstName, regLastName, exportImage, 
+  signUp };
