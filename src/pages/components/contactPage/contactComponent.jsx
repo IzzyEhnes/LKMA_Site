@@ -42,18 +42,17 @@ export const ContactComponent = (props) => {
             You can get in touch with us by filling out this <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYlRNzFTCSV5Tq9460DD0JgHMLXI4s1GEGs_oQnghPRGUB2A/viewform" target="_blank">Information Request Form</a>.
           </h3>
         </div>
-        <div className="col-xs-12 col-md-6">
-         <h3 className="follow-us">Follow us on:</h3>
+        <div className='row'>
+          <h3 className="follow-tags">Follow us on:
+            <a href="https://twitter.com/SacMartialArts">
+              <img src="img/twitter.png" className="twitter" alt="" />
+            </a>
+            <a href="https://www.facebook.com/LeesKoreanMartialArts">
+              <img src="img/facebook.png" className="facebook" alt="" />
+            </a>
+          </h3>
         </div>
       </div>
-
-            <div className="twitter" href="https://twitter.com/SacMartialArts">
-              <img src="img/twitter.png" width="30" height="30" alt=""/>
-            </div>
-              <div className="facebook" href="https://www.facebook.com/LeesKoreanMartialArts">
-                <img src="img/facebook.png" width="30" height="30" alt=""/>
-              </div>
-
     </div> 
   )
 }

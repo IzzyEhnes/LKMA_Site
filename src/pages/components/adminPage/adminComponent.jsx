@@ -7,6 +7,7 @@ import { exportEmail, inputFirstName, inputLastName, login }
 import {useRef} from 'react';
 
 var logOut = true;
+var changeAdminInfo = false;
 var renderPage = "";
 
 export const adminLogIn = () => {
@@ -15,6 +16,14 @@ export const adminLogIn = () => {
 
 export const adminLogout = () => {
   logOut = true;
+}
+
+export const fromAdmin = () => {
+  changeAdminInfo = true;
+}
+
+export const fromStudent = () => {
+  changeAdminInfo = false;
 }
 
 export const AdminComponent = (props) => {
@@ -103,7 +112,7 @@ export const AdminComponent = (props) => {
           <div className="form-container">
             <form onSubmit={handleSubmit}>
                   <h3>Change access code:</h3>
-                  <input ref={accessCode} id="code" type="number" placeholder="Enter a new access code" required/>
+                  <input ref={accessCode} id="code" type="text" placeholder="Enter a new access code" required/>
                   <button type="submit">Submit</button>
                   <div id="submitMessage"></div>
             </form>
@@ -117,3 +126,5 @@ export const AdminComponent = (props) => {
 export const resetRender = () => {
   renderPage = "";
 }
+
+export { changeAdminInfo };

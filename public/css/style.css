@@ -865,10 +865,6 @@ header .intro-text {
   white-space: pre-line;
   padding: 10px;
 }
-#contact img {
-  max-width: 100%;
-  height: auto;
-}
 #contact .contact-title p {
   margin-left: 15%;
   margin-right: 15%;
@@ -916,6 +912,8 @@ header .intro-text {
   margin-left: 65px;
 }
 #contact img {
+  max-width: 100%;
+  height: auto;
   width: 500px;
   margin-top: 10px;
   background: #fff;
@@ -925,6 +923,21 @@ header .intro-text {
 #contact p {
   line-height: 24px;
   margin: 30px 0;
+}
+#contact .follow-tags {
+  padding-left: 5%;
+}
+#contact .twitter {
+  width: 80px;
+  padding-bottom: 10px;
+  padding-left: 30px; 
+  background: transparent;
+}
+#contact .facebook {
+  width: 80px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  background: transparent;
 }
 
 /* Student Page Section */
