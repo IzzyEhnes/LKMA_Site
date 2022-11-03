@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { exportPassword, changePassword } from "../loginPage/loginComponent";
 import { exportEmail, email } from "../loginPage/loginComponent";
-
+import { changeAdminInfo } from "../adminPage/adminComponent";
 
 var validPassword = false;
 
@@ -43,7 +43,11 @@ export const ResetPasswordComponent = (props) => {
         axios.post("http://localhost:3001/password", data).then((response) => {
           changePassword(response.data.changedPassword);
           validPassword = false;
-          navigate("/profile");
+          if (changeAdminInfo) {
+            navigate("/admin");
+          } else {
+            navigate("/profile");
+          }
         });
       } catch (err) {
         if (err.response.status === 500) {

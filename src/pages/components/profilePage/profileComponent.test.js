@@ -28,7 +28,6 @@ describe(ProfileComponent, () => {
 
         fireEvent.click(imageSubmit);
         userEvent.upload(imageValue, exampleFile);
-console.log('est');
         expect(profilePic.textContent).toEqual(imageValue.textContent);
     });
 });
