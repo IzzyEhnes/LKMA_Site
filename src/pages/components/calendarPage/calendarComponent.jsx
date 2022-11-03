@@ -25,13 +25,8 @@ export const CalendarComponent = (props) => {
                         <div className='weekly-calendar'>
                             <h3>
                                 Weekly Calendar
-                                <div className='weekly schedule'>
-                                <h3>
-                                    Weekly Calendar
-                                    <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG"/>
-                                </h3>
-                    
-                </div>
+                                <br></br>
+                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="700" height="500" frameBorder="0" scrolling="no"/>
                             </h3>
                         </div>
 
