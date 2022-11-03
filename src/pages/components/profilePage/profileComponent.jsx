@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import image from "./tempImage.jpg";
 import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
 import { exportEmail, exportPassword, inputFirstName, inputLastName, filePath, 
   login } from "../loginPage/loginComponent";
@@ -13,6 +12,8 @@ var firstLogin = 0;
 var tempImage = "";
 var resetImage = false;
 var uploadImage = false;
+var storageData;
+var storageDataFile;
 
 export const logIn = () => {
 	logOut = false;
@@ -157,15 +158,19 @@ export const ProfileComponent = (props) => {
         </div>
     )
 	*/
+  
 
 	const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 	const [profileEmail, setProfileEmail] = useState("");
 	const [imageFilePath, setImageFilePath] = useState("");
+  const [user, setUser] = useState();
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
+    storageData = JSON.parse(localStorage.getItem("user"));
+    storageDataFile = JSON.parse(localStorage.getItem("filePath"));
 		if (loggedIn && login) {
 			if (firstLogin < 5) {
 				setImageFilePath(filePath);
@@ -220,6 +225,9 @@ export const ProfileComponent = (props) => {
 						changeFilePath(filePath);
 						setImageFilePath(filePath);
 						tempImage = "";
+            const user = {exportEmail, inputFirstName, inputLastName, filePath};
+            setUser(response.data);
+            window.localStorage.setItem("filePath", JSON.stringify(filePath));
 						uploadImage = false;
 					});
 				} catch (err) {
@@ -249,7 +257,8 @@ export const ProfileComponent = (props) => {
 			  </div>
         <div className='row'>
           <div className='row'>
-            <img data-testid="profilePic" src={imageFilePath} />
+            {/* NEED TO ADD SOMETHING HERE FOR PROFILE PIC*/}
+            {storageDataFile? (<img data-testid="profilePic" src={storageDataFile} />) : (<img data-testid="profilePic" src={imageFilePath} />) }
             <h1 id="chosenImage"></h1>
           </div>
           <div className='row'>
@@ -281,16 +290,17 @@ export const ProfileComponent = (props) => {
             </div>
           </div>
           <div className="column">
-            <h1 data-testid="firstName">{firstName}</h1>
-            <h1 data-testid="lastName">{lastName}</h1>
+            {storageData? (storageData.inputFirstName? (<h1 data-testid="firstName">{storageData.inputFirstName}</h1>) : ((<h1 data-testid="firstName">{storageData.fnameReg}</h1>))) : (<h1 data-testid="firstName">{firstName}</h1>)} 
+            {storageData? (storageData.inputLastName? (<h1 data-testid="firstName">{storageData.inputLastName}</h1>) : ((<h1 data-testid="firstName">{storageData.lnameReg}</h1>))) : (<h1 data-testid="firstName">{lastName}</h1>)}
             <NavLink className="nav-link" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
+                localStorage.clear();
               }}>Log out</button>
             </NavLink>
           </div>
           <div className="column">
-            <h1 data-testid="profileEmail">{profileEmail}</h1>
+            {storageData? (storageData.exportEmail? (<h1>Email: {storageData.exportEmail}</h1>) : ((<h1>Email: {storageData.emailReg}</h1>))) : (<h1>Email: {profileEmail}</h1>)}
             {/*If Phone # is in DB, display, else display Add Phone Button.*/}
             <h1>Phone # Here</h1>
             <button>Add Phone</button>
@@ -306,6 +316,18 @@ export const ProfileComponent = (props) => {
             <NavLink to="/ResetPassword">
               <button>Change Password</button>
             </NavLink> 
+          </div>
+        </div>
+        <div className='row'>
+          <div className="column">
+            <a href={props.data ? props.data.uploadLink : ""} target="_blank">
+              <button>Upload Assignment</button>
+            </a>
+          </div>
+          <div className="column">
+            <a href={props.data ? props.data.downloadLink : ""} target="_blank">
+              <button>Download Assignment</button>
+            </a>
           </div>
         </div>
       </div>

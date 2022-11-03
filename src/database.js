@@ -106,14 +106,33 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.post("/emailCheck", (req, res) => {
-    connection.query("SELECT * FROM account", (err, result) => {
+app.post("/accessCode", (req, res) => {
+    const access_code = req.body.accCode;
+
+    connection.query("SELECT * FROM access_code WHERE access_code = ?",
+    [access_code], (err, result) => {
         if (err) {
             console.log(err);
+        }
+            
+        if (result.length > 0) {
+            res.status(200).json({ message: "Valid Access Code", result });
         } else {
-            res.status(200).json({ message: "Verified no duplicate emails", result});
-        }  
+            res.status(200).json({ message: "Invalid Access Code", result });
+        }       
     });
+});
+
+app.post("/changeAccessCode", (req, res) => {
+    const accessCode = req.body.code;
+    
+    connection.query("UPDATE access_code SET access_code=" + accessCode,
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+
 });
 
 app.post("/admin", (req, res) => {
@@ -191,20 +210,24 @@ app.post("/uploadImage", (req, res) => {
     });   
 });
 
-// DB Method to change password of account (prob want to use ID here too)
+// DB Method to change password of account
 app.post("/password", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
+    const newPassword = req.body.newPassword;
 
     connection.query("UPDATE account SET password = ? WHERE email = ?",
-    [password, email], (err, result) => {
+    [newPassword, email], (err, result) => {
             if (err) {
             console.log(err);
-        } 
+            res.status(200).json({ message: "Password is not valid", err});
+        }
+        res.status(200).json({ message: "Password changed successfully.", result,
+            changedPassword: newPassword});
     });
 });
 
-//NEEDS TO BE CHANGED WHEN ID IS GRABBED NOT PASS ie: Need to grab UQ ID
+// Method for Email change
 app.post("/email", (req, res) => {
     const email = req.body.email;
     const newEmail = req.body.newEmail;

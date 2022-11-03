@@ -7,31 +7,39 @@ export const CalendarComponent = (props) => {
                     <h1>CALENDARS</h1>
                 </div>
 
-                <div className='upcoming-events'>
-                    <h2>
-                        Upcoming Events
-                        <br /><br /><br />
-                        <br /><br /><br />
-                        <br /><br /><br />
-                    </h2>
-                </div>
+                <div className="calendar-cotainer">
+                    <div className='upcoming-events'>
+                            <h2>Upcoming Events</h2>
+                                {props.data
 
-                <div className='weekly schedule'>
-                    <h3>
-                        Weekly Calendar
-                        <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG"/>
-                    </h3>
-                    
-                </div>
+                                ? props.data.map((d, i) => (
+                                    <div key={`${d.title}-${i}`} className='col-sm-6 col-md-4 col-lg-4 upcoming-event-item'>
+                                    <h5 className="upcoming-event-title">{d.title}</h5>
+                                    <h6 className="upcoming-event-date">{d.date}</h6>
+                                    <p className='upcoming-event-description'>{d.description}</p>
+                                    </div>
+                                ))
+                                : 'Loading...'}
+                    </div>
+                    <div className="calendars">
+                        <div className='weekly-calendar'>
+                            <h3>
+                                Weekly Calendar
+                                <br /><br /><br />
+                                <br /><br /><br />
+                                <br /><br /><br />
+                            </h3>
+                        </div>
 
-                <div className='monthly-calendar'>
-                    <h4>
-                        Monthly Calendar
-                        <br></br>
-                        <iframe src="https://calendar.google.com/calendar/embed?src=justinvierstra%40gmail.com&ctz=America%2FLos_Angeles" className="scheduleMonthly" frameBorder="0" scrolling="no"></iframe>
-                    </h4>
+                        <div className='monthly-calendar'>
+                            <h4>
+                                Monthly Calendar
+                                <br></br>
+                                <iframe src="https://calendar.google.com/calendar/embed?src=justinvierstra%40gmail.com&ctz=America%2FLos_Angeles" width="700" height="500" frameBorder="0" scrolling="no"></iframe>
+                            </h4>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 

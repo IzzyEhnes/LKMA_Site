@@ -709,12 +709,16 @@ header .intro-text {
 
 #calendar {
   padding: 100px 0;
-  background: rgb(32, 33, 36);
+}
+#calendar h6{
+  font-size: 20px;
+}
+#calendar h5{
+  font-size: 25px;
 }
 #calendar h4{
   font-size: 32px;
   font-weight: 300;
-  background-color: rgb(32, 33, 36);
   padding: 40px;
   text-transform: none;
   text-align: left; 
@@ -722,14 +726,12 @@ header .intro-text {
 #calendar h3{
   font-size: 32px;
   font-weight: 300;
-  background-color: rgb(32, 33, 36);
   padding: 40px;
   text-align: left;
 }
 #calendar h2{
   font-size: 32px;
   font-weight: 300;
-  background-color: rgb(32, 33, 36);
   padding: 40px;
   text-transform: none;
   text-align: left;
@@ -764,17 +766,65 @@ header .intro-text {
   left: 50%
 }
 
-#calendar .scheduleWeeklyIMG{
-  position: relative;
-  margin-top: 5%;
-  width: 70%;
+#calendar .calendar-cotainer {
+  width: 100%;
+  overflow: hidden;
 }
 
-#calendar .scheduleMonthly{
-  position: relative;
-  margin-top: 5%;
-  height: 50%;
-  width: 70%;
+#calendar .calendars {
+  float: left;
+  display: grid;
+}
+
+#calendar .weekly-calendar  .monthly-calendar {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-block;
+}
+
+#calendar .weekly-calendar {
+  background-color: rgb(63, 63, 63);
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+#calendar .monthly-calendar {
+  background-color: rgb(63, 63, 63);
+  margin-right: 2%;
+}
+
+#calendar .upcoming-events {
+  background-color: rgb(63, 63, 63);
+  width: 31%;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+}
+
+#calendar .upcoming-event-item {
+  background-color: rgb(95, 95, 95);
+  margin: 3%;
+  padding: 4%;
+  width: 94%;
+  text-align: center;
+}
+
+#calendar .upcoming-event-title {
+  padding: 1%;
+  margin: 1%;
+  text-align: center;
+}
+
+#calendar .upcoming-event-date {
+  padding: 1%;
+  margin: 1%;
+  text-align: center;
+}
+
+#calendar .upcoming-event-description {
+  padding: 1%;
+  margin: 1%;
+  text-align: center;
 }
 
 /* Contact Page */
@@ -1007,6 +1057,23 @@ header .intro-text {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+#admin .access-code {
+  margin: 10%;
+}
+
+#admin .form-container h3 {
+  margin: 2%;
+}
+
+#admin .form-container button {
+  margin: 1%;
+}
+
+#admin .form-container input {
+  margin: 2%;
+  color: black;
 }
 
 /* Profile Section */

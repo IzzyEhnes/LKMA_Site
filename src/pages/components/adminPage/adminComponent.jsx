@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { loggingOut } from "../loginPage/loginComponent";
 import { exportEmail, inputFirstName, inputLastName, login } 
   from "../loginPage/loginComponent";
+import {useRef} from 'react';
 
 var logOut = true;
 var renderPage = "";
@@ -37,6 +38,25 @@ export const AdminComponent = (props) => {
     }
   }, [renderPage]);
 
+
+  const accessCode=useRef(null);
+
+  const handleSubmit = async (e) => {
+    alert("Success! The access code has been updated.")
+    e.preventDefault();
+    const { code } = e.target.elements;
+    let details = {
+      code: code.value,
+    };
+    let response = await fetch("http://localhost:3001/changeAccessCode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(details),
+    });
+  };
+
   return (
     <div id='admin' className='text-center'>
       <div className='container'>
@@ -56,7 +76,9 @@ export const AdminComponent = (props) => {
         </div>
         <div className='row'>
           <div className="column">
-            <button>Change Password</button>
+            <NavLink to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink>
           </div>
           <div className="column">
             <NavLink className="nav-link" to="/login">
@@ -76,6 +98,16 @@ export const AdminComponent = (props) => {
         </div>
         <div className='row'>
           <button>See Student Info</button>
+        </div>
+        <div className="access-code">
+          <div className="form-container">
+            <form onSubmit={handleSubmit}>
+                  <h3>Change access code:</h3>
+                  <input ref={accessCode} id="code" type="number" placeholder="Enter a new access code" required/>
+                  <button type="submit">Submit</button>
+                  <div id="submitMessage"></div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
