@@ -25,9 +25,13 @@ export const CalendarComponent = (props) => {
                         <div className='weekly-calendar'>
                             <h3>
                                 Weekly Calendar
-                                <br /><br /><br />
-                                <br /><br /><br />
-                                <br /><br /><br />
+                                <div className='weekly schedule'>
+                                <h3>
+                                    Weekly Calendar
+                                    <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG"/>
+                                </h3>
+                    
+                </div>
                             </h3>
                         </div>
 
