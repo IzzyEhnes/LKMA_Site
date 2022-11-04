@@ -2367,4 +2367,11 @@ td {
     visibility: visible;
     background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   }
+  #youtubeplayer .youtubeplayer-item {
+    overflow: auto;
+    display: block;
+    margin-left: 20%;
+    margin-right: 20%;
+    white-space: pre-line;
+  }
 }
