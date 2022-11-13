@@ -123,8 +123,8 @@ export const AdminComponent = (props) => {
               </tr>
             </thead>
             <tbody>
-              {students.StudentInfoData.map((student) => (
-                <tr>
+              {students.StudentInfoData.map((student, i) => (
+                <tr key={i}>
                   <td>{student.account_id}</td>
                   <td>{student.student_id}</td>
                   <td>{student.first_name}</td>
