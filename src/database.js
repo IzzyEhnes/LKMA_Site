@@ -31,7 +31,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "CicadaCode@7",
+    password: "LKMAWdevNoah",
     database: "lkmadb",
 });
 
@@ -139,11 +139,47 @@ app.post("/accessCode", (req, res) => {
 
 app.post("/changeAccessCode", (req, res) => {
     const accessCode = req.body.code;
-    
+
     connection.query("UPDATE access_code SET access_code = ?",
     [accessCode], (err, result) => {
         if (err) {
             console.log(err);
+        }
+    });
+
+});
+
+app.post("/changePhone", (req, res) => {
+    const email = req.body.email;
+    const phone = req.body.phone;
+    
+    connection.query("SELECT * FROM account WHERE phone_number = ?",
+    [phone], (err, result) => {
+
+        if (err) {
+            console.log(err);
+        }
+
+        if(result.length > 0) {
+            res.status(200).json({ message: "Duplicate Phone Number", result });
+        }
+        else {
+            connection.query("UPDATE account SET phone_number = ? WHERE email = ?",
+            [phone, email], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    connection.query("SELECT * FROM account WHERE email = ?",
+                        [email], (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } 
+                            else {
+                                res.status(200).json({ message: "Changed Phone Successfully", result });
+                            }
+                        });
+                }  
+            });
         }
     });
 
@@ -251,7 +287,7 @@ app.post("/email", (req, res) => {
         if (err) {
             console.log(err);
             res.status(200).json({ message: "email is not valid", err});
-        } 
+        }
 
         if (result.length > 0) {
             res.status(200).json({ message: "email is already being used"});
@@ -261,12 +297,12 @@ app.post("/email", (req, res) => {
                 if (err) {
                     console.log(err);
                     res.status(200).json({ message: "email is not valid", err});
-                } 
+                }
                 res.status(200).json({ message: "email succesfully changed", result, 
                     changedEmail: newEmail});
             });
         }
-    });    
+    });
 });
 
 
