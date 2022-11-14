@@ -51,6 +51,8 @@ export const AdminComponent = (props) => {
       setPhone(exportPhone);
       setProfileEmail(exportEmail);
       setImageFilePath(filePath);
+    } else {
+      setImageFilePath("\\img\\profile-blank-whitebg.png");
     }
 
     if (resetImage) {			
