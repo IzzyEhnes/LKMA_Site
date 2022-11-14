@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 var exportEmail = 'N/A';
 var exportPassword = '';
+var exportPhone = 'N/A';
 var inputFirstName = 'N/A';
 var inputLastName = 'N/A';
 var filePath = '';
@@ -59,6 +60,10 @@ export const changeEmail = (newEmail) => {
   exportEmail = newEmail;
 }
 
+export const changePhone = (newPhone) => {
+  exportPhone = newPhone;
+}
+
 export const loggingOut = () => {
   login = false;
   adminLogout();
@@ -70,6 +75,9 @@ export const GoToLogin = () => {
   exportPassword = expRegPassword;
   inputFirstName = regFirstName;
   inputLastName = regLastName;
+  exportPhone = 'N/A';
+  createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
+  window.localStorage.setItem("user", JSON.stringify(createUser));
   filePath = "\\img\\" + exportImage;
   login = true;
   logIn();
@@ -106,7 +114,8 @@ export const LoginComponent = (props) => {
           setLoginStatus("Successfully logged in");
     
           inputFirstName = response.data.result[0].first_name;
-          inputLastName = response.data.result[0].last_name;    
+          inputLastName = response.data.result[0].last_name;
+          exportPhone = response.data.result[0].phone_number;
           const fileName = response.data.fileName;
           filePath = response.data.filePath;
 
@@ -116,7 +125,7 @@ export const LoginComponent = (props) => {
 
           setUploadedFile({fileName, filePath});
           uploadFile = uploadedFile.filePath;
-          createUser = {exportEmail, inputFirstName, inputLastName};
+          createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
           setUser(response.data);
         } else {
           setLoginStatus(response.data.message);
@@ -303,4 +312,4 @@ function resetForm(){
     )
   }
 
-  export {exportEmail, exportPassword, inputFirstName, inputLastName, filePath, uploadFile, login};
+  export {exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, uploadFile, login};

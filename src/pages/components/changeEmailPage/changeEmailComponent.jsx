@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
-import { exportEmail, inputFirstName, inputLastName, changeEmail } from "../loginPage/loginComponent";
+import { exportEmail, inputFirstName, inputLastName, exportPhone, changeEmail } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 import axios from "axios";
 
@@ -33,7 +33,7 @@ export const ChangeEmailComponent = (props) => {
           if (response.data.message !== "email is already being used") {
             changeEmail(response.data.changedEmail);
             validEmail = false;
-            const user = {exportEmail, inputFirstName, inputLastName};
+            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
             window.localStorage.setItem("user", JSON.stringify(user));
             if (changeAdminInfo) {
               //implement new admin email in database via DB query
