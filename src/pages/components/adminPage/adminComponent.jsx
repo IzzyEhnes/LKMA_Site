@@ -154,7 +154,7 @@ export const AdminComponent = (props) => {
                 
             storageData = JSON.parse(localStorage.getItem("user"));
           }
-          navigate("/profile");
+          navigate("/admin");
         });
       } catch (err) {
         if (err.response.status === 500) {
@@ -212,7 +212,7 @@ export const AdminComponent = (props) => {
             <h3>Email</h3>
             {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
             <h3>Phone Number</h3>
-            {storageData? (storageData.exportPhone? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)}
+            {storageData? (storageData.exportPhone && storageData.exportPhone.length>9? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone}</h1>)) : (<h1>{phone}</h1>)}
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
@@ -264,24 +264,20 @@ export const AdminComponent = (props) => {
             <thead>
               <tr>
                 <th> Account ID </th>
-                <th> Student ID </th>
                 <th> First Name </th>
                 <th> Last Name </th>
                 <th> Email </th>
-                <th> Password </th>
                 <th> Phone Number </th>
                 <th> Account Image </th>
               </tr>
             </thead>
             <tbody>
-              {students.StudentInfoData.map((student, i) => (
+              {students.map((student, i) => (
                 <tr key={i}>
                   <td>{student.account_id}</td>
-                  <td>{student.student_id}</td>
                   <td>{student.first_name}</td>
                   <td>{student.last_name}</td>
                   <td>{student.email}</td>
-                  <td>{student.password}</td>
                   <td>{student.phone_number}</td>
                   <td>{student.account_image}</td>
                 </tr>

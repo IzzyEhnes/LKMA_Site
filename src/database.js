@@ -20,7 +20,9 @@ const fromEmail = "teamname404@gmail.com";  // temporary, for testing purposes; 
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 
-
+// goes with all imports
+// for writing sql query results to studentInfoData.json file
+const fs = require('fs')
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
@@ -192,6 +194,22 @@ app.post("/admin", (req, res) => {
         } else {
             res.status(200).json({ message: "Retrieved admin emails", result});
         }  
+    });
+
+    // to show the database table on the admin page
+    connection.execute('SELECT * FROM account;', function (err,result) {
+        if (err) throw err;
+
+        const finished = (error) => {
+            if(error) {
+                console.error(error);
+                return;
+            }
+        }
+
+        result = JSON.stringify(result, null, 2);
+        fs.writeFile('pages/data/studentInfoData.json', result, finished)
+        // console.log(result);
     });
 });
 
