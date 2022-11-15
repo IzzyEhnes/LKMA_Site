@@ -123,14 +123,21 @@ const changePassword = () => {
                         <div id="passwordConfirmError"></div>
                         <div id="matchingError"></div>
 
-                        <input ref={inputPassword} id="password" type="password" 
-                            placeholder="Password" minlength="8" required/>
+                        <input ref={inputPassword}
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        minLength="8"
+                        required={true}/>
 
-                        <input ref={inputPasswordConfirm} id="PasswordConfirm" type="password"
-                        placeholder="Confirm Password" minlength="8" onChange={(e) => {
-                    setNewPassword(e.target.value);
-                    validate(); 
-                        }} required/>
+                        <input ref={inputPasswordConfirm}
+                        id="PasswordConfirm"
+                        type="password"
+                        placeholder="Confirm Password"
+                        minLength="8" 
+                        onChange={(e) => {setNewPassword(e.target.value); validate(); }}
+                        required={true}/>
+
                         <button type="button" onClick={changeProfilePassword}>Submit</button>
                     </form>
                 </div>

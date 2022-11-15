@@ -33,7 +33,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "LKMAWdevNoah",
+    password: "Sen10!",
     database: "lkmadb",
 });
 
@@ -276,6 +276,18 @@ app.post("/uploadImage", (req, res) => {
         res.status(200).json({ message: "", result, 
             fileName: image, filePath:'/img/' + image});
     });   
+});
+
+  //DB Method for Account Removal from Admin
+app.post("/accountRemoval", (req, res) => {
+    const accountId = req.body.accountId;
+
+    connection.query("DELETE FROM account WHERE account_id = ?",
+    [accountId], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+    });
 });
 
 // DB Method to change password of account
