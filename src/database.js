@@ -20,6 +20,8 @@ const fromEmail = "teamname404@gmail.com";  // temporary, for testing purposes; 
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 
+// for writing sql query results to studentInfoData.json file
+const fs = require('fs')
 
 const PORT = process.env.PORT || 3001;
 
@@ -31,7 +33,7 @@ const connection = mysql.createConnection({
     user: "root",
     host: "localhost",
     //adapt password to your MySQL password
-    password: "LKMAWdevNoah",
+    password: "Mrhatupo1345",
     database: "lkmadb",
 });
 
@@ -193,6 +195,22 @@ app.post("/admin", (req, res) => {
             res.status(200).json({ message: "Retrieved admin emails", result});
         }  
     });
+
+    // to show the database table on the admin page
+    connection.execute('SELECT * FROM account;', function (err,result) {
+        if (err) throw err;
+        
+        const finished = (error) => {
+            if(error) {
+                console.error(error);
+                return;
+            }
+        }
+        
+        result = JSON.stringify(result, null, 2);
+        fs.writeFile('pages/data/studentInfoData.json', result, finished)
+        // console.log(result);
+    });
 });
 
 /*
@@ -254,7 +272,7 @@ app.post("/uploadImage", (req, res) => {
         if (err) {
             console.log(err);
         } 
-            
+
         res.status(200).json({ message: "", result, 
             fileName: image, filePath:'/img/' + image});
     });   
