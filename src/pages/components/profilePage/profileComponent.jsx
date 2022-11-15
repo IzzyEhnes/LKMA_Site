@@ -338,7 +338,7 @@ export const ProfileComponent = (props) => {
             <h3>Email</h3>
             {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
             <h3>Phone Number</h3>
-            {storageData? (storageData.exportPhone? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)}
+            {storageData? (storageData.exportPhone && storageData.exportPhone.length>9? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone}</h1>)) : (<h1>{phone}</h1>)}
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;

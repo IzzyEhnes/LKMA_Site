@@ -1,34 +1,162 @@
-{
-    "StudentInfoData": [
-        {
-            "account_id" : 1,
-            "student_id": 5,
-            "first_name": "exampleName1",
-            "last_name": "exampleLName1",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-916",
-            "account_image": "example.jpg"
-        },
-        {
-            "account_id" : 2,
-            "student_id": 6,
-            "first_name": "exampleName2",
-            "last_name": "exampleLName2",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-548",
-            "account_image": "example.jpg"
-        },
-        {
-            "account_id" : 3,
-            "student_id": 5,
-            "first_name": "exampleName3",
-            "last_name": "exampleLName3",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-408",
-            "account_image": "example.jpg"
-        }
-    ]
-}
+[
+  {
+    "account_id": 1,
+    "student_id": null,
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "admin@gmail.com",
+    "password": "PasswordAd",
+    "phone_number": "5556789090",
+    "account_image": "Grasses.png"
+  },
+  {
+    "account_id": 2,
+    "student_id": null,
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "email": "ajd@gmail.com",
+    "password": "Password",
+    "phone_number": "3333",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 3,
+    "student_id": null,
+    "first_name": "jo",
+    "last_name": "jo",
+    "email": "jojo@gmail.com",
+    "password": "Password",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 4,
+    "student_id": null,
+    "first_name": "ja",
+    "last_name": "ja",
+    "email": "jaja@gmail.com",
+    "password": "Password",
+    "phone_number": "2222",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 5,
+    "student_id": null,
+    "first_name": "ha",
+    "last_name": "ha",
+    "email": "haha@gmail.com",
+    "password": "Password",
+    "phone_number": "1111",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 6,
+    "student_id": null,
+    "first_name": "ahah",
+    "last_name": "ahah",
+    "email": "aha@gmail.com",
+    "password": "PasswordTest",
+    "phone_number": "9167445050",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 7,
+    "student_id": null,
+    "first_name": "pa",
+    "last_name": "pa",
+    "email": "apa@gmail.com",
+    "password": "Password22",
+    "phone_number": "22",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 8,
+    "student_id": null,
+    "first_name": "lala",
+    "last_name": "lala",
+    "email": "alll@gmail.com",
+    "password": "Password",
+    "phone_number": "8886765454",
+    "account_image": "Grasses.png"
+  },
+  {
+    "account_id": 9,
+    "student_id": null,
+    "first_name": "aj",
+    "last_name": "aj",
+    "email": "aj@gmail.com",
+    "password": "Password",
+    "phone_number": "6789",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 10,
+    "student_id": null,
+    "first_name": "oj",
+    "last_name": "oj",
+    "email": "ao@gmail.com",
+    "password": "Password",
+    "phone_number": "2456",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 11,
+    "student_id": null,
+    "first_name": "aa",
+    "last_name": "aa",
+    "email": "aa@gmail.com",
+    "password": "Password",
+    "phone_number": "346345",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 12,
+    "student_id": null,
+    "first_name": "First",
+    "last_name": "Last",
+    "email": "alf@gmail.com",
+    "password": "Password",
+    "phone_number": "2123456767",
+    "account_image": "Grasses.png"
+  },
+  {
+    "account_id": 13,
+    "student_id": null,
+    "first_name": "Ga",
+    "last_name": "Ga",
+    "email": "agga@gmail.com",
+    "password": "Pa",
+    "phone_number": "6765144343",
+    "account_image": "Grasses.png"
+  },
+  {
+    "account_id": 14,
+    "student_id": null,
+    "first_name": "na",
+    "last_name": "na",
+    "email": "an@gmail.com",
+    "password": "Password",
+    "phone_number": "2342453453",
+    "account_image": "Grasses.png"
+  },
+  {
+    "account_id": 15,
+    "student_id": null,
+    "first_name": "test",
+    "last_name": "test",
+    "email": "atest@gmail.com",
+    "password": "Password",
+    "phone_number": "5154325757",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 16,
+    "student_id": null,
+    "first_name": "he",
+    "last_name": "he",
+    "email": "aeh@gmail.com",
+    "password": "Password",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  }
+]
