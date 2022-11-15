@@ -1,29 +1,34 @@
-[
-  {
-    "account_id": 158,
-    "first_name": "Steve",
-    "last_name": "Sclafani",
-    "email": "sclafanisteve@hotmail.com",
-    "password": "P@ssword",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": 159,
-    "first_name": "Isaac",
-    "last_name": "Sclafani",
-    "email": "isaacsclafani@gmail.com",
-    "password": "Isaacsclafani15",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": 160,
-    "first_name": "Yanira",
-    "last_name": "Sclafani",
-    "email": "yanirasclafani@gmail.com",
-    "password": "Yanirasclafani15",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  }
-]
+{
+    "StudentInfoData": [
+        {
+            "account_id" : 1,
+            "student_id": 5,
+            "first_name": "exampleName1",
+            "last_name": "exampleLName1",
+            "email": "example@gmail.com",
+            "password": "p@ssword",
+            "phone_number": "(916) 916-916",
+            "account_image": "example.jpg"
+        },
+        {
+            "account_id" : 2,
+            "student_id": 6,
+            "first_name": "exampleName2",
+            "last_name": "exampleLName2",
+            "email": "example@gmail.com",
+            "password": "p@ssword",
+            "phone_number": "(916) 916-548",
+            "account_image": "example.jpg"
+        },
+        {
+            "account_id" : 3,
+            "student_id": 5,
+            "first_name": "exampleName3",
+            "last_name": "exampleLName3",
+            "email": "example@gmail.com",
+            "password": "p@ssword",
+            "phone_number": "(916) 916-408",
+            "account_image": "example.jpg"
+        }
+    ]
+}
