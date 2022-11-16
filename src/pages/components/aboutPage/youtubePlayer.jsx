@@ -23,13 +23,13 @@ class YoutubePlayer extends Component{
         const {videoID} = this.props
         return (
             <div className="Container">
-            <p>
+            <span>
                 <YouTube
                  videoID={videoID}
                  opts={opts}
                    onReady={this.videoOnReady}
                  />
-            </p>
+            </span>
             </div>
         );
     }

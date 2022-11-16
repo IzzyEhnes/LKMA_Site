@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {useRef} from 'react';
 import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, exportPassword, inputFirstName, inputLastName, filePath, 
-  login } from "../loginPage/loginComponent";
+import { exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, 
+  login, changePhone } from "../loginPage/loginComponent";
 
 var loggedIn = true;
 var logOut = true;
@@ -162,22 +163,36 @@ export const ProfileComponent = (props) => {
 
 	const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
 	const [profileEmail, setProfileEmail] = useState("");
 	const [imageFilePath, setImageFilePath] = useState("");
 
 	const navigate = useNavigate();
 
+  const newPhone = useRef(null);
+
 	useEffect(() => {
     storageData = JSON.parse(localStorage.getItem("user"));
+    /* if(storageData.exportEmail) { exportEmail = storageData.exportEmail; }
+    if(storageData.inputFirstName) { inputFirstName = storageData.inputFirstName; }
+    if(storageData.inputLastName) { inputLastName = storageData.inputLastName; }
+    if(storageData.exportPhone) { exportPhone = storageData.exportPhone; } */
     storageDataFile = JSON.parse(localStorage.getItem("filePath"));
 		if (loggedIn && login) {
 			if (firstLogin < 5) {
 				setImageFilePath(filePath);
 				firstLogin++;
 			}
+
+      /* inputFirstName = storageData.inputFirstName;
+      inputLastName = storageData.inputLastName;
+      exportPhone = storageData.exportPhone;
+      exportEmail = storageData.exportEmail;
+      filePath = storageData.filePath; */
       
       setFirstName(inputFirstName);
       setLastName(inputLastName);
+      setPhone(exportPhone);
 			setProfileEmail(exportEmail);
 			setImageFilePath(filePath);
 		} else {
@@ -244,9 +259,37 @@ export const ProfileComponent = (props) => {
       setFirstName("N/A");
       setLastName("N/A");
 			setProfileEmail("N/A");
+      setPhone("N/A");
 			setImageFilePath("\\img\\profile-blank-whitebg.png");
 		}
 	}, [uploadImage, tempImage, resetImage]);
+
+  const phoneSubmit = () => {
+
+    const formData = new FormData();
+
+      formData.append('email', storageData.exportEmail);
+			formData.append('phone', phone);
+
+      try {
+        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+          if(response.data.message === "Changed Phone Successfully") {
+            changePhone(response.data.result[0].phone_number);
+            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
+            window.localStorage.setItem("user", JSON.stringify(user));
+                
+            storageData = JSON.parse(localStorage.getItem("user"));
+          }
+          navigate("/profile");
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
+        }
+      }
+  }
 	
 	return (  
     <div id='student' className='text-center'>
@@ -261,7 +304,7 @@ export const ProfileComponent = (props) => {
           </div>
           <div className='row'>
             <div className="login-form">
-              <label htmlFor="file-upload" className="custom-file">Choose File</label>
+              <label htmlFor="file-upload" className="custom-file">Choose Image</label>
                 <input data-testid="uploadFile" type="file" id="file-upload" 
                 name="imageFile" accept="image/*" onChange={(e) => {
                   tempImage = e.target.files[0];
@@ -287,10 +330,16 @@ export const ProfileComponent = (props) => {
               </NavLink>
             </div>
           </div>
-          <div className="column">
+          <div className="column-left">
+            <h3>First Name</h3>
             {storageData? (storageData.inputFirstName? (<h1 data-testid="firstName">{storageData.inputFirstName}</h1>) : ((<h1 data-testid="firstName">{storageData.fnameReg}</h1>))) : (<h1 data-testid="firstName">{firstName}</h1>)} 
+            <h3>Last Name</h3>
             {storageData? (storageData.inputLastName? (<h1 data-testid="firstName">{storageData.inputLastName}</h1>) : ((<h1 data-testid="firstName">{storageData.lnameReg}</h1>))) : (<h1 data-testid="firstName">{lastName}</h1>)}
-            <NavLink className="nav-link" to="/login">
+            <h3>Email</h3>
+            {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
+            <h3>Phone Number</h3>
+            {storageData? (storageData.exportPhone && storageData.exportPhone.length>9? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone}</h1>)) : (<h1>{phone}</h1>)}
+            <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
                 localStorage.clear();
@@ -298,34 +347,27 @@ export const ProfileComponent = (props) => {
             </NavLink>
           </div>
           <div className="column">
-            {storageData? (storageData.exportEmail? (<h1>Email: {storageData.exportEmail}</h1>) : ((<h1>Email: {storageData.emailReg}</h1>))) : (<h1>Email: {profileEmail}</h1>)}
-            {/*If Phone # is in DB, display, else display Add Phone Button.*/}
-            <h1>Phone # Here</h1>
-            <button>Add Phone</button>
-          </div>
-        </div>
-        <div className='row'>
-          <div className="column">
-            <NavLink to="/ChangeEmail">
-              <button>Change Email</button>
-            </NavLink> 
-          </div>
-          <div className="column">
-            <NavLink to="/ResetPassword">
-              <button>Change Password</button>
-            </NavLink> 
-          </div>
-        </div>
-        <div className='row'>
-          <div className="column">
-            <a href={props.data ? props.data.uploadLink : ""} target="_blank">
+            <a className="row" href={props.data ? props.data.uploadLink : ""} target="_blank">
               <button>Upload Assignment</button>
             </a>
-          </div>
-          <div className="column">
-            <a href={props.data ? props.data.downloadLink : ""} target="_blank">
+            <a className="row" href={props.data ? props.data.downloadLink : ""} target="_blank">
               <button>Download Assignment</button>
             </a>
+            <NavLink className='row' to="/ChangeEmail">
+              <button>Change Email</button>
+            </NavLink> 
+            <NavLink className='row' to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink>
+            <div className="row text-input">
+              <input ref={newPhone} className="text" type="text"
+                    placeholder="Enter new phone" onChange={(e) => {
+                      setPhone(e.target.value);
+                    }} required />
+            </div>
+            <div className="row">
+              <button onClick={phoneSubmit}>Click to Update Phone</button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AdminComponent } from "./components/adminPage/adminComponent";
+import JsonData from "./data/adminData.json";
 import SmoothScroll from "smooth-scroll";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -8,10 +9,14 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 });
 
 const Admin = () => {
+  const [adminPageData, setAdminPageData] = useState({});
+  useEffect(() => {
+    setAdminPageData(JsonData);
+  }, []);
+
   return (
     <div>
-      {/*Path to this page needs to be protected, such that only an logged in, verified admin can load this page */}
-      <AdminComponent />
+      <AdminComponent data={adminPageData.ProfileData}/>
     </div>
   );
 };

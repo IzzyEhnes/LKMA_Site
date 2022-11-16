@@ -11,7 +11,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Calendar from './pages/Calendar';
 import Profile from './pages/Profile';
-import SignUp from './pages/Signup';
+import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TokenExpired from './pages/TokenExpired';

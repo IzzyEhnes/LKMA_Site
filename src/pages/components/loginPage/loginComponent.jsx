@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 var exportEmail = 'N/A';
 var exportPassword = '';
+var exportPhone = 'N/A';
 var inputFirstName = 'N/A';
 var inputLastName = 'N/A';
 var filePath = '';
@@ -19,6 +20,7 @@ var validLogin = false;
 var login = false;
 var adminLogin = "";
 var createUser;
+var login_attempts = 5; 
 
 const validateEmail = (email) => {
   return String(email)
@@ -58,6 +60,10 @@ export const changeEmail = (newEmail) => {
   exportEmail = newEmail;
 }
 
+export const changePhone = (newPhone) => {
+  exportPhone = newPhone;
+}
+
 export const loggingOut = () => {
   login = false;
   adminLogout();
@@ -69,6 +75,9 @@ export const GoToLogin = () => {
   exportPassword = expRegPassword;
   inputFirstName = regFirstName;
   inputLastName = regLastName;
+  exportPhone = 'N/A';
+  createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
+  window.localStorage.setItem("user", JSON.stringify(createUser));
   filePath = "\\img\\" + exportImage;
   login = true;
   logIn();
@@ -105,7 +114,8 @@ export const LoginComponent = (props) => {
           setLoginStatus("Successfully logged in");
     
           inputFirstName = response.data.result[0].first_name;
-          inputLastName = response.data.result[0].last_name;    
+          inputLastName = response.data.result[0].last_name;
+          exportPhone = response.data.result[0].phone_number;
           const fileName = response.data.fileName;
           filePath = response.data.filePath;
 
@@ -115,7 +125,7 @@ export const LoginComponent = (props) => {
 
           setUploadedFile({fileName, filePath});
           uploadFile = uploadedFile.filePath;
-          createUser = {exportEmail, inputFirstName, inputLastName};
+          createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
           setUser(response.data);
         } else {
           setLoginStatus(response.data.message);
@@ -139,27 +149,15 @@ export const LoginComponent = (props) => {
     } else if (!(validateEmail(inputEmail.current.value))){
       console.log("Email invalid")
       document.getElementById("emailError").innerHTML = "Please enter a valid email"
-    }else{
+    } else{
       console.log("Email valid")
       document.getElementById("emailError").innerHTML = ""
 
       if(inputPassword.current.value === ""){
         console.log("No password provided")
         document.getElementById("passwordError").innerHTML = "Please provide a password"
-      } else if (inputPassword.current.value.length < 8){
-        console.log("Password must be 8 characters or longer in length")
-        document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
-      } else if (!(checkUppercase(inputPassword.current.value))){
-        console.log("Password must contain at least one uppercase letter")
-        document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
-      } else if (!(checkLowercase(inputPassword.current.value))){
-        console.log("Password must contain at least one lowercase letter")
-        document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
-      } else if (inputPassword.current.value.length > 7 && 
-        checkUppercase(inputPassword.current.value) && 
-        checkLowercase(inputPassword.current.value)) {
-          console.log("Valid Password")
-          document.getElementById("passwordError").innerHTML = ""
+      
+      } else {
           Login();
       }
     } 
@@ -203,18 +201,46 @@ export const LoginComponent = (props) => {
     
     if (validLogin) {
       login = true;
+
+      document.getElementById("passwordError").innerHTML = ""
+  
       logIn();
       adminLogIn();
 
       //populate adminLogin with the admin email address
       checkAdmin();
+      resetForm();
+
       return 0;      
     } else {
-      console.log("Incorrect login info. Please enter the correct email and password.")
-      document.getElementById("passwordError").innerHTML 
-        = "Incorrect login info. Please enter the correct email and password."
+
+      login_attempts --;
+
+			if(login_attempts == 0){
+				document.getElementById("email").disabled=true;
+				document.getElementById("password").disabled=true;
+				document.getElementById("signin").disabled=true;
+
+        document.getElementById("passwordError").innerHTML 
+        = "Too many incorrect log in attempts. Please try again later."
+			}
+
+      else {
+        console.log("Incorrect login info. Please enter the correct email and password.")
+        document.getElementById("passwordError").innerHTML 
+          = "Incorrect login info. Please enter the correct email and password."
+      }
     }
   }
+ 
+
+function resetForm(){
+	login_attempts = 5;
+	document.getElementById("email").disabled=false;
+	document.getElementById("password").disabled=false;
+	document.getElementById("signin").disabled=false;
+}
+ 
 
     return (
       <div id='login' className='text-center'>
@@ -246,7 +272,7 @@ export const LoginComponent = (props) => {
               </div>
               */}
               <div className="form-container sign-in-container">
-                <form action="#">
+                <form>
                   <h1>Sign in</h1>
                   <div id="emailError"></div>
                   <div id="passwordError"></div>
@@ -263,7 +289,7 @@ export const LoginComponent = (props) => {
                       Validate();
                   }} required/>
                   <a href="/forgot">Forgot your password?</a>
-                  <button type="button" data-testid="loginSubmit" 
+                  <button type="button" id="signin" data-testid="loginSubmit" 
                     onClick={MoveToProfile}>Sign In
                   </button>
                 </form>
@@ -286,4 +312,4 @@ export const LoginComponent = (props) => {
     )
   }
 
-  export {exportEmail, exportPassword, inputFirstName, inputLastName, filePath, uploadFile, login};
+  export {exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, uploadFile, login};

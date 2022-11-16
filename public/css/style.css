@@ -254,6 +254,12 @@ a:focus,
   margin: 0 auto;
   margin-bottom: 60px;
 }
+
+.intro-button {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 header .intro-text {
   padding-top: 350px;
   padding-bottom: 200px;
@@ -943,20 +949,34 @@ header .intro-text {
 /* Student Page Section */
 
 #student {
-  padding: 100px 0;
+  padding: 10px 0;
   background: rgb(32, 33, 36);
 }
 
 #student .column {
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   float: left;
   width: 50%;
+}
+
+#student .column-left {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  float: left;
+  width: 50%;
+}
+
+#student .section-title {
+  margin-bottom: 20px;
 }
 
 #student img {
   border-width: 10px;
   border-style: solid;
-  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
+  border-image: linear-gradient(to right, #CD2E3A 0%, #fff 50%, #0a1aff 100%) 1;
   max-width: 500px;
   max-height: 500px;
   width: auto;
@@ -964,27 +984,57 @@ header .intro-text {
 }
 
 #student h1 {
+  color:black;
   font-size: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+#student h2 {
+  color:black;
 }
 
 #student h3 {
+  color:rgb(44, 44, 44);
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+#student .container {
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 1000px;
+	max-width: 100%;
+	min-height: 600px;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 #student button {
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 20px;
 	border: 1px solid #0a1aff;
 	background-color: #0a1aff;
 	color: #FFFFFF;
 	font-size: 15px;
 	font-weight: bold;
-	padding: 12px 35px;
+	padding: 12px 15px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+#student .red button {
+	border: 1px solid #CD2E3A;
+	background-color: #CD2E3A;
 }
 
 #student input {
@@ -994,7 +1044,22 @@ header .intro-text {
 	color: #FFFFFF;
 	font-size: 15px;
 	font-weight: bold;
-	padding: 12px 35px;
+	padding: 12px 15px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#student .text-input input {
+  border-radius: 20px;
+	border: 1px solid #CD2E3A;
+	background-color: #FFFFFF;
+	color: black;
+  text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+  min-width: 250px;
+	padding: 12px 15px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
@@ -1007,7 +1072,7 @@ header .intro-text {
 	color: #FFFFFF;
 	font-size: 15px;
 	font-weight: bold;
-	padding: 12px 35px;
+	padding: 12px 15px;
   margin-top: 20px;
   margin-right: 40px;
 	letter-spacing: 1px;
@@ -1026,66 +1091,179 @@ header .intro-text {
 /* Admin Page Section */
 
 #admin {
-  padding: 100px 0;
   background: rgb(32, 33, 36);
 }
 
-#admin .row {
-  padding-bottom: 30px;
+#admin .section-title {
+  margin-bottom: 20px;
 }
 
 #admin .column {
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   float: left;
-  width: 33%;
+  width: 50%;
+}
+
+#admin .column-left {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  float: left;
+  width: 50%;
+  /* display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start; */
 }
 
 #admin img {
   border-width: 10px;
   border-style: solid;
-  border-image: linear-gradient(#CD2E3A 0%, #ca6373 100%) 1;
-  width: 500px;
+  border-image: linear-gradient(to right, #CD2E3A 0%, #fff 50%, #0a1aff 100%) 1;
+  max-width: 500px;
+  max-height: 500px;
+  width: auto;
   height: auto;
 }
 
 #admin h1 {
+  color:black;
   font-size: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+#admin h2 {
+  color:black;
 }
 
 #admin h3 {
+  color:rgb(44, 44, 44);
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-top: 10px;
 }
 
 #admin button {
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 20px;
 	border: 1px solid #0a1aff;
 	background-color: #0a1aff;
 	color: #FFFFFF;
 	font-size: 15px;
 	font-weight: bold;
-	padding: 12px 35px;
+	padding: 12px 15px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
 }
 
+#admin .red button {
+	border: 1px solid #CD2E3A;
+	background-color: #CD2E3A;
+}
+
+#admin .container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+	background-color: #fff;
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+	position: relative;
+	overflow: hidden;
+	width: 1000px;
+	max-width: 100%;
+	min-height: 600px;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+#admin .container-table {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+	overflow: hidden;
+	width: 1000px;
+	max-width: 100%;
+	min-height: 600px;
+}
+
+#admin input {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 15px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#admin .text-input input {
+  border-radius: 20px;
+	border: 1px solid #CD2E3A;
+	background-color: #FFFFFF;
+	color: black;
+  text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+  min-width: 250px;
+	padding: 12px 15px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#admin label {
+  border-radius: 20px;
+	border: 1px solid #0a1aff;
+	background-color: #0a1aff;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 12px 15px;
+  margin-top: 20px;
+  margin-right: 40px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+  display: inline-block;
+	transition: transform 80ms ease-in;
+  cursor: pointer;
+}
+
+#admin input[type=file], textarea {
+  color: #FFFFFF;
+  margin-top: 20px;
+  display: none;
+}
+
 #admin .access-code {
-  margin: 10%;
+  margin: 20px;
 }
 
 #admin .form-container h3 {
-  margin: 2%;
+  color: white;
+  margin: 20px;
 }
 
 #admin .form-container button {
-  margin: 1%;
+  margin: 20px;
 }
 
 #admin .form-container input {
-  margin: 2%;
+  margin: 20px;
   color: black;
 }
 
