@@ -167,22 +167,28 @@ export const AdminComponent = (props) => {
 
 
   //Remove account by ID
-  const accountId=useRef(null);
+  //Attempting to make a confirm dialog
+  //const [accountId, setId] = useState("");
+  //const accountId=setId;
+
+  const inputAccountId=useRef(null); //Input from Form
+  const accountId = useRef(null);
+
   const accountSubmit = async (e) => {
+    //const accountId = { accountId: accountId};
     e.preventDefault();
     const { accountId } = e.target.elements;
-        alert("ID: " + accountId.value + " has been deleted")
     let details = {
       accountId: accountId.value,
     };
-    //alert("ID: " + accountId + "If account exists it has been deleted.")
+   alert("ID: " + accountId.value + " has been deleted");
     let response = await fetch("http://localhost:3001/accountRemoval", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(details),
-    });
+    } ,window.location.reload(false) );
   };
 
   // Check for NO letters in Account ID
@@ -190,17 +196,21 @@ export const AdminComponent = (props) => {
   const handleChange = event => {
     const result = event.target.value.replace(/\D/g, '');
     setValue(result);
-  };
+    //setId(result);
 
-  //console.log(value);
-  //console.log(typeof value);
-  //console.log(Number(value));
+  };
+  /*
+  Test inputs
+  console.log(value);
+  console.log(typeof value);
+  console.log(Number(value));
+  */
 
   // Validation of NO empty string (Doesnt change empty to 0)
     if (value !== '') {
     const num = Number(value);
   }
-  // Submit Form
+
 
 
   return (
@@ -326,28 +336,24 @@ export const AdminComponent = (props) => {
         {/* DB ACCOUNT DELETE */}
         <div className="delete-account">
           <div className="form-container">
-            <form onSubmit={accountSubmit}>
+            <form onSubmit={accountSubmit} >
                   <h3>Delete User Account by Entering ID:</h3>
                   <div className="text-input">
                     <input 
+                        ref={accountId} id="accountId" placeholder="Enter Account ID"
                         type="text" 
                         value={value}
                         onChange={handleChange}
-                     ref={accountId} id="accountId" placeholder="Enter Account ID" required/>
+                        required/>
                   </div>
                   <button 
-                     className="delete button"
-                        type='submit'
-                        onClick={() => {
-                        const confirmBox = window.confirm("Do you really want to delete this account?")
-                        if (confirmBox === true) {
-                            accountSubmit}
-                             }}> Submit
-                  </button>
+                     className="delete-button"
+                     type='submit'
+                  >Submit</button>
                   <div id="submitMessage"></div>
             </form>
           </div>
-        </div>{/* End Div */}
+        </div>{/* End DB Div */}
         </div>
       </div>
   )
