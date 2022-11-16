@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {useRef} from 'react';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { exportPassword, changePassword } from "../loginPage/loginComponent";
+import { changePassword } from "../loginPage/loginComponent";
 import { exportEmail, email } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 
@@ -36,13 +36,17 @@ export const ResetPasswordComponent = (props) => {
 
   const navigate = useNavigate();
 
+  
   const changeProfilePassword = () => {
     const data = { email: exportEmail, newPassword: newPassword };
-        if (validPassword) {
-            try {
+    if (validPassword) {
+      console.log("got here twice")
+      try {
         axios.post("http://localhost:3001/password", data).then((response) => {
           changePassword(response.data.changedPassword);
           validPassword = false;
+          
+
           if (changeAdminInfo) {
             navigate("/admin");
           } else {
@@ -115,8 +119,8 @@ const changePassword = () => {
       <div id='reset-password' className='text-center'>
         <div className='container'>
           <div className='row'>
-            <div class="reset-password-form">
-                <div class="form-container submit-container">
+            <div className="reset-password-form">
+                <div className="form-container submit-container">
                     <form action="#">
                         <h1>Reset Password</h1>
                         <div id="passwordError"></div>
@@ -124,19 +128,19 @@ const changePassword = () => {
                         <div id="matchingError"></div>
 
                         <input ref={inputPassword} id="password" type="password" 
-                            placeholder="Password" minlength="8" required/>
+                            placeholder="Password" minLength="8" required/>
 
                         <input ref={inputPasswordConfirm} id="PasswordConfirm" type="password"
-                        placeholder="Confirm Password" minlength="8" onChange={(e) => {
+                        placeholder="Confirm Password" minLength="8" onChange={(e) => {
                     setNewPassword(e.target.value);
                     validate(); 
                         }} required/>
                         <button type="button" onClick={changeProfilePassword}>Submit</button>
                     </form>
                 </div>
-                <div class="overlay-container">
-                <div class="overlay">
-                        <div class="overlay-panel overlay-right">
+                <div className="overlay-container">
+                <div className="overlay">
+                        <div className="overlay-panel overlay-right">
                           <img src="/img/resetpassword.jpg"></img>
                         </div>
                     </div>

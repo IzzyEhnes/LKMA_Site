@@ -114,6 +114,7 @@ export const SignUpComponent = (props) => {
 
   const checkAdmin = async () => {
     adminLogin = false;
+    window.localStorage.setItem("isAuth", true);
 
     try {
       axios.post("http://localhost:3001/admin").then((response) => {
@@ -129,9 +130,11 @@ export const SignUpComponent = (props) => {
         console.log("adminLogin: " + adminLogin);
         if (adminLogin) {
           fromAdmin();
+          window.localStorage.setItem("isAdmin", true);
           navigate("/admin");
         } else {
           fromStudent();
+          window.localStorage.setItem("isAdmin", false);
           navigate("/profile");
         }
       });
@@ -151,8 +154,8 @@ export const SignUpComponent = (props) => {
     };
 
     axios.post("http://localhost:3001/", data).then((response) => {
-      const user = {emailReg, fnameReg, lnameReg};
-      window.localStorage.setItem("user", JSON.stringify(user));
+      const user = {email: emailReg, firstName: fnameReg, lastName: lnameReg};
+      
       setRegStatus(response.data.message);
       console.log(response.data.message);
       if(response.data.message === "registration successful") {
@@ -163,6 +166,8 @@ export const SignUpComponent = (props) => {
         expRegPassword = passwordReg;
         signUp = true;
 
+        window.localStorage.setItem("user", JSON.stringify(user));
+        window.localStorage.setItem("isAuth", true);
         GoToLogin();
         checkAdmin();
       } else if(response.data.message === "Invalid Access Code") {

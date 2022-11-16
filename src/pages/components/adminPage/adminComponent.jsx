@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { loggingOut } from "../loginPage/loginComponent";
+import { LoggingOut } from "../loginPage/loginComponent";
 import { exportEmail, inputFirstName, inputLastName, login } 
   from "../loginPage/loginComponent";
+import { useAuth } from "../../../AuthContext";
 import {useRef} from 'react';
 
 var logOut = true;
+var storageData;
 var changeAdminInfo = false;
 var renderPage = "";
 
@@ -30,17 +32,23 @@ export const AdminComponent = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
+  const [render, setRender] = useState("");
+  
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   useEffect(() => {
+    storageData = JSON.parse(localStorage.getItem("user"));
     if (login) {
+      setRender(true);
+      setAuth(true);
       setFirstName(inputFirstName);
       setLastName(inputLastName);
       setProfileEmail(exportEmail);
     }
 
     if (logOut) {
-      loggingOut();
+      LoggingOut();
       setFirstName("N/A");
       setLastName("N/A");
       setProfileEmail("N/A");
@@ -75,12 +83,17 @@ export const AdminComponent = (props) => {
         <div className='row'>
           <h1>Display Admin Account Details Below</h1>
           <div className="column">
-            <h1 data-testid="firstName">{firstName}</h1>
-            <h1 data-testid="lastName">{lastName}</h1>
+            {storageData ? (
+              <h1 data-testid="firstName">{storageData.firstName}</h1>
+            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
+            {storageData ? (
+              <h1 data-testid="lastName">{storageData.lastName}</h1>
+            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
           </div>
           <div className="column"></div>
           <div className="column">
-            <h1 data-testid="profileEmail">{profileEmail}</h1>
+            {storageData ? (<h1 data-testid="profileEmail">Email: {storageData.email}</h1>) 
+              : (<h1 data-testid="profileEmail">Email: {profileEmail}</h1>)}
           </div>
         </div>
         <div className='row'>
@@ -94,6 +107,9 @@ export const AdminComponent = (props) => {
               <button data-testid="logOut" className="ghost" id="logIn" 
               onClick={() => {
                 logOut = true;
+                setRender(Math.random());
+                setAuth(false);
+                localStorage.clear();
               }}>Log out</button>
             </NavLink>
           </div>
