@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
-import { exportEmail, inputFirstName, inputLastName, changeEmail } from "../loginPage/loginComponent";
+import { exportEmail, inputFirstName, inputLastName, exportPhone, changeEmail } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 import axios from "axios";
 

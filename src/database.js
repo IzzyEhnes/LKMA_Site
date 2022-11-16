@@ -21,7 +21,9 @@ const fromEmail = "teamname404@gmail.com";  // temporary, for testing purposes; 
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 
-
+// goes with all imports
+// for writing sql query results to studentInfoData.json file
+const fs = require('fs')
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
@@ -171,6 +173,42 @@ app.post("/changeAccessCode", (req, res) => {
 
 });
 
+app.post("/changePhone", (req, res) => {
+    const email = req.body.email;
+    const phone = req.body.phone;
+    
+    connection.query("SELECT * FROM account WHERE phone_number = ?",
+    [phone], (err, result) => {
+
+        if (err) {
+            console.log(err);
+        }
+
+        if(result.length > 0) {
+            res.status(200).json({ message: "Duplicate Phone Number", result });
+        }
+        else {
+            connection.query("UPDATE account SET phone_number = ? WHERE email = ?",
+            [phone, email], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    connection.query("SELECT * FROM account WHERE email = ?",
+                        [email], (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } 
+                            else {
+                                res.status(200).json({ message: "Changed Phone Successfully", result });
+                            }
+                        });
+                }  
+            });
+        }
+    });
+
+});
+
 app.post("/admin", (req, res) => {
   connection.query("SELECT * FROM admin", (err, result) => {
     if (err) {
@@ -246,6 +284,18 @@ app.post("/uploadImage", (req, res) => {
         message: "", result,
         fileName: image, filePath: '/img/' + image
       });
+    });
+});
+
+  //DB Method for Account Removal from Admin
+app.post("/accountRemoval", (req, res) => {
+    const accountId = req.body.accountId;
+
+    connection.query("DELETE FROM account WHERE account_id = ?",
+    [accountId], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
     });
 });
 

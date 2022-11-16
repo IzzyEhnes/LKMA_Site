@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {useRef} from 'react';
 import { LoggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, inputFirstName, inputLastName, filePath,
-  login} from "../loginPage/loginComponent";
+import { exportEmail, inputFirstName, inputLastName, exportPhone, filePath,
+  login, changePhone} from "../loginPage/loginComponent";
 import { useAuth } from "../../../AuthContext";
 
 var logOut = true;
@@ -24,6 +25,7 @@ export const studentLogout = () => {
 export const ProfileComponent = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
   const [imageFilePath, setImageFilePath] = useState("");
   const [render, setRender] = useState("");
@@ -31,8 +33,14 @@ export const ProfileComponent = (props) => {
   const navigate = useNavigate();
   const { setAuth } = useAuth();
 
-  useEffect(() => {
+  const newPhone = useRef(null);
+
+	useEffect(() => {
     storageData = JSON.parse(localStorage.getItem("user"));
+    /* if(storageData.exportEmail) { exportEmail = storageData.exportEmail; }
+    if(storageData.inputFirstName) { inputFirstName = storageData.inputFirstName; }
+    if(storageData.inputLastName) { inputLastName = storageData.inputLastName; }
+    if(storageData.exportPhone) { exportPhone = storageData.exportPhone; } */
     storageDataFile = JSON.parse(localStorage.getItem("filePath"));
     if (login) {
       if (firstLogin < 5) {
@@ -44,6 +52,7 @@ export const ProfileComponent = (props) => {
       setAuth(true);
       setFirstName(inputFirstName);
       setLastName(inputLastName);
+      setPhone(exportPhone);
       setProfileEmail(exportEmail);
       setImageFilePath(storageDataFile);
     } else {
@@ -97,9 +106,47 @@ export const ProfileComponent = (props) => {
           setImageFilePath(filePath);
           tempImage = "";
 
-          window.localStorage.setItem("filePath", JSON.stringify(filePath));
-          storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-          setRender(Math.random());
+            window.localStorage.setItem("filePath", JSON.stringify(filePath));
+            storageDataFile = JSON.parse(localStorage.getItem("filePath"));
+						uploadImage = false;
+					});
+				} catch (err) {
+					if (err.response.status === 500) {
+						console.log("There was a problem with server.");
+					} else {
+						console.log(err.response.data.message);
+					}
+				}
+			}
+		}
+		
+		if (logOut) {
+			loggingOut();
+      setFirstName("N/A");
+      setLastName("N/A");
+			setProfileEmail("N/A");
+      setPhone("N/A");
+			setImageFilePath("\\img\\profile-blank-whitebg.png");
+		}
+	}, [uploadImage, tempImage, resetImage]);
+
+  const phoneSubmit = () => {
+
+    const formData = new FormData();
+
+      formData.append('email', storageData.exportEmail);
+			formData.append('phone', phone);
+
+      try {
+        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+          if(response.data.message === "Changed Phone Successfully") {
+            changePhone(response.data.result[0].phone_number);
+            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
+            window.localStorage.setItem("user", JSON.stringify(user));
+                
+            storageData = JSON.parse(localStorage.getItem("user"));
+          }
+          navigate("/profile");
         });
       } catch (err) {
         if (err.response.status === 500) {
@@ -108,10 +155,9 @@ export const ProfileComponent = (props) => {
           console.log(err.response.data.message);
         }
       }
-    }
   }
-
-  return (
+	
+	return (  
     <div id='student' className='text-center'>
       <div className='container'>
         <div className='section-title'>
@@ -126,8 +172,8 @@ export const ProfileComponent = (props) => {
           </div>
           <div className='row'>
             <div className="login-form">
-              <label htmlFor="file-upload" className="custom-file">Choose File</label>
-              <input data-testid="uploadFile" type="file" id="file-upload"
+              <label htmlFor="file-upload" className="custom-file">Choose Image</label>
+                <input data-testid="uploadFile" type="file" id="file-upload" 
                 name="imageFile" accept="image/*" onChange={(e) => {
                   tempImage = e.target.files[0];
 
@@ -151,14 +197,20 @@ export const ProfileComponent = (props) => {
               </NavLink>
             </div>
           </div>
-          <div className="column">
+          <div className="column-left">
+            <h3>First Name</h3>
             {storageData ? (
               <h1 data-testid="firstName">{storageData.firstName}</h1>
             ) : (<h1 data-testid="firstName">{firstName}</h1>)}
+            <h3>Last Name</h3>
             {storageData ? (
               <h1 data-testid="lastName">{storageData.lastName}</h1>
             ) : (<h1 data-testid="lastName">{lastName}</h1>)}
-            <NavLink className="nav-link" to="/login">
+            <h3>Email</h3>
+            {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
+            <h3>Phone Number</h3>
+            {storageData? (storageData.exportPhone && storageData.exportPhone.length>9? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone}</h1>)) : (<h1>{phone}</h1>)}
+            <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
                 setRender(Math.random());
@@ -168,35 +220,27 @@ export const ProfileComponent = (props) => {
             </NavLink>
           </div>
           <div className="column">
-            {storageData ? (<h1 data-testid="profileEmail">Email: {storageData.email}</h1>) 
-              : (<h1 data-testid="profileEmail">Email: {profileEmail}</h1>)}
-            {/*If Phone # is in DB, display, else display Add Phone Button.*/}
-            <h1>Phone # Here</h1>
-            <button>Add Phone</button>
-          </div>
-        </div>
-        <div className='row'>
-          <div className="column">
-            <NavLink to="/ChangeEmail">
-              <button>Change Email</button>
-            </NavLink>
-          </div>
-          <div className="column">
-            <NavLink to="/ResetPassword">
-              <button>Change Password</button>
-            </NavLink>
-          </div>
-        </div>
-        <div className='row'>
-          <div className="column">
-            <a href={props.data ? props.data.uploadLink : ""} target="_blank">
+            <a className="row" href={props.data ? props.data.uploadLink : ""} target="_blank">
               <button>Upload Assignment</button>
             </a>
-          </div>
-          <div className="column">
-            <a href={props.data ? props.data.downloadLink : ""} target="_blank">
+            <a className="row" href={props.data ? props.data.downloadLink : ""} target="_blank">
               <button>Download Assignment</button>
             </a>
+            <NavLink className='row' to="/ChangeEmail">
+              <button>Change Email</button>
+            </NavLink> 
+            <NavLink className='row' to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink>
+            <div className="row text-input">
+              <input ref={newPhone} className="text" type="text"
+                    placeholder="Enter new phone" onChange={(e) => {
+                      setPhone(e.target.value);
+                    }} required />
+            </div>
+            <div className="row">
+              <button onClick={phoneSubmit}>Click to Update Phone</button>
+            </div>
           </div>
         </div>
       </div>

@@ -11,9 +11,10 @@ class YoutubePlayer extends Component{
     }
 
     render() {
+        
         const opts = {
-            height: '390',
-            width: '640',
+            height: '600',
+            width: '1130',
             playerVars: { // https://developers.google.com/youtube/player_parameters
                 autoPlay: 1
             }
@@ -21,11 +22,15 @@ class YoutubePlayer extends Component{
 
         const {videoID} = this.props
         return (
-            <YouTube
-                videoID={videoID}
-                opts={opts}
-                onReady={this.videoOnReady}
-            />
+            <div className="Container">
+            <span>
+                <YouTube
+                 videoID={videoID}
+                 opts={opts}
+                   onReady={this.videoOnReady}
+                 />
+            </span>
+            </div>
         );
     }
 }
