@@ -125,6 +125,7 @@ export const AdminComponent = (props) => {
   const handleSubmit = async (e) => {
     alert("Success! The access code has been updated.")
     e.preventDefault();
+    console.log("test");
     const { code } = e.target.elements;
     let details = {
       code: code.value,
