@@ -34,7 +34,7 @@ const connection = mysql.createConnection({
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "CicadaCode@7",
+  password: "Mrhatupo1345",
   database: "lkmadb",
 });
 
@@ -216,6 +216,22 @@ app.post("/admin", (req, res) => {
     } else {
       res.status(200).json({ message: "Retrieved admin emails", result });
     }
+  });
+
+  // to show the database table on the admin page
+  connection.execute('SELECT * FROM account;', function (err,result) {
+    if (err) throw err;
+
+    const finished = (error) => {
+        if(error) {
+            console.error(error);
+            return;
+        }
+    }
+
+    result = JSON.stringify(result, null, 2);
+    fs.writeFile('pages/data/studentInfoData.json', result, finished)
+    // console.log(result);
   });
 });
 
