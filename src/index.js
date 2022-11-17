@@ -11,7 +11,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Calendar from './pages/Calendar';
 import Profile from './pages/Profile';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/Signup';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TokenExpired from './pages/TokenExpired';
@@ -21,8 +21,6 @@ import Forgot from './pages/Forgot';
 import Admin from './pages/Admin';
 import AuthProvider from './AuthContext';
 import * as serviceWorker from './serviceWorker';
-
-
 
 function WithoutAuth({ children }) {
   var auth = localStorage.getItem("isAuth");

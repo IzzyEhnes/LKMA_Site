@@ -3,7 +3,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { LoggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, 
+import { exportEmail, inputFirstName, inputLastName, exportPhone, filePath, 
   login, changePhone } from "../loginPage/loginComponent";
 import { useAuth } from "../../../AuthContext";
 import {useRef} from 'react';
@@ -16,7 +16,6 @@ var renderPage = "";
 var tempImage = "";
 var resetImage = false;
 var uploadImage = false;
-var storageData;
 var storageDataFile;
 
 export const adminLogIn = () => {
@@ -40,12 +39,13 @@ export const AdminComponent = (props) => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
-  const [render, setRender] = useState("");
-  
+  const [render, setRender] = useState("");  
   const [imageFilePath, setImageFilePath] = useState("");
   const [students, setStudents] = useState(data);
   const navigate = useNavigate();
   const { setAuth } = useAuth();
+  const accessCode=useRef(null);
+  const newPhone = useRef(null);
 
   useEffect(() => {
     storageData = JSON.parse(localStorage.getItem("user"));
@@ -62,61 +62,6 @@ export const AdminComponent = (props) => {
       setImageFilePath("\\img\\profile-blank-whitebg.png");
     }
 
-    if (resetImage) {			
-			const formData = new FormData();
-			formData.append('email', exportEmail);
-			formData.append('password', exportPassword);
-
-			try {
-				const res = axios.post("http://localhost:3001/retrieveImage", formData, {
-					headers: {
-						"Content-Type": "multipart/form-data"
-					}
-				});
-
-				const filePath = res.filePath;
-				setImageFilePath(filePath);
-				tempImage = filePath;				
-			} catch (err) {
-				if (err.response.status === 500) {
-					console.log("There was a problem with server.");
-				} else {
-					console.log(err.response.data.message);
-				}
-			}
-
-			resetImage = false;
-		}
-
-		if (uploadImage) {
-			const formData = new FormData();
-
-			if (tempImage != "") {
-				formData.append('image', tempImage);
-				formData.append('email', exportEmail);
-	
-				try {
-					axios.post("http://localhost:3001/uploadImage", formData).then((response) => {	
-						const filePath = response.data.filePath;
-		
-						changeFilePath(filePath);
-						setImageFilePath(filePath);
-						tempImage = "";
-
-            window.localStorage.setItem("filePath", JSON.stringify(filePath));
-            storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-						uploadImage = false;
-					});
-				} catch (err) {
-					if (err.response.status === 500) {
-						console.log("There was a problem with server.");
-					} else {
-						console.log(err.response.data.message);
-					}
-				}
-			}
-		}
-
     if (logOut) {
       LoggingOut();
       setFirstName("N/A");
@@ -125,9 +70,57 @@ export const AdminComponent = (props) => {
     }
   }, [renderPage]);
 
+  const resetImage = () => {
+    const formData = new FormData();
+    formData.append('email', storageData.email);
 
-  const accessCode=useRef(null);
-  const newPhone = useRef(null);
+    try {
+      const res = axios.post("http://localhost:3001/retrieveImage", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+
+      const filePath = res.filePath;
+      setImageFilePath(filePath);
+      tempImage = filePath;
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  }
+
+  const uploadImage = () => {
+    const formData = new FormData();
+
+    if (tempImage != "") {
+      formData.append('image', tempImage);
+      formData.append('email', storageData.email);
+
+      try {
+        axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
+          const filePath = response.data.filePath;
+
+          changeFilePath(filePath);
+          setImageFilePath(filePath);
+          tempImage = "";
+
+          window.localStorage.setItem("filePath", JSON.stringify(filePath));
+          storageDataFile = JSON.parse(localStorage.getItem("filePath"));
+          setRender(Math.random());
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
+        }
+      }
+    }
+  }
 
   const handleSubmit = async (e) => {
     alert("Success! The access code has been updated.")
@@ -147,30 +140,29 @@ export const AdminComponent = (props) => {
   };
 
   const phoneSubmit = () => {
-
     const formData = new FormData();
+    formData.append('email', storageData.email);
+    formData.append('phone', phone);
 
-      formData.append('email', storageData.exportEmail);
-			formData.append('phone', phone);
+    try {
+      axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+        if (response.data.message === "Changed Phone Successfully") {
+          changePhone(response.data.result[0].phone_number);
+          const user = { email: storageData.email, firstName: storageData.firstName, 
+            lastName: storageData.lastName, phone: phone };
+          window.localStorage.setItem("user", JSON.stringify(user));
 
-      try {
-        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-          if(response.data.message === "Changed Phone Successfully") {
-            changePhone(response.data.result[0].phone_number);
-            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
-            window.localStorage.setItem("user", JSON.stringify(user));
-                
-            storageData = JSON.parse(localStorage.getItem("user"));
-          }
-          navigate("/admin");
-        });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
+          storageData = JSON.parse(localStorage.getItem("user"));
         }
+        navigate("/admin");
+      });
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
       }
+    }
   }
 
 
@@ -179,7 +171,7 @@ export const AdminComponent = (props) => {
   //const [accountId, setId] = useState("");
   //const accountId=setId;
 
-  const inputAccountId=useRef(null); //Input from Form
+  const inputAccountId = useRef(null); //Input from Form
   const accountId = useRef(null);
 
   const accountSubmit = async (e) => {
@@ -189,14 +181,14 @@ export const AdminComponent = (props) => {
     let details = {
       accountId: accountId.value,
     };
-   alert("ID: " + accountId.value + " has been deleted");
+    alert("ID: " + accountId.value + " has been deleted");
     let response = await fetch("http://localhost:3001/accountRemoval", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(details),
-    } ,window.location.reload(false) );
+    }, window.location.reload(false));
   };
 
   // Check for NO letters in Account ID
@@ -205,7 +197,6 @@ export const AdminComponent = (props) => {
     const result = event.target.value.replace(/\D/g, '');
     setValue(result);
     //setId(result);
-
   };
   /*
   Test inputs
@@ -215,7 +206,7 @@ export const AdminComponent = (props) => {
   */
 
   // Validation of NO empty string (Doesnt change empty to 0)
-    if (value !== '') {
+  if (value !== '') {
     const num = Number(value);
   }
 
@@ -228,19 +219,11 @@ export const AdminComponent = (props) => {
           <h2>Admin</h2>
         </div>
         <div className='row'>
-          <h1>Display Admin Account Details Below</h1>
-          <div className="column">
-            {storageData ? (
-              <h1 data-testid="firstName">{storageData.firstName}</h1>
-            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
-            {storageData ? (
-              <h1 data-testid="lastName">{storageData.lastName}</h1>
-            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
-          </div>
-          <div className="column"></div>
-          <div className="column">
-            {storageData ? (<h1 data-testid="profileEmail">Email: {storageData.email}</h1>) 
-              : (<h1 data-testid="profileEmail">Email: {profileEmail}</h1>)}
+          <div className='row'>
+            {storageDataFile ? (
+              <img data-testid="profilePic" src={storageDataFile} />
+            ) : (<img data-testid="profilePic" src={imageFilePath} />)}
+            <h1 id="chosenImage"></h1>
           </div>
           <div className='row'>
             <div className="login-form">
@@ -250,20 +233,18 @@ export const AdminComponent = (props) => {
                   tempImage = e.target.files[0];
 
                   if (tempImage == undefined) {
-                    resetImage = true;
+                    resetImage();
                     document.getElementById("chosenImage").innerHTML = "";
                   }	else {
                     document.getElementById("chosenImage").innerHTML 
                       = tempImage.name;
                   }							
-                  uploadImage = false;
                 }} />
-              <NavLink className="nav-link" to="/profile">
+              <NavLink className="nav-link" to="/admin">
                 <input data-testid="uploadSubmit" type="submit" 
                 value="Upload Image" onClick={() => {
                   if (tempImage != undefined) {
-                    uploadImage = true;
-                    resetImage = false;
+                    uploadImage();
                     document.getElementById("chosenImage").innerHTML = "";
                   }
                 }} />
@@ -271,14 +252,24 @@ export const AdminComponent = (props) => {
             </div>
           </div>
           <div className="column-left">
-            <h3>First Name</h3>
-            {storageData? (storageData.inputFirstName? (<h1 data-testid="firstName">{storageData.inputFirstName}</h1>) : ((<h1 data-testid="firstName">{storageData.fnameReg}</h1>))) : (<h1 data-testid="firstName">{firstName}</h1>)} 
+          <h3>First Name</h3>
+            {storageData ? (
+              <h1 data-testid="firstName">{storageData.firstName}</h1>
+            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
             <h3>Last Name</h3>
-            {storageData? (storageData.inputLastName? (<h1 data-testid="firstName">{storageData.inputLastName}</h1>) : ((<h1 data-testid="firstName">{storageData.lnameReg}</h1>))) : (<h1 data-testid="firstName">{lastName}</h1>)}
+            {storageData ? (
+              <h1 data-testid="lastName">{storageData.lastName}</h1>
+            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
             <h3>Email</h3>
-            {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
+            {storageData ? (
+              <h1 data-testid="profileEmail">{storageData.email}</h1>
+            ) : (<h1 data-testid="profileEmail">{profileEmail}</h1>)}
             <h3>Phone Number</h3>
-            {storageData? (storageData.exportPhone && storageData.exportPhone.length>9? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone}</h1>)) : (<h1>{phone}</h1>)}
+            {storageData ? (
+              storageData.phone && storageData.phone.length > 9 ? (
+                <h1>{storageData.phone.substr(0, 3)}-{storageData.phone.substr(3, 3)}-{storageData.phone.substr(6, 4)}</h1>
+              ) : (<h1>{phone}</h1>)
+            ) : (<h1>{phone}</h1>)}
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;

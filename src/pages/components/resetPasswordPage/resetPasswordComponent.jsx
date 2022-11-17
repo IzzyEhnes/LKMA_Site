@@ -28,26 +28,23 @@ function checkLowercase(str){
 
 
 export const ResetPasswordComponent = (props) => {
-
   const inputPassword=useRef(null);
   const inputPasswordConfirm=useRef(null);
-
   const [newPassword, setNewPassword] = useState("");
-
   const navigate = useNavigate();
+  const storageData = JSON.parse(localStorage.getItem("user"));
+  const checkAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
-  
   const changeProfilePassword = () => {
-    const data = { email: exportEmail, newPassword: newPassword };
+    const data = { email: storageData.email, newPassword: newPassword };
+
     if (validPassword) {
-      console.log("got here twice")
       try {
         axios.post("http://localhost:3001/password", data).then((response) => {
           changePassword(response.data.changedPassword);
           validPassword = false;
           
-
-          if (changeAdminInfo) {
+          if (checkAdmin) {
             navigate("/admin");
           } else {
             navigate("/profile");

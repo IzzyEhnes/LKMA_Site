@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
-import { exportEmail, inputFirstName, inputLastName, exportPhone, changeEmail } from "../loginPage/loginComponent";
+import { changeEmail } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 import axios from "axios";
 
@@ -17,15 +17,15 @@ const validateEmail = (email) => {
 };
 
 export const ChangeEmailComponent = (props) => {
-
   const inputEmail = useRef(null);
   const inputEmailConfirm = useRef(null);
   const [newEmail, setNewEmail] = useState("");
-
   const navigate = useNavigate();
+  const storageData = JSON.parse(localStorage.getItem("user"));
+  const checkAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
   const changeProfileEmail = () => {
-    const data = { email: exportEmail, newEmail: newEmail };
+    const data = { email: storageData.email, newEmail: newEmail };
 
     if (validEmail) {
       try {
@@ -40,11 +40,12 @@ export const ChangeEmailComponent = (props) => {
                   validEmail = false;
                   const fname = (JSON.parse(localStorage.getItem("user"))).firstName;
                   const lname = (JSON.parse(localStorage.getItem("user"))).lastName;
+                  const exportPhone = (JSON.parse(localStorage.getItem("user"))).phone;
                   const user = {email: newEmail, firstName: fname, 
-                    lastName: lname};
+                    lastName: lname, phone: exportPhone };
                   window.localStorage.setItem("user", JSON.stringify(user));
 
-                  if (changeAdminInfo) {
+                  if (checkAdmin) {
                     try {
                       axios.post("http://localhost:3001/adminEmail", data).then((response) => {
                         if (response.data.message === "email is not valid") {

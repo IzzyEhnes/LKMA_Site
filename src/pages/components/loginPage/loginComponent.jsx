@@ -78,7 +78,8 @@ export const GoToLogin = () => {
   inputFirstName = regFirstName;
   inputLastName = regLastName;
   exportPhone = 'N/A';
-  createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
+  createUser = {email: exportEmail, firstName: inputFirstName, 
+    lastName: inputLastName, phone: exportPhone};
   window.localStorage.setItem("user", JSON.stringify(createUser));
   filePath = "\\img\\" + exportImage;
   window.localStorage.setItem("filePath", JSON.stringify(filePath));
@@ -129,7 +130,7 @@ export const LoginComponent = (props) => {
           setUploadedFile({ fileName, filePath });
           uploadFile = uploadedFile.filePath;
           createUser = {email: exportEmail, firstName: inputFirstName, 
-            lastName: inputLastName, exportPhone };
+            lastName: inputLastName, phone: exportPhone };
           setUser(response.data);
         } else {
           

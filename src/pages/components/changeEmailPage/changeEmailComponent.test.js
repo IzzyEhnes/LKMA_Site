@@ -25,15 +25,6 @@ jest.mock('react-router-dom', () => ({
 //         doesn't already exist in DB
 // test 5: user tries to change a student email to an admin email
 
-const setup = () => {
-    const utils = render(<ChangeEmailComponent />);
-    const input = utils.getAllByTestId("emailChecks");
-    return {
-      input,
-      ...utils
-    };
-  };
-
 describe(ChangeEmailComponent, () => {
     it("should render Email & Confirm Email input fields and submit button", () => {
         render(<Router><ChangeEmailComponent/></Router>);
