@@ -31,12 +31,11 @@ app.listen(PORT, () => {
 });
 
 const connection = mysql.createConnection({
-
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "Sinude3!",
-  database: "lkma",
+  password: "CicadaCode@7",
+  database: "lkmadb",
 });
 
 var hashPassword;
@@ -78,7 +77,6 @@ app.post("/", (req, res) => {
                   bcrypt.hash(password, salt, function (err, hash) {
                     password = hash;
 
-                    console.log(password)
                     connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
                       [first_name, last_name, email, password, file_path], 
                       (err, result) => {
@@ -107,44 +105,44 @@ app.post("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    const email = req.body.email;
-    var password = req.body.password;
-    var oldPasswordHash;
-  
-    bcrypt.hash(password, saltRounds, function (err, hash) {
-      connection.query("SELECT * FROM account WHERE email = ?",
-        [email], (err, result) => {
-          if (err) {
-            console.log(err);
-          }
-  
-          if (result.length > 0) {
-            oldPasswordHash = result[0].password;
-  
-            bcrypt.compare(password, oldPasswordHash, (error, hashResult) => {
-              if (error) {
-                console.log(error);
+  const email = req.body.email;
+  var password = req.body.password;
+  var oldPasswordHash;
+
+  bcrypt.hash(password, saltRounds, function (err, hash) {
+    connection.query("SELECT * FROM account WHERE email = ?",
+      [email], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+
+        if (result.length > 0) {
+          oldPasswordHash = result[0].password;
+
+          bcrypt.compare(password, oldPasswordHash, (error, hashResult) => {
+            if (error) {
+              console.log(error);
+            } else {
+              if (hashResult) {
+                hashPassword = password;
+                const profilePic = result[0].account_image;
+                const filePath = 'img/' + profilePic;
+
+                res.status(200).json({
+                  message: "You logged in", result,
+                  fileName: profilePic, filePath: filePath
+                });
               } else {
-                if (hashResult) {
-                  hashPassword = password;
-                  const profilePic = result[0].account_image;
-                  const filePath = 'img/' + profilePic;
-  
-                  res.status(200).json({
-                    message: "You logged in", result,
-                    fileName: profilePic, filePath: filePath
-                  });
-                } else {
-                  res.status(200).json({ message: "Wrong combination", result });
-                }
+                res.status(200).json({ message: "Wrong combination", result });
               }
-            });
-          } else {
-            res.status(200).json({ message: "Wrong combination", result });
-          }
-        });
-    });
-  });  
+            }
+          });
+        } else {
+          res.status(200).json({ message: "Wrong combination", result });
+        }
+      });
+  });
+});
 
 app.post("/accessCode", (req, res) => {
   const access_code = req.body.accCode;
@@ -164,11 +162,9 @@ app.post("/accessCode", (req, res) => {
 });
 
 app.post("/changeAccessCode", (req, res) => {
-
   const accessCode = req.body.code;
 
   connection.query("UPDATE access_code SET access_code = ?",
-
     [accessCode], (err, result) => {
       if (err) {
         console.log(err);
@@ -214,7 +210,6 @@ app.post("/changePhone", (req, res) => {
 });
 
 app.post("/admin", (req, res) => {
-
   connection.query("SELECT * FROM admin", (err, result) => {
     if (err) {
       console.log(err);
@@ -222,7 +217,6 @@ app.post("/admin", (req, res) => {
       res.status(200).json({ message: "Retrieved admin emails", result });
     }
   });
-
 });
 
 /*
@@ -308,12 +302,13 @@ app.post("/accountRemoval", (req, res) => {
 // DB Method to change password of account
 app.post("/password", (req, res) => {
   const email = req.body.email;
-  const password = req.body.password;
   var newPassword = req.body.newPassword;
-  hashPassword = newPassword;
 
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newPassword, salt, function (err, hash) {
+      if (newPassword != undefined) {
+        hashPassword = newPassword;
+      }
       newPassword = hash;
 
       connection.query("UPDATE account SET password = ? WHERE email = ?",
@@ -338,7 +333,6 @@ app.post("/emailCheck", (req, res) => {
 
   connection.query("SELECT * FROM account WHERE email = ?",
     [newEmail], (err, result) => {
-
       if (err) {
         console.log(err);
         res.status(200).json({ message: "email is not valid", err });
@@ -355,7 +349,6 @@ app.post("/emailCheck", (req, res) => {
               res.status(200).json({ message: "email is not valid", err });
             }
 
-
             //email exists in admin table
             if (result.length > 0) {
               //check if someone else in DB already uses the new email
@@ -363,7 +356,6 @@ app.post("/emailCheck", (req, res) => {
                 [newEmail], (err, result) => {
                   if (err) {
                     console.log(err);
-
                     res.status(200).json({message: "email is not valid", err});
                   }
 
@@ -412,7 +404,6 @@ app.post("/accountEmail", (req, res) => {
             });
           });
       }
-
     });
 });
 

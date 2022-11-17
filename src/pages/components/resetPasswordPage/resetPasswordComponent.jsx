@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {useRef} from 'react';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { exportPassword, changePassword } from "../loginPage/loginComponent";
+import { changePassword } from "../loginPage/loginComponent";
 import { exportEmail, email } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 
@@ -28,22 +28,23 @@ function checkLowercase(str){
 
 
 export const ResetPasswordComponent = (props) => {
-
   const inputPassword=useRef(null);
   const inputPasswordConfirm=useRef(null);
-
   const [newPassword, setNewPassword] = useState("");
-
   const navigate = useNavigate();
+  const storageData = JSON.parse(localStorage.getItem("user"));
+  const checkAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
   const changeProfilePassword = () => {
-    const data = { email: exportEmail, newPassword: newPassword };
-        if (validPassword) {
-            try {
+    const data = { email: storageData.email, newPassword: newPassword };
+
+    if (validPassword) {
+      try {
         axios.post("http://localhost:3001/password", data).then((response) => {
           changePassword(response.data.changedPassword);
           validPassword = false;
-          if (changeAdminInfo) {
+          
+          if (checkAdmin) {
             navigate("/admin");
           } else {
             navigate("/profile");
@@ -115,35 +116,28 @@ const changePassword = () => {
       <div id='reset-password' className='text-center'>
         <div className='container'>
           <div className='row'>
-            <div class="reset-password-form">
-                <div class="form-container submit-container">
+            <div className="reset-password-form">
+                <div className="form-container submit-container">
                     <form action="#">
                         <h1>Reset Password</h1>
                         <div id="passwordError"></div>
                         <div id="passwordConfirmError"></div>
                         <div id="matchingError"></div>
 
-                        <input ref={inputPassword}
-                        id="password"
-                        type="password"
-                        placeholder="Password"
-                        minLength="8"
-                        required={true}/>
+                        <input ref={inputPassword} id="password" type="password" 
+                            placeholder="Password" minLength="8" required/>
 
-                        <input ref={inputPasswordConfirm}
-                        id="PasswordConfirm"
-                        type="password"
-                        placeholder="Confirm Password"
-                        minLength="8" 
-                        onChange={(e) => {setNewPassword(e.target.value); validate(); }}
-                        required={true}/>
-
+                        <input ref={inputPasswordConfirm} id="PasswordConfirm" type="password"
+                        placeholder="Confirm Password" minLength="8" onChange={(e) => {
+                    setNewPassword(e.target.value);
+                    validate(); 
+                        }} required/>
                         <button type="button" onClick={changeProfilePassword}>Submit</button>
                     </form>
                 </div>
-                <div class="overlay-container">
-                <div class="overlay">
-                        <div class="overlay-panel overlay-right">
+                <div className="overlay-container">
+                <div className="overlay">
+                        <div className="overlay-panel overlay-right">
                           <img src="/img/resetpassword.jpg"></img>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
-import { exportEmail, inputFirstName, inputLastName, exportPhone, changeEmail } from "../loginPage/loginComponent";
+import { changeEmail } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 import axios from "axios";
 
@@ -17,36 +17,77 @@ const validateEmail = (email) => {
 };
 
 export const ChangeEmailComponent = (props) => {
-
   const inputEmail = useRef(null);
   const inputEmailConfirm = useRef(null);
   const [newEmail, setNewEmail] = useState("");
-
   const navigate = useNavigate();
+  const storageData = JSON.parse(localStorage.getItem("user"));
+  const checkAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
   const changeProfileEmail = () => {
-    const data = { email: exportEmail, newEmail: newEmail };
+    const data = { email: storageData.email, newEmail: newEmail };
 
     if (validEmail) {
       try {
-        axios.post("http://localhost:3001/email", data).then((response) => {
+        axios.post("http://localhost:3001/emailCheck", data).then((response) => {
+          console.log("response: " + response.data.message);  
           if (response.data.message !== "email is already being used") {
-            changeEmail(response.data.changedEmail);
-            validEmail = false;
-            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
-            window.localStorage.setItem("user", JSON.stringify(user));
-            if (changeAdminInfo) {
-              //implement new admin email in database via DB query
-              navigate("/admin");
-            } else {
-              navigate("/profile");
+            console.log(response.data.message);
+            try {
+              axios.post("http://localhost:3001/accountEmail", data).then((response) => {
+                if (response.data.message === "email succesfully changed") {
+                  changeEmail(response.data.changedEmail);
+                  validEmail = false;
+                  const fname = (JSON.parse(localStorage.getItem("user"))).firstName;
+                  const lname = (JSON.parse(localStorage.getItem("user"))).lastName;
+                  const exportPhone = (JSON.parse(localStorage.getItem("user"))).phone;
+                  const user = {email: newEmail, firstName: fname, 
+                    lastName: lname, phone: exportPhone };
+                  window.localStorage.setItem("user", JSON.stringify(user));
+
+                  if (checkAdmin) {
+                    try {
+                      axios.post("http://localhost:3001/adminEmail", data).then((response) => {
+                        if (response.data.message === "email is not valid") {
+                          console.log("email is not valid");
+                          document.getElementById("emailError").innerHTML 
+                            = "That email is not valid. Please choose another one.";
+                        }
+                      });
+                    } catch (err) {
+                      if (err.response.status === 500) {
+                        console.log("There was a problem with server.");
+                      } else {
+                        console.log(err.response.data.message);
+                      }
+                    }
+
+                    navigate("/admin");
+                  } else {
+                    navigate("/profile");
+                  }
+                } else if (response.data.message === "email is not valid") {
+                  console.log("email is not valid");
+                  document.getElementById("emailError").innerHTML 
+                    = "That email is not valid. Please choose another one.";
+                } else if (response.data.message === "email is already being used") {
+                  console.log("email is already being used");
+                  document.getElementById("emailError").innerHTML 
+                    = "That email is already being used. Please choose another one.";
+                }
+              });
+            } catch (err) {
+              if (err.response.status === 500) {
+                console.log("There was a problem with server.");
+              } else {
+                console.log(err.response.data.message);
+              }
             }
           } else {
             console.log("email is already being used");
             document.getElementById("emailError").innerHTML 
               = "That email is already being used. Please choose another one.";
           }
-          
         });
       } catch (err) {
         if (err.response.status === 500) {
@@ -55,6 +96,11 @@ export const ChangeEmailComponent = (props) => {
           console.log(err.response.data.message);
         }
       }
+    } else {
+      console.log("Email and confirmation email do not match")
+      document.getElementById("emailError").innerHTML 
+              = "";
+      document.getElementById("matchingError").innerHTML = "Email and confirmation email do not match"
     }
   };
 
@@ -72,11 +118,13 @@ export const ChangeEmailComponent = (props) => {
       console.log("Input email confirm: " + inputEmailConfirm.current.value)
       document.getElementById("emailError").innerHTML = ""
 
-      if (inputEmail.current.value === inputEmailConfirm.current.value && inputEmail.current.value !== "") {
+      if (inputEmail.current.value === inputEmailConfirm.current.value 
+        && inputEmail.current.value !== "") {
         console.log("Emails match")
         validEmail = true;
         document.getElementById("matchingError").innerHTML = ""
-      } else if (inputEmail.current.value === "" || inputEmailConfirm.current.value === "") {
+      } else if (inputEmail.current.value === "" 
+        || inputEmailConfirm.current.value === "") {
         //Doing nothing as error already given by another error message
         document.getElementById("matchingError").innerHTML = ""
       } else {
@@ -94,16 +142,18 @@ export const ChangeEmailComponent = (props) => {
             <div className="form-container submit-container">
               <form action="#">
                 <h1>Change Email</h1>
-                <div id="emailError"></div>
-                <div id="matchingError"></div>
-                <input ref={inputEmail} id="email" type="email"
-                  placeholder="Email" required />
-                <input ref={inputEmailConfirm} id="EmailConfirm" type="email"
+                <div data-testid="emailError" id="emailError"></div>
+                <div className="submit" data-testid="matchingError" id="matchingError"></div>
+                <input ref={inputEmail} data-testid="emailChecks" id="email" type="email"
+                  placeholder="Email" onChange={(e) => {
+                    validate();
+                  }} required />
+                <input ref={inputEmailConfirm} data-testid="emailConfirm" id="EmailConfirm" type="email"
                   placeholder="Confirm Email" onChange={(e) => {
                     setNewEmail(e.target.value);
                     validate();
                   }} required />
-                <button type="button" onClick={changeProfileEmail}>Submit</button>
+                <button type="button" data-testid="emailSubmit" onClick={changeProfileEmail}>Submit</button>
               </form>
             </div>
             <div className="overlay-container">
