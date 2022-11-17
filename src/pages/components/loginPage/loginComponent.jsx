@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { studentLogout, logIn } from "../profilePage/profileComponent";
 import { adminLogout, adminLogIn, fromAdmin, fromStudent } from "../adminPage/adminComponent";
-import { expRegEmail, expRegPassword, regFirstName, regLastName,  
+import { expRegEmail, expRegPassword, regFirstName, regLastName,
   exportImage } from "../signUpPage/signUpComponent";
 import { useEffect } from "react";
 
@@ -30,18 +30,18 @@ const validateEmail = (email) => {
     );
 };
 
-function checkUppercase(str){
-  for (var i=0; i<str.length; i++){
-    if (str.charAt(i) === str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)){
+function checkUppercase(str) {
+  for (var i = 0; i < str.length; i++) {
+    if (str.charAt(i) === str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)) {
       return true;
     }
   }
   return false;
 };
 
-function checkLowercase(str){
-  for (var i=0; i<str.length; i++){
-    if (str.charAt(i) === str.charAt(i).toLowerCase() && str.charAt(i).match(/[a-z]/i)){
+function checkLowercase(str) {
+  for (var i = 0; i < str.length; i++) {
+    if (str.charAt(i) === str.charAt(i).toLowerCase() && str.charAt(i).match(/[a-z]/i)) {
       return true;
     }
   }
@@ -50,8 +50,9 @@ function checkLowercase(str){
 
 // Exports Password for use in other components (reset)
 export const changePassword = (newPassword) => {
-    exportPassword = newPassword;
+  exportPassword = newPassword;
 }
+
 export const changeFilePath = (newFilePath) => {
   filePath = newFilePath;
 }
@@ -64,8 +65,9 @@ export const changePhone = (newPhone) => {
   exportPhone = newPhone;
 }
 
-export const loggingOut = () => {
+export const LoggingOut = () => {
   login = false;
+  validLogin = false;
   adminLogout();
   studentLogout();
 }
@@ -76,9 +78,11 @@ export const GoToLogin = () => {
   inputFirstName = regFirstName;
   inputLastName = regLastName;
   exportPhone = 'N/A';
-  createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
+  createUser = {email: exportEmail, firstName: inputFirstName, 
+    lastName: inputLastName, phone: exportPhone};
   window.localStorage.setItem("user", JSON.stringify(createUser));
   filePath = "\\img\\" + exportImage;
+  window.localStorage.setItem("filePath", JSON.stringify(filePath));
   login = true;
   logIn();
   adminLogIn();
@@ -105,14 +109,14 @@ export const LoginComponent = (props) => {
     formData.append('email', inputEmail.current.value);
     formData.append('password', inputPassword.current.value);
     exportEmail = inputEmail.current.value;
-    exportPassword = inputPassword.current.value;    
+    exportPassword = inputPassword.current.value;
     
     try {
       axios.post("http://localhost:3001/login", formData).then((response) => {
         if (response.data.message !== "Wrong combination") {
           validLogin = true;
           setLoginStatus("Successfully logged in");
-    
+
           inputFirstName = response.data.result[0].first_name;
           inputLastName = response.data.result[0].last_name;
           exportPhone = response.data.result[0].phone_number;
@@ -123,15 +127,17 @@ export const LoginComponent = (props) => {
             filePath = "\\img\\profile-blank-whitebg.png";
           }
 
-          setUploadedFile({fileName, filePath});
+          setUploadedFile({ fileName, filePath });
           uploadFile = uploadedFile.filePath;
-          createUser = {exportEmail, inputFirstName, inputLastName, exportPhone};
+          createUser = {email: exportEmail, firstName: inputFirstName, 
+            lastName: inputLastName, phone: exportPhone };
           setUser(response.data);
         } else {
+          
           setLoginStatus(response.data.message);
         }
       });
-    } catch(err) {
+    } catch (err) {
       if (err.response.status === 500) {
         console.log("There was a problem with server.");
       } else {
@@ -143,30 +149,44 @@ export const LoginComponent = (props) => {
   function Validate() {
     validLogin = false;
 
-    if (inputEmail.current.value === ""){
+    if (inputEmail.current.value === "") {
       console.log("No email provided")
       document.getElementById("emailError").innerHTML = "Please provide an email"
-    } else if (!(validateEmail(inputEmail.current.value))){
+    } else if (!(validateEmail(inputEmail.current.value))) {
       console.log("Email invalid")
       document.getElementById("emailError").innerHTML = "Please enter a valid email"
-    } else{
+    } else {
       console.log("Email valid")
       document.getElementById("emailError").innerHTML = ""
 
-      if(inputPassword.current.value === ""){
+      if (inputPassword.current.value === "") {
         console.log("No password provided")
         document.getElementById("passwordError").innerHTML = "Please provide a password"
-      
-      } else {
-          Login();
+      } else if (inputPassword.current.value.length < 8) {
+        console.log("Password must be 8 characters or longer in length")
+        document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
+      } else if (!(checkUppercase(inputPassword.current.value))) {
+        console.log("Password must contain at least one uppercase letter")
+        document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
+      } else if (!(checkLowercase(inputPassword.current.value))) {
+        console.log("Password must contain at least one lowercase letter")
+        document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
+      } else if (inputPassword.current.value.length > 7 &&
+        checkUppercase(inputPassword.current.value) &&
+        checkLowercase(inputPassword.current.value)) {
+        console.log("Valid Password")
+        document.getElementById("passwordError").innerHTML = ""
+        Login();
       }
-    } 
+    }
   }
 
   const checkAdmin = async () => {
     adminLogin = false;
+
     window.localStorage.setItem("user", JSON.stringify(createUser));
     window.localStorage.setItem("filePath", JSON.stringify(filePath));
+    window.localStorage.setItem("isAuth", true);
 
     try {
       axios.post("http://localhost:3001/admin").then((response) => {
@@ -178,16 +198,19 @@ export const LoginComponent = (props) => {
             adminLogin = true;
           }
         }
-        
+
         if (adminLogin) {
           fromAdmin();
+          window.localStorage.setItem("isAdmin", true);
           navigate("/admin");
         } else {
           fromStudent();
+          console.log("got here to adminLogin")
+          window.localStorage.setItem("isAdmin", false);
           navigate("/profile");
         }
       });
-    } catch(err) {
+    } catch (err) {
       if (err.response.status === 500) {
         console.log("There was a problem with server.");
       } else {
@@ -198,9 +221,10 @@ export const LoginComponent = (props) => {
 
   const MoveToProfile = async (e) => {
     e.preventDefault();
-    
+
     if (validLogin) {
       login = true;
+      validLogin = false;
 
       document.getElementById("passwordError").innerHTML = ""
   
@@ -242,74 +266,50 @@ function resetForm(){
 }
  
 
-    return (
-      <div id='login' className='text-center'>
-        <div className='container'>
-          <div className='row'>
-            <div className="login-form">
-              {/*
-              <div class="form-container sign-in-container">
-                  <form action="#">
-                      <h1>Sign in</h1>
-                      <div id="emailError"></div>
-                      <div id="passwordError"></div>
-                      <input ref={inputEmail} id="email" type="email" placeholder="Enter your email" required/>
-                      <input ref={inputPassword} id="password" type="password" placeholder="Password" minlength="8" required/>
-                      <a href="#">Forgot your password?</a>
-                      <button type="button" onClick={validate} >Sign In</button>
-                  </form>
-              </div>
-              <div class="overlay-container">
-                  <div class="overlay">
-                      <div class="overlay-panel overlay-right">
-                          <h1>Don't have an account with us yet?</h1>
-                          <p>Click the button below to go to the Sign Up page.</p>
-                          <NavLink className="nav-link" to="/signup">
-                            <button class="ghost" id="logIn">Sign Up</button>
-                          </NavLink>
-                      </div>
-                  </div>
-              </div>
-              */}
-              <div className="form-container sign-in-container">
-                <form>
-                  <h1>Sign in</h1>
-                  <div id="emailError"></div>
-                  <div id="passwordError"></div>
-                  <input ref={inputEmail} data-testid="inputEmail" id="email" 
-                    type="email" placeholder="Enter your email"
-                    className="emailInput" onChange={(e) => {
-                      setEmail(e.target.value);
-                      Validate();
-                  }} required/>
-                  <input ref={inputPassword} data-testid="inputPassword" 
-                    id="password" type="password" placeholder="Password" 
-                    className="passwordInput" minLength="8" onChange={(e) => {
-                      setPassword(e.target.value);
-                      Validate();
-                  }} required/>
-                  <a href="/forgot">Forgot your password?</a>
-                  <button type="button" id="signin" data-testid="loginSubmit" 
-                    onClick={MoveToProfile}>Sign In
-                  </button>
-                </form>
-              </div>
-              <div className="overlay-container">
-                <div className="overlay">
-                  <div className="overlay-panel overlay-right">
-                    <h1>Don't have an account with us yet?</h1>
-                    <p>Click the button below to go to the Sign Up page.</p>
-                    <NavLink className="nav-link" to="/signup">
-                      <button className="ghost" id="logIn">Sign Up</button>
-                    </NavLink>
-                  </div>
+  return (
+    <div id='login' className='text-center'>
+      <div className='container'>
+        <div className='row'>
+          <div className="login-form">
+            <div className="form-container sign-in-container">
+              <form>
+                <h1>Sign in</h1>
+                <div id="emailError"></div>
+                <div id="passwordError"></div>
+                <input ref={inputEmail} data-testid="inputEmail" id="email"
+                  type="email" placeholder="Enter your email"
+                  className="emailInput" onChange={(e) => {
+                    setEmail(e.target.value);
+                    Validate();
+                  }} required />
+                <input ref={inputPassword} data-testid="inputPassword"
+                  id="password" type="password" placeholder="Password"
+                  className="passwordInput" minLength="8" onChange={(e) => {
+                    setPassword(e.target.value);
+                    Validate();
+                  }} required />
+                <a href="/forgot">Forgot your password?</a>
+                <button type="button" id="signin" data-testid="loginSubmit"
+                  onClick={MoveToProfile}>Sign In
+                </button>
+              </form>
+            </div>
+            <div className="overlay-container">
+              <div className="overlay">
+                <div className="overlay-panel overlay-right">
+                  <h1>Don't have an account with us yet?</h1>
+                  <p>Click the button below to go to the Sign Up page.</p>
+                  <NavLink className="nav-link" to="/signup">
+                    <button className="ghost" id="logIn">Sign Up</button>
+                  </NavLink>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
-    )
-  }
+  )
+}
 
-  export {exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, uploadFile, login};
+export {exportEmail, inputFirstName, inputLastName, exportPhone, filePath, uploadFile, login};

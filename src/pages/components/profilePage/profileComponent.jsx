@@ -3,171 +3,35 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {useRef} from 'react';
-import { loggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, exportPassword, inputFirstName, inputLastName, exportPhone, filePath, 
-  login, changePhone } from "../loginPage/loginComponent";
+import { LoggingOut, changeFilePath } from "../loginPage/loginComponent";
+import { exportEmail, inputFirstName, inputLastName, exportPhone, filePath,
+  login, changePhone} from "../loginPage/loginComponent";
+import { useAuth } from "../../../AuthContext";
 
-var loggedIn = true;
 var logOut = true;
 var firstLogin = 0;
 var tempImage = "";
-var resetImage = false;
-var uploadImage = false;
 var storageData;
 var storageDataFile;
 
 export const logIn = () => {
-	logOut = false;
+  logOut = false;
 }
 
 export const studentLogout = () => {
-	logOut = true;
+  logOut = true;
 }
 
 export const ProfileComponent = (props) => {
-	/*		Code from last sprint
-	const [regStatus, setRegStatus] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
-
-    const [emailReg, setEmailReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const [image, setImage] = useState("");
-    const [imageName, setImageName] = useState("");
-    const [uploadedFile, setUploadedFile] = useState({});
-
-    const [submit, setSubmit] = useState("");
-    const [uploadedSub, setUploadedSub] = useState("");
-
-    const register = () => {
-        const data = {email: emailReg, password: passwordReg};
-        axios.post("http://localhost:3001/", data).then((response) => {
-        setRegStatus(response.data.message); 
-        console.log(response.data);
-        }); 
-    };
-
-    const login = () => {
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
-
-        try {
-            axios.post("http://localhost:3001/login", formData).then((response) => {
-                if (response.data.message !== "Wrong combination") {
-                    setLoginStatus("Email: " + response.data.result[0].email);
-        
-                    const fileName = response.data.fileName;
-                    const filePath = response.data.filePath;
-                    setUploadedFile({fileName, filePath});
-                } else {
-                    setLoginStatus(response.data.message);
-                }
-                console.log(response.data);
-            });
-        } catch(err) {
-            if (err.response.status === 500) {
-                console.log("There was a problem with server.");
-            } else {
-                console.log(err.response.data.message);
-            }
-        }
-    };
-
-    const uploadImage = async e => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('image', image);
-        formData.append('email', email);
-        
-        try {
-            const res = await axios.post("http://localhost:3001/image", formData, {
-                headers: {
-                    "Content-Type": "mulitpart/form-data"
-                }
-            });
-
-            const { fileName, filePath } = res.data;
-            setUploadedFile({fileName, filePath});
-        } catch(err) {
-            if (err.response.status === 500) {
-                console.log("There was a problem with server.");
-            } else {
-                console.log(err.response.data.message);
-            }
-        }
-    }
-
-    const uploadSub = async e => {
-        e.preventDefault();
-        
-    }
-
-    return(
-        <div id='profile' >
-            <div className="containerBlock">
-                <ul>
-                    <h1>Registration</h1>
-                    <label>Email: </label>
-                    <input type="text" onChange={(e) => {
-                        setEmailReg(e.target.value);
-                        }} 
-                    />
-                    <label>Password: </label>
-                    <input type="text" onChange={(e) => {
-                        setPasswordReg(e.target.value);
-                        }} 
-                    />
-                    <button onClick={register}>Register</button>
-                </ul>
-            </div>
-            <div className="containerBlock">
-                <ul>
-                    <h1>Login</h1>
-                    <label>Email: </label>
-                    <input data-testid="loginEmail" type="text" onChange={(e) => {
-                        setEmail(e.target.value);
-                        }} 
-                    />
-                    <label>Password: </label>
-                    <input data-testid="loginPassword" type="text" onChange={(e) => {
-                        setPassword(e.target.value);
-                        }} 
-                    />
-                    <button data-testid="loginSubmit" onClick={login}>Login</button> 
-                </ul>
-            </div>
-            <h1>{regStatus}</h1>
-
-            <div className="profileInfo">
-                <div className="subPortal">
-                    <h1>Profile Picture</h1>
-                    <img src={uploadedFile.filePath} alt="" /> 
-                    <div className='row'>
-                        <div className="login-form">
-                            <input type="file" name="imageFile" accept="image/*" onChange={(e) => {
-                                setImage(e.target.files[0]);
-                                setImageName(e.target.files[0].name);
-                            }}/>
-                            <input data-testid="uploadSubmit" type="submit" value="Upload" onClick={uploadImage}/>
-                        </div>
-                    </div>
-
-        </div>
-    )
-	*/
-  
-
-	const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
-	const [profileEmail, setProfileEmail] = useState("");
-	const [imageFilePath, setImageFilePath] = useState("");
+  const [profileEmail, setProfileEmail] = useState("");
+  const [imageFilePath, setImageFilePath] = useState("");
+  const [render, setRender] = useState("");
 
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const newPhone = useRef(null);
 
@@ -178,109 +42,74 @@ export const ProfileComponent = (props) => {
     if(storageData.inputLastName) { inputLastName = storageData.inputLastName; }
     if(storageData.exportPhone) { exportPhone = storageData.exportPhone; } */
     storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-		if (loggedIn && login) {
-			if (firstLogin < 5) {
-				setImageFilePath(filePath);
-				firstLogin++;
-			}
+    if (login) {
+      if (firstLogin < 5) {
+        setImageFilePath(filePath);
+        firstLogin++;
+      }
 
-      /* inputFirstName = storageData.inputFirstName;
-      inputLastName = storageData.inputLastName;
-      exportPhone = storageData.exportPhone;
-      exportEmail = storageData.exportEmail;
-      filePath = storageData.filePath; */
-      
+      setRender(true);
+      setAuth(true);
       setFirstName(inputFirstName);
       setLastName(inputLastName);
       setPhone(exportPhone);
-			setProfileEmail(exportEmail);
-			setImageFilePath(filePath);
-		} else {
-			setImageFilePath("\\img\\profile-blank-whitebg.png");
-		}
+      setProfileEmail(exportEmail);
+      setImageFilePath(storageDataFile);
+    } else {
+      setImageFilePath("\\img\\profile-blank-whitebg.png");
+    }
 
-		if (resetImage) {			
-			const formData = new FormData();
-			formData.append('email', exportEmail);
-			formData.append('password', exportPassword);
-
-			try {
-				const res = axios.post("http://localhost:3001/retrieveImage", formData, {
-					headers: {
-						"Content-Type": "multipart/form-data"
-					}
-				});
-
-				const filePath = res.filePath;
-				setImageFilePath(filePath);
-				tempImage = filePath;				
-			} catch (err) {
-				if (err.response.status === 500) {
-					console.log("There was a problem with server.");
-				} else {
-					console.log(err.response.data.message);
-				}
-			}
-
-			resetImage = false;
-		}
-
-		if (uploadImage) {
-			const formData = new FormData();
-
-			if (tempImage != "") {
-				formData.append('image', tempImage);
-				formData.append('email', exportEmail);
-	
-				try {
-					axios.post("http://localhost:3001/uploadImage", formData).then((response) => {	
-						const filePath = response.data.filePath;
-		
-						changeFilePath(filePath);
-						setImageFilePath(filePath);
-						tempImage = "";
-
-            window.localStorage.setItem("filePath", JSON.stringify(filePath));
-            storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-						uploadImage = false;
-					});
-				} catch (err) {
-					if (err.response.status === 500) {
-						console.log("There was a problem with server.");
-					} else {
-						console.log(err.response.data.message);
-					}
-				}
-			}
-		}
-		
-		if (logOut) {
-			loggingOut();
+    if (logOut) {
+      LoggingOut();
       setFirstName("N/A");
       setLastName("N/A");
-			setProfileEmail("N/A");
+      setProfileEmail("N/A");
       setPhone("N/A");
-			setImageFilePath("\\img\\profile-blank-whitebg.png");
-		}
-	}, [uploadImage, tempImage, resetImage]);
+      setImageFilePath("\\img\\profile-blank-whitebg.png");
+    }
+  }, [render]);
 
-  const phoneSubmit = () => {
-    if(validate()){
-      const formData = new FormData();
+  const resetImage = () => {
+    const formData = new FormData();
+    formData.append('email', storageData.email);
 
-      formData.append('email', storageData.exportEmail);
-			formData.append('phone', phone);
+    try {
+      const res = axios.post("http://localhost:3001/retrieveImage", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+
+      const filePath = res.filePath;
+      setImageFilePath(filePath);
+      tempImage = filePath;
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  }
+
+  const uploadImage = () => {
+    const formData = new FormData();
+
+    if (tempImage != "") {
+      formData.append('image', tempImage);
+      formData.append('email', storageData.email);
 
       try {
-        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-          if(response.data.message === "Changed Phone Successfully") {
-            changePhone(response.data.result[0].phone_number);
-            const user = {exportEmail, inputFirstName, inputLastName, exportPhone};
-            window.localStorage.setItem("user", JSON.stringify(user));
-                
-            storageData = JSON.parse(localStorage.getItem("user"));
-          }
-          navigate("/profile");
+        axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
+          const filePath = response.data.filePath;
+
+          changeFilePath(filePath);
+          setImageFilePath(filePath);
+          tempImage = "";
+
+          window.localStorage.setItem("filePath", JSON.stringify(filePath));
+          storageDataFile = JSON.parse(localStorage.getItem("filePath"));
+          setRender(Math.random());
         });
       } catch (err) {
         if (err.response.status === 500) {
@@ -289,6 +118,36 @@ export const ProfileComponent = (props) => {
           console.log(err.response.data.message);
         }
       }
+    }
+  }
+
+  const phoneSubmit = () => {
+    if(validate()){
+      const formData = new FormData();
+
+      formData.append('email', storageData.exportEmail);
+			formData.append('phone', phone);
+
+    try {
+      axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+        if (response.data.message === "Changed Phone Successfully") {
+          console.log(response.data);
+          changePhone(response.data.result[0].phone_number);
+          const user = { email: storageData.email, firstName: storageData.firstName, 
+            lastName: storageData.lastName, phone: phone };
+          window.localStorage.setItem("user", JSON.stringify(user));
+
+          storageData = JSON.parse(localStorage.getItem("user"));
+        }
+        navigate("/profile");
+      });
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
     }
   }
 
@@ -311,13 +170,15 @@ export const ProfileComponent = (props) => {
 	
 	return (  
     <div id='student' className='text-center'>
-		  <div className='container'>
-			  <div className='section-title'>
-				  <h2>Profile</h2>
-			  </div>
+      <div className='container'>
+        <div className='section-title'>
+          <h2>Profile</h2>
+        </div>
         <div className='row'>
           <div className='row'>
-            {storageDataFile? (<img data-testid="profilePic" src={storageDataFile} />) : (<img data-testid="profilePic" src={imageFilePath} />) }
+            {storageDataFile ? (
+              <img data-testid="profilePic" src={storageDataFile} />
+            ) : (<img data-testid="profilePic" src={imageFilePath} />)}
             <h1 id="chosenImage"></h1>
           </div>
           <div className='row'>
@@ -328,38 +189,48 @@ export const ProfileComponent = (props) => {
                   tempImage = e.target.files[0];
 
                   if (tempImage == undefined) {
-                    resetImage = true;
+                    resetImage();
                     document.getElementById("chosenImage").innerHTML = "";
-                  }	else {
-                    document.getElementById("chosenImage").innerHTML 
+                  } else {
+                    document.getElementById("chosenImage").innerHTML
                       = tempImage.name;
-                  }							
-                  uploadImage = false;
-                }} />
-              <NavLink className="nav-link" to="/profile">
-                <input data-testid="uploadSubmit" type="submit" 
-                value="Upload Image" onClick={() => {
-                  if (tempImage != undefined) {
-                    uploadImage = true;
-                    resetImage = false;
-                    document.getElementById("chosenImage").innerHTML = "";
                   }
                 }} />
+              <NavLink className="nav-link" to="/profile">
+                <input data-testid="uploadSubmit" type="submit"
+                  value="Upload Image" onClick={() => {
+                    if (tempImage != undefined) {
+                      uploadImage();
+                      document.getElementById("chosenImage").innerHTML = "";
+                    }
+                  }} />
               </NavLink>
             </div>
           </div>
           <div className="column-left">
             <h3>First Name</h3>
-            {storageData? (storageData.inputFirstName? (<h1 data-testid="firstName">{storageData.inputFirstName}</h1>) : ((<h1 data-testid="firstName">{storageData.fnameReg}</h1>))) : (<h1 data-testid="firstName">{firstName}</h1>)} 
+            {storageData ? (
+              <h1 data-testid="firstName">{storageData.firstName}</h1>
+            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
             <h3>Last Name</h3>
-            {storageData? (storageData.inputLastName? (<h1 data-testid="firstName">{storageData.inputLastName}</h1>) : ((<h1 data-testid="firstName">{storageData.lnameReg}</h1>))) : (<h1 data-testid="firstName">{lastName}</h1>)}
+            {storageData ? (
+              <h1 data-testid="lastName">{storageData.lastName}</h1>
+            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
             <h3>Email</h3>
-            {storageData? (storageData.exportEmail? (<h1>{storageData.exportEmail}</h1>) : ((<h1>{storageData.emailReg}</h1>))) : (<h1>{profileEmail}</h1>)}
+            {storageData ? (
+              <h1 data-testid="profileEmail">{storageData.email}</h1>
+            ) : (<h1 data-testid="profileEmail">{profileEmail}</h1>)}
             <h3>Phone Number</h3>
-            {storageData? (storageData.exportPhone? (<h1>{storageData.exportPhone.substr(0, 3)}-{storageData.exportPhone.substr(3, 3)}-{storageData.exportPhone.substr(6, 4)}</h1>) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)) : (<h1>{phone.substr(0, 3)}-{phone.substr(3, 3)}-{phone.substr(6, 4)}</h1>)}
+            {storageData ? (
+              storageData.phone && storageData.phone.length > 9 ? (
+                <h1>{storageData.phone.substr(0, 3)}-{storageData.phone.substr(3, 3)}-{storageData.phone.substr(6, 4)}</h1>
+              ) : (<h1>{phone}</h1>)
+            ) : (<h1>{phone}</h1>)}
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
+                setRender(Math.random());
+                setAuth(false);
                 localStorage.clear();
               }}>Log out</button>
             </NavLink>
@@ -391,10 +262,10 @@ export const ProfileComponent = (props) => {
           </div>
         </div>
       </div>
-		</div>
-	)
+    </div>
+  )
 }
 
 export const resetTempImage = () => {
-	tempImage = "";
+  tempImage = "";
 }

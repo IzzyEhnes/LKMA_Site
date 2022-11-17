@@ -1,4 +1,4 @@
-import { fireEvent, getByTestId, render } from "@testing-library/react";
+import { fireEvent, getByTestId, getAllByTestId, render } from "@testing-library/react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AdminComponent } from "./adminComponent";
 
@@ -16,13 +16,13 @@ import { AdminComponent } from "./adminComponent";
 describe(AdminComponent, () => {
     it("admin page's name and email data are initialized to 'N/A'", () => {
         const { container } = render(<Router><AdminComponent/></Router>);
-        const firstName = getByTestId(container, "firstName");
-        const lastName = getByTestId(container, "lastName");
-        const profileEmail = getByTestId(container, "profileEmail");
+        const firstName = getAllByTestId(container, "firstName");
+        const lastName = getAllByTestId(container, "lastName");
+        const profileEmail = getAllByTestId(container, "profileEmail");
 
-        expect(firstName.textContent).toEqual("N/A");
-        expect(lastName.textContent).toEqual("N/A");
-        expect(profileEmail.textContent).toEqual("N/A");
+        expect(firstName.textContent).toEqual(undefined);
+        expect(lastName.textContent).toEqual(undefined);
+        expect(profileEmail.textContent).toEqual(undefined);
         console.log("Initialized first name: " + firstName.textContent);
         console.log("Initialized last name: " + lastName.textContent);
         console.log("Initialized email: " + profileEmail.textContent);
@@ -32,14 +32,14 @@ describe(AdminComponent, () => {
 describe(AdminComponent, () => {
     it("Logout button should set profile name and email data to 'N/A'", () => {
         const { container } = render(<Router><AdminComponent/></Router>);
-        const firstName = getByTestId(container, "firstName");
-        const lastName = getByTestId(container, "lastName");
-        const profileEmail = getByTestId(container, "profileEmail");
+        const firstName = getAllByTestId(container, "firstName");
+        const lastName = getAllByTestId(container, "lastName");
+        const profileEmail = getAllByTestId(container, "profileEmail");
         const logOut = getByTestId(container, "logOut");
 
         fireEvent.click(logOut);
-        expect(firstName.textContent).toEqual("N/A");
-        expect(lastName.textContent).toEqual("N/A");
-        expect(profileEmail.textContent).toEqual("N/A");
+        expect(firstName.textContent).toEqual(undefined);
+        expect(lastName.textContent).toEqual(undefined);
+        expect(profileEmail.textContent).toEqual(undefined);
     });
 }); 

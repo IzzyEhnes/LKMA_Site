@@ -1,34 +1,212 @@
-{
-    "StudentInfoData": [
-        {
-            "account_id" : 1,
-            "student_id": 5,
-            "first_name": "exampleName1",
-            "last_name": "exampleLName1",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-916",
-            "account_image": "example.jpg"
-        },
-        {
-            "account_id" : 2,
-            "student_id": 6,
-            "first_name": "exampleName2",
-            "last_name": "exampleLName2",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-548",
-            "account_image": "example.jpg"
-        },
-        {
-            "account_id" : 3,
-            "student_id": 5,
-            "first_name": "exampleName3",
-            "last_name": "exampleLName3",
-            "email": "example@gmail.com",
-            "password": "p@ssword",
-            "phone_number": "(916) 916-408",
-            "account_image": "example.jpg"
-        }
-    ]
-}
+[
+  {
+    "account_id": 1,
+    "student_id": null,
+    "first_name": null,
+    "last_name": null,
+    "email": "hmm1@gmail.com",
+    "password": "12341234",
+    "phone_number": null,
+    "account_image": null
+  },
+  {
+    "account_id": 2,
+    "student_id": null,
+    "first_name": null,
+    "last_name": null,
+    "email": "test1@gmail.com",
+    "password": "1234",
+    "phone_number": null,
+    "account_image": null
+  },
+  {
+    "account_id": 3,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "tester1@gmail.com",
+    "password": "123412345Ju",
+    "phone_number": "1234567",
+    "account_image": "Jira1.png"
+  },
+  {
+    "account_id": 5,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Victor",
+    "email": "apple1@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": "1112223333",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 16,
+    "student_id": null,
+    "first_name": "work",
+    "last_name": "please",
+    "email": "please@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 22,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "vie",
+    "email": "justin@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": "9161234567",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 26,
+    "student_id": null,
+    "first_name": "justin",
+    "last_name": "viers",
+    "email": "test123123@gmail.com",
+    "password": "justin",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 28,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "m",
+    "password": "1234123",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 29,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "apple@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": "N/A",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 30,
+    "student_id": null,
+    "first_name": "Jv",
+    "last_name": "hi",
+    "email": "testing12333@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": "123123",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 34,
+    "student_id": null,
+    "first_name": "test",
+    "last_name": "test",
+    "email": "notreal@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 35,
+    "student_id": null,
+    "first_name": "justin",
+    "last_name": "jgfde",
+    "email": "qweqwe@gmail.com",
+    "password": "123123123Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 36,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "taco@gmail.com",
+    "password": "123456778Ju",
+    "phone_number": "123312123h",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 58,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "testtt@a.com",
+    "password": "12341234Ju",
+    "phone_number": "1231231234",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 59,
+    "student_id": null,
+    "first_name": "justin",
+    "last_name": "vierstra",
+    "email": "m1",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 60,
+    "student_id": null,
+    "first_name": "pls",
+    "last_name": "work",
+    "email": "testjv3@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 61,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "testjv1@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": "1231231222",
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 62,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "testjv11111@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 63,
+    "student_id": null,
+    "first_name": "justin",
+    "last_name": "vierstra",
+    "email": "apple12@gmail.com",
+    "password": "12341234Ju",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 64,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "testtest1@gmail.com",
+    "password": "Ju1234512345",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  },
+  {
+    "account_id": 65,
+    "student_id": null,
+    "first_name": "Justin",
+    "last_name": "Vierstra",
+    "email": "taco1@gmail.com",
+    "password": "$2b$10$i.MfsnnaIe6haCEZ2DuADO1a21NbJ1A7NKoU5MYajmPmmLXuAQVae",
+    "phone_number": null,
+    "account_image": "profile-blank-whitebg.png"
+  }
+]
