@@ -122,9 +122,11 @@ export const ProfileComponent = (props) => {
   }
 
   const phoneSubmit = () => {
-    const formData = new FormData();
-    formData.append('email', storageData.email);
-    formData.append('phone', phone);
+    if(validate()){
+      const formData = new FormData();
+
+      formData.append('email', storageData.exportEmail);
+			formData.append('phone', phone);
 
     try {
       axios.post("http://localhost:3001/changePhone", formData).then((response) => {
@@ -145,6 +147,24 @@ export const ProfileComponent = (props) => {
       } else {
         console.log(err.response.data.message);
       }
+    }
+    }
+  }
+
+  function validate() {
+    const regex = new RegExp(/[^0-9.]+/g);
+    if(newPhone.current.value.length !== 10){
+      console.log("Phone number must be 10 digits (Include area code)");
+      document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits (Include area code)";
+      return false;
+    }else if (!regex.test(newPhone.current.value)) {
+      console.log("Phone Number Valid");
+      document.getElementById("phoneError").innerHTML = "";
+      return true;
+    } else {
+      console.log("Phone number most contain only numbers.");
+      document.getElementById("phoneError").innerHTML = "Phone number most contain only numbers.";
+      return false;
     }
   }
 	
@@ -229,9 +249,11 @@ export const ProfileComponent = (props) => {
               <button>Change Password</button>
             </NavLink>
             <div className="row text-input">
-              <input ref={newPhone} className="text" type="text"
+              <div id="phoneError"></div>
+              <input ref={newPhone} className="text" type="text" minLength="10"
                     placeholder="Enter new phone" onChange={(e) => {
-                      setPhone(e.target.value);
+                      const result = e.target.value.replace(/[^0-9.]+/g, '');
+                      setPhone(result);
                     }} required />
             </div>
             <div className="row">

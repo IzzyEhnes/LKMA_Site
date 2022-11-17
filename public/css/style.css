@@ -1479,6 +1479,10 @@ td {
   color: red;
 }
 
+#phoneError{
+  color: red; 
+}
+
 #submitMessage{
   color:black;
   padding: 5%;
