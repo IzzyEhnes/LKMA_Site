@@ -269,7 +269,7 @@ export const AdminComponent = (props) => {
               storageData.phone && storageData.phone.length > 9 ? (
                 <h1>{storageData.phone.substr(0, 3)}-{storageData.phone.substr(3, 3)}-{storageData.phone.substr(6, 4)}</h1>
               ) : (<h1>{phone}</h1>)
-            ) : (<h1>{phone}</h1>)}
+            ) : (<h1>N/A</h1>)}
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
