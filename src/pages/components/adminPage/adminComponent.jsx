@@ -140,27 +140,29 @@ export const AdminComponent = (props) => {
   };
 
   const phoneSubmit = () => {
-    const formData = new FormData();
-    formData.append('email', storageData.email);
-    formData.append('phone', phone);
+    if(validate()){
+      const formData = new FormData();
+      formData.append('email', storageData.email);
+      formData.append('phone', phone);
 
-    try {
-      axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-        if (response.data.message === "Changed Phone Successfully") {
-          changePhone(response.data.result[0].phone_number);
-          const user = { email: storageData.email, firstName: storageData.firstName, 
-            lastName: storageData.lastName, phone: phone };
-          window.localStorage.setItem("user", JSON.stringify(user));
+      try {
+        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+          if (response.data.message === "Changed Phone Successfully") {
+            changePhone(response.data.result[0].phone_number);
+            const user = { email: storageData.email, firstName: storageData.firstName, 
+              lastName: storageData.lastName, phone: phone };
+            window.localStorage.setItem("user", JSON.stringify(user));
 
-          storageData = JSON.parse(localStorage.getItem("user"));
+            storageData = JSON.parse(localStorage.getItem("user"));
+          }
+          navigate("/admin");
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
         }
-        navigate("/admin");
-      });
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log("There was a problem with server.");
-      } else {
-        console.log(err.response.data.message);
       }
     }
   }
@@ -210,7 +212,22 @@ export const AdminComponent = (props) => {
     const num = Number(value);
   }
 
-
+  function validate() {
+    const regex = new RegExp(/[^0-9.]+/g);
+    if(newPhone.current.value.length !== 10){
+      console.log("Phone number must be 10 digits (Include area code)");
+      document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits (Include area code)";
+      return false;
+    }else if (!regex.test(newPhone.current.value)) {
+      console.log("Phone Number Valid");
+      document.getElementById("phoneError").innerHTML = "";
+      return true;
+    } else {
+      console.log("Phone number most contain only numbers.");
+      document.getElementById("phoneError").innerHTML = "Phone number most contain only numbers.";
+      return false;
+    }
+  }
 
   return (
     <div id='admin' className='text-center'>
@@ -293,10 +310,12 @@ export const AdminComponent = (props) => {
                 <button>Change Password</button>
               </NavLink>
               <div className="row text-input">
-                <input ref={newPhone} className="text" type="text"
-                      placeholder="Enter new phone" onChange={(e) => {
-                        setPhone(e.target.value);
-                      }} required />
+              <div id="phoneError"></div>
+              <input ref={newPhone} className="text" type="text" minLength="10"
+                    placeholder="Enter new phone" onChange={(e) => {
+                      const result = e.target.value.replace(/[^0-9.]+/g, '');
+                      setPhone(result);
+                    }} required />
               </div>
               <div className="row">
                 <button onClick={phoneSubmit}>Click to Update Phone</button>
