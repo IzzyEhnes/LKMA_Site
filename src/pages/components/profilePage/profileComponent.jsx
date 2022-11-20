@@ -125,29 +125,29 @@ export const ProfileComponent = (props) => {
     if(validate()){
       const formData = new FormData();
 
-      formData.append('email', storageData.exportEmail);
+      formData.append('email', storageData.email);
 			formData.append('phone', phone);
 
-    try {
-      axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-        if (response.data.message === "Changed Phone Successfully") {
-          console.log(response.data);
-          changePhone(response.data.result[0].phone_number);
-          const user = { email: storageData.email, firstName: storageData.firstName, 
-            lastName: storageData.lastName, phone: phone };
-          window.localStorage.setItem("user", JSON.stringify(user));
+      try {
+        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+          if (response.data.message === "Changed Phone Successfully") {
+            console.log(response.data);
+            changePhone(response.data.result[0].phone_number);
+            const user = { email: storageData.email, firstName: storageData.firstName, 
+              lastName: storageData.lastName, phone: phone };
+            window.localStorage.setItem("user", JSON.stringify(user));
 
-          storageData = JSON.parse(localStorage.getItem("user"));
+            storageData = JSON.parse(localStorage.getItem("user"));
+          }
+          navigate("/profile");
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
         }
-        navigate("/profile");
-      });
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log("There was a problem with server.");
-      } else {
-        console.log(err.response.data.message);
       }
-    }
     }
   }
 
