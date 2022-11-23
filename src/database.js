@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // For sending Forgot Password emails
-const fromEmail = "teamname404@gmail.com";  // temporary, for testing purposes; change to client's email
+const fromEmail = "noreply.leeskoreanmartialarts@gmail.com";
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 
@@ -35,8 +35,8 @@ const connection = mysql.createConnection({
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "Sinude3!",
-  database: "lkma",
+  password: "root",
+  database: "lkmadb",
 });
 
 var hashPassword;
@@ -494,7 +494,7 @@ var passwordResetEmail = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: fromEmail,
-    pass: 'zpypjzurpmcclpxn' // client needs to set up an app password: go to https://myaccount.google.com/security -> enable 2FA -> App passwords
+    pass: 'wdnjwpbgvbjvaotj'
   }
 });
 
@@ -517,7 +517,7 @@ app.post("/forgot", (req, res) => {
     [email], (err, result) => {
 
       if (err) {
-        return log("Query failed. Error: %s. Query: %s", err, query);
+        console.log("Query failed. Error: %s", err);
       }
 
       // if an account matching the provided email address was found, send a password reset request email to that email address
@@ -534,7 +534,7 @@ app.post("/forgot", (req, res) => {
           [accountId], (err, result) => {
 
             if (err) {
-              return log("Query failed. Error: %s. Query: %s", err, query);
+              console.log("Query failed. Error: %s", err);
             }
 
             // if a reset token already exists for the account
@@ -565,7 +565,7 @@ app.post("/forgot", (req, res) => {
               connection.query("INSERT INTO resetTokens (account_id, token, expiration, created_at) VALUES (?,?,?,?)",
                 [accountId, token, expiration, createdAt], (err, result) => {
                   if (err) {
-                    return log("Query failed. Error: %s. Query: %s", err, query);
+                    console.log("Query failed. Error: %s. Query: %s", err, query);
                   }
                 });
             }
@@ -625,7 +625,7 @@ app.get('/resetpassword', (req, res) => {
     [token], (err, result) => {
 
       if (err) {
-        return log("Query failed. Error: %s. Query: %s", err, query);
+        console.log("Query failed. Error: %s", err);
       }
 
       if (result.length > 0) {
