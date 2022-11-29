@@ -35,8 +35,8 @@ const connection = mysql.createConnection({
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "root",
-  database: "lkmadb",
+  password: "Sinude3!",
+  database: "lkma",
 });
 
 var hashPassword;
