@@ -71,6 +71,7 @@ export const AdminComponent = (props) => {
             if (response.data.message === "Refresh token exists. Sending new access token.") {
               const newJWT = response.data.accessToken;
               tokenData.append('newJWT', newJWT);
+
               details = {
                 jwt: localStorage.getItem("token"),
                 newJWT: newJWT
@@ -183,7 +184,9 @@ export const AdminComponent = (props) => {
     formData.append('jwt', jwt);
 
     try {
-      axios.post("http://localhost:3001/endSession", formData);
+      axios.post("http://localhost:3001/endSession", formData).then((response) => {
+        localStorage.clear();
+      });
     } catch (err) {
       if (err.response.status === 500) {
         console.log("There was a problem with closing the session.");

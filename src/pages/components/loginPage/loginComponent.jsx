@@ -83,8 +83,6 @@ export const GoToLogin = () => {
   inputFirstName = regFirstName;
   inputLastName = regLastName;
   exportPhone = 'N/A';
-  createUser = {firstName: inputFirstName, 
-    lastName: inputLastName};
   filePath = "\\img\\" + exportImage;
   login = true;
   logIn();
@@ -101,57 +99,10 @@ export const LoginComponent = (props) => {
   var [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const [uploadedFile, setUploadedFile] = useState({});
-  const [user, setUser] = useState();
-    
-  // useEffect(() => {
-
-  // }, [user]);
-
-  const Login = async () => {
-    const formData = new FormData();
-    formData.append('email', inputEmail.current.value);
-    formData.append('password', inputPassword.current.value);
-    exportEmail = inputEmail.current.value;
-    exportPassword = inputPassword.current.value;
-    
-    try {
-      await axios.post("http://localhost:3001/login", formData).then((response) => {
-      if (response.data.auth) {  
-          validLogin = true;
-          setLoginStatus("Successfully logged in");
-
-          const jwt = response.data.accessToken;
-          window.localStorage.setItem("token", jwt);
-          
-          inputFirstName = response.data.result[0].first_name;
-          inputLastName = response.data.result[0].last_name;
-          exportPhone = response.data.result[0].phone_number;
-          const fileName = response.data.fileName;
-          filePath = response.data.filePath;
-
-          if (filePath == "") {
-            filePath = "\\img\\profile-blank-whitebg.png";
-          }
-
-          setUploadedFile({ fileName, filePath });
-          uploadFile = uploadedFile.filePath;
-          createUser = {firstName: inputFirstName, lastName: inputLastName};
-          setUser(response.data);
-        } else {
-          setLoginStatus(response.data.message);
-        }
-      });
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log("There was a problem with server.");
-      } else {
-        console.log(err.response.data.message);
-      }
-    }
-  };
 
   function Validate() {
     validLogin = false;
+    localStorage.clear();
 
     if (inputEmail.current.value === "") {
       //console.log("No email provided")
@@ -180,7 +131,7 @@ export const LoginComponent = (props) => {
         checkLowercase(inputPassword.current.value)) {
         //console.log("Valid Password")
         document.getElementById("passwordError").innerHTML = ""
-        Login();
+        validLogin = true;
       }
     }
   }
@@ -216,37 +167,79 @@ export const LoginComponent = (props) => {
     }
   };
 
-  const MoveToProfile = async (e) => {
-    e.preventDefault();
-
+  const MoveToProfile = async () => {
     if (validLogin) {
-      login = true;
-      validLogin = false;
-      document.getElementById("passwordError").innerHTML = ""
+      const formData = new FormData();
+      formData.append('email', inputEmail.current.value);
+      formData.append('password', inputPassword.current.value);
+      exportEmail = inputEmail.current.value;
+      exportPassword = inputPassword.current.value;
       
+      try {
+        await axios.post("http://localhost:3001/login", formData).then((response) => {
+          if (response.data.auth) {
+            login = true;
+            validLogin = false;
+            document.getElementById("passwordError").innerHTML = ""
 
-      logIn();
-      adminLogIn();
+            const jwt = response.data.accessToken;
+            window.localStorage.setItem("token", jwt);
+            
+            inputFirstName = response.data.result[0].first_name;
+            inputLastName = response.data.result[0].last_name;
+            exportPhone = response.data.result[0].phone_number;
+            const fileName = response.data.fileName;
+            filePath = response.data.filePath;
 
-      //populate adminLogin with the admin email address
-      checkAdmin();
-      resetForm();
+            if (filePath == "") {
+              filePath = "\\img\\profile-blank-whitebg.png";
+            }
 
-      return 0;      
+            setLoginStatus("Successfully logged in");
+            setUploadedFile({ fileName, filePath });
+            uploadFile = uploadedFile.filePath;
+            
+            logIn();
+            adminLogIn();
+            //populate adminLogin with the admin email address
+            checkAdmin();
+            resetForm();
+          } else {
+            login_attempts --;
+
+            if (login_attempts == 0) {
+              document.getElementById("email").disabled=true;
+              document.getElementById("password").disabled=true;
+              document.getElementById("signin").disabled=true;
+
+              document.getElementById("passwordError").innerHTML 
+              = "Too many incorrect log in attempts. Please try again later."
+            } else {
+              //console.log("Incorrect login info. Please enter the correct email and password.")
+              document.getElementById("passwordError").innerHTML 
+                = "Incorrect login info. Please enter the correct email and password."
+            }
+            setLoginStatus(response.data.message);
+          }
+        });
+      } catch (err) {
+        if (err.response.status === 500) {
+          console.log("There was a problem with server.");
+        } else {
+          console.log(err.response.data.message);
+        }
+      }     
     } else {
-
       login_attempts --;
 
-			if(login_attempts == 0){
+			if (login_attempts == 0) {
 				document.getElementById("email").disabled=true;
 				document.getElementById("password").disabled=true;
 				document.getElementById("signin").disabled=true;
 
         document.getElementById("passwordError").innerHTML 
         = "Too many incorrect log in attempts. Please try again later."
-			}
-
-      else {
+			} else {
         //console.log("Incorrect login info. Please enter the correct email and password.")
         document.getElementById("passwordError").innerHTML 
           = "Incorrect login info. Please enter the correct email and password."

@@ -81,9 +81,6 @@ describe(AdminComponent, () => {
         expect(firstName.textContent).toEqual(undefined);
         expect(lastName.textContent).toEqual(undefined);
         expect(profileEmail.textContent).toEqual(undefined);
-        //console.log("Initialized first name: " + firstName.textContent);
-        //console.log("Initialized last name: " + lastName.textContent);
-        //console.log("Initialized email: " + profileEmail.textContent);
     });
 });
 

@@ -30,7 +30,7 @@ export const Navigation = (props) => {
     const determineAdmin = async () => {
       const tokenData = new FormData();
       tokenData.append("jwt", localStorage.getItem("token"));
-
+      
       await axios.post("http://localhost:3001/retrieveUserInfo", tokenData).then((response) => {
         if (response.data.result[0] !== undefined) {
           if (response.data.result[0].admin_status == 1) {
@@ -42,7 +42,7 @@ export const Navigation = (props) => {
           }
         }
       });
-      
+
       return adminCheck;
     }
 

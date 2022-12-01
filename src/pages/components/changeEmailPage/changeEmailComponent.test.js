@@ -114,7 +114,7 @@ describe(ChangeEmailComponent, () => {
         expect(profilePic.src).toContain(blankPic);
         console.log("Initialized profile pic url: " + profilePic.src);
     });
-});  
+}); 
 
 describe(ProfileComponent, () => {
     it("profile page's name and email data are initialized to 'N/A'", () => {
