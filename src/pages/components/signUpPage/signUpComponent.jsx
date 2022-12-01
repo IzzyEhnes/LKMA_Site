@@ -6,11 +6,15 @@ import axios from "axios";
 import { GoToLogin } from "../loginPage/loginComponent";
 import { useEffect } from "react";
 import { fromAdmin, fromStudent } from "../adminPage/adminComponent";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 var regFirstName = "";
 var regLastName = "";
 var expRegEmail = "";
 var expRegPassword = "";
+var expRegPhone = "";
 var regFilePath = "profile-blank-whitebg.png";
 var exportImage = "";
 var validFirstName, validLastName, validEmail, validPassword,
@@ -102,6 +106,7 @@ export const SignUpComponent = (props) => {
   const [lnameReg, setLnameReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [phoneReg, setPhoneReg] = useState("");
   const [user, setUser] = useState();
   const [imageReg, setImageReg] = useState("");
   const [accessCode, setAccessCode] = useState("");
@@ -114,7 +119,6 @@ export const SignUpComponent = (props) => {
 
   const checkAdmin = async () => {
     adminLogin = false;
-    window.localStorage.setItem("isAuth", true);
 
     try {
       axios.post("http://localhost:3001/admin").then((response) => {
@@ -127,14 +131,13 @@ export const SignUpComponent = (props) => {
           }
         }
 
-        console.log("adminLogin: " + adminLogin);
         if (adminLogin) {
           fromAdmin();
-          window.localStorage.setItem("isAdmin", true);
+          setAdminStatus(1);
           navigate("/admin");
         } else {
           fromStudent();
-          window.localStorage.setItem("isAdmin", false);
+          setAdminStatus(0);
           navigate("/profile");
         }
       });
@@ -147,33 +150,50 @@ export const SignUpComponent = (props) => {
     }
   };
 
+  const setAdminStatus = async (adminStatus) => {
+    const formData = new FormData();
+    formData.append("admin", adminStatus);
+    formData.append("jwt", localStorage.getItem("token"));
+    
+    try {
+      await axios.post("http://localhost:3001/setAdmin", formData);
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  };
+
   const HandleClick = () => {
     const data = {
-      fname: fnameReg, lname: lnameReg, email: emailReg,
-      password: passwordReg, imageFile: imageReg, accCode: accessCode
+      fname: fnameReg, lname: lnameReg, email: emailReg, password: passwordReg, 
+      imageFile: imageReg, phone: phoneReg, accCode: accessCode
     };
 
     axios.post("http://localhost:3001/", data).then((response) => {
-      const user = {email: emailReg, firstName: fnameReg, lastName: lnameReg};
-      
+      const user = {firstName: fnameReg, lastName: lnameReg};
       setRegStatus(response.data.message);
-      console.log(response.data.message);
+
       if(response.data.message === "registration successful") {
         exportImage = imageReg;
         regFirstName = fnameReg;
         regLastName = lnameReg;
         expRegEmail = emailReg;
         expRegPassword = passwordReg;
+        expRegPhone = phoneReg;
         signUp = true;
 
-        window.localStorage.setItem("user", JSON.stringify(user));
-        window.localStorage.setItem("isAuth", true);
+        const jwt = response.data.accessToken;
+        window.localStorage.setItem("token", jwt);
+        
         GoToLogin();
         checkAdmin();
-      } else if(response.data.message === "Invalid Access Code") {
+      } else if (response.data.message === "Invalid Access Code") {
         document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
       } else { 
-        console.log("email is already being used");
+        // console.log("email is already being used");
         document.getElementById("emailError").innerHTML 
           = "That email already has an account. Please choose another email.";
       }
@@ -186,87 +206,87 @@ export const SignUpComponent = (props) => {
 
   function validate() {
     if (inputFirstName.current.value === "") {
-      console.log("No first name provided")
+      // console.log("No first name provided")
       document.getElementById("firstNameError").innerHTML = "Please provide your first name"
     } else if (validateName(inputFirstName.current.value)) {
-      console.log("First name valid")
+      // console.log("First name valid")
       validFirstName = true;
       document.getElementById("firstNameError").innerHTML = ""
     } else {
-      console.log("First name must only contain letters")
+      // console.log("First name must only contain letters")
       document.getElementById("firstNameError").innerHTML = "First name must only contain letters"
     }
 
     if (inputLastName.current.value === "") {
-      console.log("No last name provided")
+      // console.log("No last name provided")
       document.getElementById("lastNameError").innerHTML = "Please provide your last name"
     } else if (validateName(inputLastName.current.value)) {
-      console.log("Last name valid")
+      // console.log("Last name valid")
       validLastName = true;
       document.getElementById("lastNameError").innerHTML = ""
     } else {
-      console.log("Last name must only contain letters")
+      // console.log("Last name must only contain letters")
       document.getElementById("lastNameError").innerHTML = "Last name must only contain letters"
     }
 
     if (inputEmail.current.value === "") {
-      console.log("No email provided")
+      // console.log("No email provided")
       document.getElementById("emailError").innerHTML = "Please provide an email"
     } else if (validateEmail(inputEmail.current.value)) {
-      console.log("Email valid")
+      // console.log("Email valid")
       validEmail = true;
       document.getElementById("emailError").innerHTML = ""
     } else {
-      console.log("Email invalid")
+      // console.log("Email invalid")
       document.getElementById("emailError").innerHTML = "Please enter a valid email"
     }
 
     if (inputPassword.current.value === "") {
-      console.log("No password provided")
+      // console.log("No password provided")
       document.getElementById("passwordError").innerHTML = "Please provide a password"
     } else if (inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)) {
-      console.log("Valid Password")
+      // console.log("Valid Password")
       validPassword = true;
       document.getElementById("passwordError").innerHTML = ""
     } else if (inputPassword.current.value.length < 8) {
-      console.log("Password must be 8 characters or longer in length")
+      // console.log("Password must be 8 characters or longer in length")
       document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
     } else if (checkUppercase(inputPassword.current.value)) {
-      console.log("Password must contain at least one lowercase letter")
+      // console.log("Password must contain at least one lowercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
     } else if (checkLowercase(inputPassword.current.value)) {
-      console.log("Password must contain at least one uppercase letter")
+      // console.log("Password must contain at least one uppercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
     }
 
     if (inputPasswordConfirm.current.value === "") {
-      console.log("Confirmation password not provided")
+      // console.log("Confirmation password not provided")
       document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
     } else {
       document.getElementById("passwordConfirmError").innerHTML = ""
     }
 
     if (inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
-      console.log("Passwords match")
+      // console.log("Passwords match")
       validConfirm = true;
       document.getElementById("matchingError").innerHTML = ""
     } else if (inputPassword.current.value === "" || inputPasswordConfirm.current.value === "") {
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
     } else {
-      console.log("Password and conformation password do not match")
+      // console.log("Password and conformation password do not match")
       document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
     }
 
     if(inputAccessCode.current.value === "") {
-      console.log("No access code provided")
+      // console.log("No access code provided")
       document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
     } else if(validateCode(inputAccessCode.current.value)) {
       validAccessCode = true;
-      console.log("Access Code Valid");
+      // console.log("Access Code Valid");
       document.getElementById("accessCodeError").innerHTML = ""
     } else {
-      console.log("Access Code Incorrect")
+      // console.log("Access Code Incorrect")
       document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
     }
 
@@ -296,6 +316,7 @@ export const SignUpComponent = (props) => {
                   onChange={(e) => {
                     setFnameReg(e.target.value);
                     setImageReg(regFilePath);
+                    setPhoneReg("N/A");
                   }} required />
                 <input ref={inputLastName} data-testid="lastName"
                   id="lastName" type="text" placeholder="Last Name"

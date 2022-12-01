@@ -4,15 +4,12 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {useRef} from 'react';
 import { LoggingOut, changeFilePath } from "../loginPage/loginComponent";
-import { exportEmail, inputFirstName, inputLastName, exportPhone, filePath,
-  login, changePhone} from "../loginPage/loginComponent";
+import { login, changePhone } from "../loginPage/loginComponent";
 import { useAuth } from "../../../AuthContext";
 
 var logOut = true;
-var firstLogin = 0;
 var tempImage = "";
-var storageData;
-var storageDataFile;
+var phoneResult;
 
 export const logIn = () => {
   logOut = false;
@@ -28,33 +25,129 @@ export const ProfileComponent = (props) => {
   const [phone, setPhone] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
   const [imageFilePath, setImageFilePath] = useState("");
+  const [authStatus, setAuthStatus] = useState("");
   const [render, setRender] = useState("");
+  const newPhone = useRef(null);
 
   const navigate = useNavigate();
   const { setAuth } = useAuth();
 
-  const newPhone = useRef(null);
+  var checkAuth;
+  var resData;
+  const jwt = localStorage.getItem("token");
+  const tokenData = new FormData();
+  tokenData.append('jwt', jwt);
+
+  useEffect(() => {  
+    try {
+      let details = {
+        jwt: localStorage.getItem("token")
+      };
+
+      if (!localStorage.getItem("token")) {
+        navigate("/");
+      } else {
+        tokenAuth();
+  
+        async function tokenAuth() {
+          await axios.post("http://localhost:3001/refresh", {
+            withCredentials: true,
+          }).then((response) => {
+            if (response.data.message === "Refresh token exists. Sending new access token.") {
+              const newJWT = response.data.accessToken;
+              tokenData.append('newJWT', newJWT);
+              details = {
+                jwt: localStorage.getItem("token"),
+                newJWT: newJWT
+              };
+              setAuthStatus(response.data.auth);
+            } else {
+              localStorage.clear();
+              navigate("/login");
+            }
+          });
+  
+          await fetch("http://localhost:3001/updateJWT", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+  
+            body: JSON.stringify(details),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            resData = data.message;
+            if (resData === "Updated account's access token.") {
+              tokenData.set('jwt', details.newJWT);
+              localStorage.setItem("token", details.newJWT);
+              details = {
+                jwt: localStorage.getItem("token"),
+                newJWT: details.newJWT
+              };
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+          await fetch("http://localhost:3001/verifyJWT", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(details),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            resData = data.message;
+            setAuthStatus(data.auth);
+            checkAuth = data.auth;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+          if (checkAuth) {
+            await axios.post("http://localhost:3001/retrieveUserInfo", tokenData).then((response) => {
+              if (response.data.result[0] !== undefined) {
+                if (response.data.result[0].admin_status == 1) {
+                  navigate("/admin");
+                } else {
+                  setFirstName(response.data.result[0].first_name);
+                  setLastName(response.data.result[0].last_name);
+                  setPhone(response.data.result[0].phone_number);
+                  setProfileEmail(response.data.result[0].email);
+    
+                  const profileImage = response.data.result[0].account_image;
+    
+                  if (profileImage == "profile-blank-whitebg.png") {
+                    setImageFilePath("img/" + response.data.result[0].account_image);
+                  } else {
+                    setImageFilePath(response.data.directoryPath + profileImage);
+                  }
+                }
+              }
+            });
+          } else {
+            localStorage.clear();
+            navigate("/login");
+          }
+        }
+      }
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  }, []);
 
 	useEffect(() => {
-    storageData = JSON.parse(localStorage.getItem("user"));
-    /* if(storageData.exportEmail) { exportEmail = storageData.exportEmail; }
-    if(storageData.inputFirstName) { inputFirstName = storageData.inputFirstName; }
-    if(storageData.inputLastName) { inputLastName = storageData.inputLastName; }
-    if(storageData.exportPhone) { exportPhone = storageData.exportPhone; } */
-    storageDataFile = JSON.parse(localStorage.getItem("filePath"));
     if (login) {
-      if (firstLogin < 5) {
-        setImageFilePath(filePath);
-        firstLogin++;
-      }
-
       setRender(true);
       setAuth(true);
-      setFirstName(inputFirstName);
-      setLastName(inputLastName);
-      setPhone(exportPhone);
-      setProfileEmail(exportEmail);
-      setImageFilePath(storageDataFile);
     } else {
       setImageFilePath("\\img\\profile-blank-whitebg.png");
     }
@@ -69,84 +162,142 @@ export const ProfileComponent = (props) => {
     }
   }, [render]);
 
-  const resetImage = () => {
+  const closeSession = async () => {
+    const jwt = localStorage.getItem("token");
     const formData = new FormData();
-    formData.append('email', storageData.email);
+    formData.append('jwt', jwt);
 
     try {
-      const res = axios.post("http://localhost:3001/retrieveImage", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+      await axios.post("http://localhost:3001/endSession", formData).then((response) => {
+        localStorage.clear();
       });
-
-      const filePath = res.filePath;
-      setImageFilePath(filePath);
-      tempImage = filePath;
     } catch (err) {
       if (err.response.status === 500) {
-        console.log("There was a problem with server.");
+        console.log("There was a problem with closing the session.");
       } else {
         console.log(err.response.data.message);
       }
     }
   }
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const formData = new FormData();
+    var resData;
 
     if (tempImage != "") {
       formData.append('image', tempImage);
-      formData.append('email', storageData.email);
+      formData.append("jwt", localStorage.getItem("token"));
 
-      try {
-        axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
-          const filePath = response.data.filePath;
+      let details = {
+        image: tempImage,
+        jwt: localStorage.getItem("token")
+      };
 
-          changeFilePath(filePath);
-          setImageFilePath(filePath);
-          tempImage = "";
-
-          window.localStorage.setItem("filePath", JSON.stringify(filePath));
-          storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-          setRender(Math.random());
+      await fetch("http://localhost:3001/verifyJWT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          resData = data.message;
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
+
+      if (resData == "Authorization Successful.") {
+        try {
+          await axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
+            if (response.data.message === "Image was successfully uploaded.") {
+              const filePath = response.data.filePath;
+
+              setImageFilePath(filePath);
+              changeFilePath(filePath);
+              tempImage = "";
+              //setRender(Math.random());
+            }
+          });
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log("There was a problem with server.");
+          } else {
+            console.log(err.response.data.message);
+          }
         }
       }
     }
   }
+  
+  const changePhoneNum = async (e) => {
+    const result = e.target.value.replace(/[^0-9.]+/g, '');
+    const length = result.length;
+    
+    if (length == 0) {
+      phoneResult = "(No number entered)";
+    } else if (length <= 3) {
+      phoneResult = result;
+    } else if (length > 3 && length <= 6) {
+      phoneResult = result.substr(0, 3) + "-" + result.substr(3, length);
+    } else if (length > 6 && length < 12) {
+      phoneResult = result.substr(0, 3) + "-" + result.substr(3, 3) 
+        + "-" + result.substr(6, 4);
+    }
+    setPhone(phoneResult);
+  }
 
-  const phoneSubmit = () => {
-    if(validate()){
+  const phoneSubmit = async () => {
+    var resData;
+
+    if (validate()) {
+      const jwt = localStorage.getItem("token");
       const formData = new FormData();
+      formData.append('jwt', jwt);
 
-      formData.append('email', storageData.email);
-			formData.append('phone', phone);
+      let details = {
+        jwt: localStorage.getItem("token")
+      };
 
-      try {
-        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-          if (response.data.message === "Changed Phone Successfully") {
-            console.log(response.data);
-            changePhone(response.data.result[0].phone_number);
-            const user = { email: storageData.email, firstName: storageData.firstName, 
-              lastName: storageData.lastName, phone: phone };
-            window.localStorage.setItem("user", JSON.stringify(user));
+      await fetch("http://localhost:3001/verifyJWT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      })
+      .then((response) => response.json()) 
+      .then((data) => {
+        resData = data.message;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-            storageData = JSON.parse(localStorage.getItem("user"));
+      if (resData == "Authorization Successful.") {
+        axios.post("http://localhost:3001/retrieveUserInfo", formData).then((response) => {
+          if (response.data.result[0] !== undefined) {
+            const email = response.data.result[0].email;
+            formData.append('email', email);
+            formData.append('phone', phoneResult);
+
+            try {
+              axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+                if (response.data.message === "Changed Phone Successfully") {
+                  changePhone(response.data.result[0].phone_number);
+                }
+                navigate("/profile");
+              });
+            } catch (err) {
+              if (err.response.status === 500) {
+                console.log("There was a problem with server.");
+              } else {
+                console.log(err.response.data.message);
+              }
+            }
           }
-          navigate("/profile");
         });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
-        }
       }
     }
   }
@@ -154,16 +305,13 @@ export const ProfileComponent = (props) => {
   function validate() {
     const regex = new RegExp(/[^0-9.]+/g);
     if(newPhone.current.value.length !== 10){
-      console.log("Phone number must be 10 digits (Include area code)");
       document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits (Include area code)";
       return false;
     }else if (!regex.test(newPhone.current.value)) {
-      console.log("Phone Number Valid");
       document.getElementById("phoneError").innerHTML = "";
       return true;
     } else {
-      console.log("Phone number most contain only numbers.");
-      document.getElementById("phoneError").innerHTML = "Phone number most contain only numbers.";
+      document.getElementById("phoneError").innerHTML = "Phone number must contain only numbers.";
       return false;
     }
   }
@@ -176,9 +324,7 @@ export const ProfileComponent = (props) => {
         </div>
         <div className='row'>
           <div className='row'>
-            {storageDataFile ? (
-              <img data-testid="profilePic" src={storageDataFile} />
-            ) : (<img data-testid="profilePic" src={imageFilePath} />)}
+            <img data-testid="profilePic" src={imageFilePath} />
             <h1 id="chosenImage"></h1>
           </div>
           <div className='row'>
@@ -189,7 +335,6 @@ export const ProfileComponent = (props) => {
                   tempImage = e.target.files[0];
 
                   if (tempImage == undefined) {
-                    resetImage();
                     document.getElementById("chosenImage").innerHTML = "";
                   } else {
                     document.getElementById("chosenImage").innerHTML
@@ -209,29 +354,20 @@ export const ProfileComponent = (props) => {
           </div>
           <div className="column-left">
             <h3>First Name</h3>
-            {storageData ? (
-              <h1 data-testid="firstName">{storageData.firstName}</h1>
-            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
+            <h1 data-testid="firstName">{firstName}</h1>
             <h3>Last Name</h3>
-            {storageData ? (
-              <h1 data-testid="lastName">{storageData.lastName}</h1>
-            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
+            <h1 data-testid="lastName">{lastName}</h1>
             <h3>Email</h3>
-            {storageData ? (
-              <h1 data-testid="profileEmail">{storageData.email}</h1>
-            ) : (<h1 data-testid="profileEmail">{profileEmail}</h1>)}
+            <h1 data-testid="profileEmail">{profileEmail}</h1>
             <h3>Phone Number</h3>
-            {storageData ? (
-              storageData.phone && storageData.phone.length > 9 ? (
-                <h1>{storageData.phone.substr(0, 3)}-{storageData.phone.substr(3, 3)}-{storageData.phone.substr(6, 4)}</h1>
-              ) : (<h1>{phone}</h1>)
-            ) : (<h1>{phone}</h1>)}
+            <h1 data-testid="phone">{phone}</h1>
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
                 setRender(Math.random());
                 setAuth(false);
                 localStorage.clear();
+                closeSession();
               }}>Log out</button>
             </NavLink>
           </div>
@@ -251,10 +387,7 @@ export const ProfileComponent = (props) => {
             <div className="row text-input">
               <div id="phoneError"></div>
               <input ref={newPhone} className="text" type="text" minLength="10"
-                    placeholder="Enter new phone" onChange={(e) => {
-                      const result = e.target.value.replace(/[^0-9.]+/g, '');
-                      setPhone(result);
-                    }} required />
+                placeholder="Enter new phone" onChange={changePhoneNum} required />
             </div>
             <div className="row">
               <button onClick={phoneSubmit}>Click to Update Phone</button>

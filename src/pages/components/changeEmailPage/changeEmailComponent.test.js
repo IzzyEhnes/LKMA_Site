@@ -16,6 +16,15 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockLogin,
 }));
 
+const MockChangeEmail = () => {
+    return (
+        <Router>
+            <ChangeEmailComponent/>
+            <ProfileComponent/>
+        </Router>
+    )
+}
+
 //edge cases to test for:
 // test 1: email and confirm email fields do not match
 // test 2: new email already exists in database
@@ -35,16 +44,6 @@ describe(ChangeEmailComponent, () => {
         expect(emailConfirm).toBeVisible();
         expect(submitButton).toBeVisible();
     });
-
-    /*it("should be able to change input fields", () => {
-        render(<Router><ChangeEmailComponent/></Router>);
-        const emailField = screen.getByPlaceholderText("Email");
-        const emailConfirm = screen.getByPlaceholderText("Confirm Email");
-        fireEvent.change(emailField, { target: { value: "a@gmail.com"}})
-        fireEvent.change(emailConfirm, { target: { value: "a@gmail.com"}})
-        expect(emailField.value).toBe("a@gmail.com");
-        expect(emailConfirm.value).toBe("a@gmail.com");
-    });*/
 
     it("test when email and confirm email fields do not match", () => {
         render(<Router><ChangeEmailComponent/></Router>);
@@ -87,6 +86,22 @@ describe(ChangeEmailComponent, () => {
         expect(matchingError.textContent).toBe("");
         expect(emailError.textContent).toBe("");
     });
+
+    // it("profile email should change after inputting new email and pressing submit", () => {
+    //     render(<MockChangeEmail/>);
+    //     const emailField = screen.getByPlaceholderText("Email");
+    //     const emailConfirm = screen.getByPlaceholderText("Confirm Email");
+    //     const submitButton = screen.getByTestId("emailSubmit");
+    //     const matchingError = screen.getByTestId("matchingError");
+    //     const profileEmail = screen.getByTestId("profileEmail");
+        
+    //     fireEvent.change(emailField, { target: { value: "a@gmail.com"}})
+    //     fireEvent.change(emailConfirm, { target: { value: "a@gmail.com"}})
+    //     fireEvent.click(submitButton);
+    //     expect(matchingError.textContent).toBe("");
+    //     const email = screen.getByText({"a@gmail.com"});
+    //     expect(email).toBe("a@gmail.com");
+    // });
 });
 
 /*describe(ProfileComponent, () => {
@@ -99,7 +114,7 @@ describe(ChangeEmailComponent, () => {
         expect(profilePic.src).toContain(blankPic);
         console.log("Initialized profile pic url: " + profilePic.src);
     });
-});  
+}); 
 
 describe(ProfileComponent, () => {
     it("profile page's name and email data are initialized to 'N/A'", () => {

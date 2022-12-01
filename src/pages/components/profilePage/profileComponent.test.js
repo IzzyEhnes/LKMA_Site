@@ -72,7 +72,7 @@ describe(ProfileComponent, () => {
         fireEvent.click(logOut);
         expect(firstName.textContent).toEqual("N/A");
         expect(lastName.textContent).toEqual("N/A");
-        expect(profileEmail.textContent).toEqual("Email: N/A");
+        expect(profileEmail.textContent).toEqual("N/A");
     });
 });  
 
