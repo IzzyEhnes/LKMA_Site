@@ -44,18 +44,14 @@ describe(LoginComponent, () => {
         const emailContainer = wrapper.find(".emailInput").simulate("change", 
             { target: { value: testEmail } });
         emailContainer.update();
-        //console.log(wrapper.find(".emailInput").instance());
+
         expect(emailContainer.length).toEqual(1);
         expect(setState).toHaveBeenCalled;
-        //expect(wrapper.find(".emailInput").prop("value")).toEqual(testEmail);
-        //expect(setState).toHaveBeenCalledWith(testText);
-        //const { wrapper } = enzyme.mount(<Router><LoginComponent 
-        //    MoveToProfile={mockLogin}/></Router>);
 
         const passwordContainer = wrapper.find(".passwordInput").simulate("change", 
             { target: { value: testPassword } });
         passwordContainer.update();
-        //console.log(wrapper.find(".passwordInput").instance());
+
         expect(passwordContainer.length).toEqual(1);
         expect(setState).toHaveBeenCalled;
         
@@ -75,13 +71,5 @@ describe(LoginComponent, () => {
         expect(setState).toHaveBeenCalled;
         expect(inputEmail.value).toBe(testEmail);
         expect(inputPassword.value).toBe(testPassword);
-        //const result = wrapper.find('button').simulate('click');
-        //fireEvent.submit(loginSubmit);
-        //userEvent.click(loginSubmit);
-        //expect(loginSubmit).toBeChecked();
-        //expect(mockLogin).toHaveBeenCalled();
-        //expect(mockLogin).toHaveBeenCalledWith("a@gmail.com", "Tester12");
-        //console.log(profilePic.textContent);
-        //console.log(imageValue.textContent);
     });
 });

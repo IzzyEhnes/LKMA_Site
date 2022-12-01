@@ -7,7 +7,12 @@ import { studentLogout, logIn } from "../profilePage/profileComponent";
 import { adminLogout, adminLogIn, fromAdmin, fromStudent } from "../adminPage/adminComponent";
 import { expRegEmail, expRegPassword, regFirstName, regLastName,
   exportImage } from "../signUpPage/signUpComponent";
+import { CheckAdminStatus } from "../Navigation";
 import { useEffect } from "react";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+axios.defaults.withCredentials = true;
 
 var exportEmail = 'N/A';
 var exportPassword = '';
@@ -78,11 +83,9 @@ export const GoToLogin = () => {
   inputFirstName = regFirstName;
   inputLastName = regLastName;
   exportPhone = 'N/A';
-  createUser = {email: exportEmail, firstName: inputFirstName, 
-    lastName: inputLastName, phone: exportPhone};
-  window.localStorage.setItem("user", JSON.stringify(createUser));
+  createUser = {firstName: inputFirstName, 
+    lastName: inputLastName};
   filePath = "\\img\\" + exportImage;
-  window.localStorage.setItem("filePath", JSON.stringify(filePath));
   login = true;
   logIn();
   adminLogIn();
@@ -99,12 +102,12 @@ export const LoginComponent = (props) => {
   const [loginStatus, setLoginStatus] = useState("");
   const [uploadedFile, setUploadedFile] = useState({});
   const [user, setUser] = useState();
+    
+  // useEffect(() => {
 
-  useEffect(() => {
-    console.log((localStorage.getItem("user")));
-  }, [user]);
+  // }, [user]);
 
-  const Login = () => {
+  const Login = async () => {
     const formData = new FormData();
     formData.append('email', inputEmail.current.value);
     formData.append('password', inputPassword.current.value);
@@ -112,11 +115,14 @@ export const LoginComponent = (props) => {
     exportPassword = inputPassword.current.value;
     
     try {
-      axios.post("http://localhost:3001/login", formData).then((response) => {
-        if (response.data.message !== "Wrong combination") {
+      await axios.post("http://localhost:3001/login", formData).then((response) => {
+      if (response.data.auth) {  
           validLogin = true;
           setLoginStatus("Successfully logged in");
 
+          const jwt = response.data.accessToken;
+          window.localStorage.setItem("token", jwt);
+          
           inputFirstName = response.data.result[0].first_name;
           inputLastName = response.data.result[0].last_name;
           exportPhone = response.data.result[0].phone_number;
@@ -129,11 +135,9 @@ export const LoginComponent = (props) => {
 
           setUploadedFile({ fileName, filePath });
           uploadFile = uploadedFile.filePath;
-          createUser = {email: exportEmail, firstName: inputFirstName, 
-            lastName: inputLastName, phone: exportPhone };
+          createUser = {firstName: inputFirstName, lastName: inputLastName};
           setUser(response.data);
         } else {
-          
           setLoginStatus(response.data.message);
         }
       });
@@ -150,31 +154,31 @@ export const LoginComponent = (props) => {
     validLogin = false;
 
     if (inputEmail.current.value === "") {
-      console.log("No email provided")
+      //console.log("No email provided")
       document.getElementById("emailError").innerHTML = "Please provide an email"
     } else if (!(validateEmail(inputEmail.current.value))) {
-      console.log("Email invalid")
+      //console.log("Email invalid")
       document.getElementById("emailError").innerHTML = "Please enter a valid email"
     } else {
-      console.log("Email valid")
+      //console.log("Email valid")
       document.getElementById("emailError").innerHTML = ""
 
       if (inputPassword.current.value === "") {
-        console.log("No password provided")
+        //console.log("No password provided")
         document.getElementById("passwordError").innerHTML = "Please provide a password"
       } else if (inputPassword.current.value.length < 8) {
-        console.log("Password must be 8 characters or longer in length")
+        //console.log("Password must be 8 characters or longer in length")
         document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
       } else if (!(checkUppercase(inputPassword.current.value))) {
-        console.log("Password must contain at least one uppercase letter")
+        //console.log("Password must contain at least one uppercase letter")
         document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
       } else if (!(checkLowercase(inputPassword.current.value))) {
-        console.log("Password must contain at least one lowercase letter")
+        //console.log("Password must contain at least one lowercase letter")
         document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
       } else if (inputPassword.current.value.length > 7 &&
         checkUppercase(inputPassword.current.value) &&
         checkLowercase(inputPassword.current.value)) {
-        console.log("Valid Password")
+        //console.log("Valid Password")
         document.getElementById("passwordError").innerHTML = ""
         Login();
       }
@@ -184,12 +188,8 @@ export const LoginComponent = (props) => {
   const checkAdmin = async () => {
     adminLogin = false;
 
-    window.localStorage.setItem("user", JSON.stringify(createUser));
-    window.localStorage.setItem("filePath", JSON.stringify(filePath));
-    window.localStorage.setItem("isAuth", true);
-
     try {
-      axios.post("http://localhost:3001/admin").then((response) => {
+      await axios.post("http://localhost:3001/admin", { withCredentials: true }).then((response) => {
         const adminEmails = response.data.result;
         var i;
 
@@ -201,12 +201,9 @@ export const LoginComponent = (props) => {
 
         if (adminLogin) {
           fromAdmin();
-          window.localStorage.setItem("isAdmin", true);
           navigate("/admin");
         } else {
           fromStudent();
-          console.log("got here to adminLogin")
-          window.localStorage.setItem("isAdmin", false);
           navigate("/profile");
         }
       });
@@ -225,9 +222,9 @@ export const LoginComponent = (props) => {
     if (validLogin) {
       login = true;
       validLogin = false;
-
       document.getElementById("passwordError").innerHTML = ""
-  
+      
+
       logIn();
       adminLogIn();
 
@@ -250,22 +247,20 @@ export const LoginComponent = (props) => {
 			}
 
       else {
-        console.log("Incorrect login info. Please enter the correct email and password.")
+        //console.log("Incorrect login info. Please enter the correct email and password.")
         document.getElementById("passwordError").innerHTML 
           = "Incorrect login info. Please enter the correct email and password."
       }
     }
   }
  
-
-function resetForm(){
-	login_attempts = 5;
-	document.getElementById("email").disabled=false;
-	document.getElementById("password").disabled=false;
-	document.getElementById("signin").disabled=false;
-}
+  function resetForm() {
+    login_attempts = 5;
+    document.getElementById("email").disabled = false;
+    document.getElementById("password").disabled = false;
+    document.getElementById("signin").disabled = false;
+  }
  
-
   return (
     <div id='login' className='text-center'>
       <div className='container'>
