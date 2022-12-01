@@ -41,7 +41,7 @@ const connection = mysql.createConnection({
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "CicadaCode@7",
+  password: "LKMAWdevNoah",
   database: "lkmadb",
 });
 
@@ -136,6 +136,17 @@ app.post("/", (req, res) => {
                           });
                       });
                   });
+                });
+                const directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\' + email;
+  
+                fs.access(directoryPath, (error) => {
+                  if (error) {
+                    fs.mkdir(directoryPath, (error) => {
+                      if (error) {
+                        console.log(error);
+                      }
+                    });
+                  }
                 });
               }
             });

@@ -175,7 +175,7 @@ export const ProfileComponent = (props) => {
       if (err.response.status === 500) {
         console.log("There was a problem with closing the session.");
       } else {
-        console.log(err.response.data.message);
+        console.log(err.response.message);
       }
     }
   }
@@ -286,6 +286,8 @@ export const ProfileComponent = (props) => {
               axios.post("http://localhost:3001/changePhone", formData).then((response) => {
                 if (response.data.message === "Changed Phone Successfully") {
                   changePhone(response.data.result[0].phone_number);
+                } else if (response.data.message === "Duplicate Phone Number") {
+                  document.getElementById("phoneError").innerHTML = "Phone number already in use";
                 }
                 navigate("/profile");
               });
@@ -360,7 +362,7 @@ export const ProfileComponent = (props) => {
             <h3>Email</h3>
             <h1 data-testid="profileEmail">{profileEmail}</h1>
             <h3>Phone Number</h3>
-            <h1 data-testid="phone">{phone}</h1>
+            <h1>{phone}</h1>
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
@@ -385,12 +387,13 @@ export const ProfileComponent = (props) => {
               <button>Change Password</button>
             </NavLink>
             <div className="row text-input">
-              <div id="phoneError"></div>
+              <div data-testid="phoneError" id="phoneError"></div>
               <input ref={newPhone} className="text" type="text" minLength="10"
-                placeholder="Enter new phone" onChange={changePhoneNum} required />
+                placeholder="Enter new phone" data-testid="phone"
+                onChange={changePhoneNum} required />
             </div>
             <div className="row">
-              <button onClick={phoneSubmit}>Click to Update Phone</button>
+              <button data-testid="updatePhone" onClick={phoneSubmit}>Click to Update Phone</button>
             </div>
           </div>
         </div>
