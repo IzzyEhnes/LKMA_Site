@@ -1,102 +1,24 @@
 [
   {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "adam",
-    "last_name": "e",
-    "email": "a@e.com",
-    "password": "$2b$10$hdelJkMs/1GYVYAP9eMK.Otmy9WdF8z.kteLGk62Paa6RZ1tamxia",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "Amy",
-    "last_name": "West",
-    "email": "amywest@sacstate.com",
-    "password": "$2b$10$ATT/2Z5vofPEVupkTn9ij.e9mqsZnQR3pNLTNoPk4iEa02o.yLAFG",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "Giovanni",
-    "last_name": "Barrientos",
-    "email": "gio.a.barrientos@gmail.com",
-    "password": "Sinude31",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "jane",
-    "last_name": "appleseed",
-    "email": "ja@seed.com",
-    "password": "$2b$10$j2xGzx.2TRPR1XePs4gji.AAPJUgPQf9bSPaoTNBFLSut8jsLJLpW",
-    "phone_number": "2345678901",
-    "account_image": "Deku_Jacket.jpg"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "Jane",
-    "last_name": "Deer",
-    "email": "Jane@deer.com",
-    "password": "$2b$10$Cx8TEnEW3FVAivnn2BRBTOKuDbsPBnXwxZvPE9jbkfr2t4eiHoNs6",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
+    "account_id": 1,
     "first_name": "John",
     "last_name": "Doe",
-    "email": "jd@test.com",
-    "password": "$2b$10$4mYbj1IQxQBZjH18Ott9xOJtFcAOrNIhYLXuPl/qvBb52gFvYY1LW",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
+    "email": "johndoe@gmail.com",
+    "password": "$2b$10$wTbPyWNKnqzU59w.mm0UVuLx5zdZW2iDvZsTIavI6KCWCrr/tF/o.",
+    "phone_number": "N/A",
+    "account_image": "Grasses.png",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImlhdCI6MTY2OTkzMzgzNCwiZXhwIjoxNjY5OTM0NzM0fQ.c1aYa_jihTv1Wk33XDlnCvhqKd8sD1xa7sdx09eo9vQ",
+    "admin_status": 0
   },
   {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "John",
-    "last_name": "seed",
-    "email": "john@seed.com",
-    "password": "$2b$10$ZZqwOD4Ko2LQ734rd5taKeO3vO8SVKeyUIsxXpZIceDfQyAYpKmHS",
-    "phone_number": null,
-    "account_image": "R_9W5UVR0HJLUhMC6jOX8gBcBx_TGc4CGyM7mFI1D6Q.jpg"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "Johnny",
-    "last_name": "Appleseed",
-    "email": "Johnny@appleseed.com",
-    "password": "$2b$10$u0Y2s9YkJmIAAYaB1SIF6eWFuPr1BSK86L3rsK7GfOTYFcPC//rna",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "jasmine",
-    "last_name": "orange",
-    "email": "jorange@fruit.com",
-    "password": "$2b$10$hc.KM5vH/q7OEvJEoTlFzu19mgsWKXORByewqNGYcGSUxgo1pdKkC",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
-  },
-  {
-    "account_id": null,
-    "student_id": null,
-    "first_name": "Johnny",
-    "last_name": "Test",
-    "email": "jt@test.net",
-    "password": "$2b$10$C1jaI/mKD2GImh6FMYcwgeye9ghjUww8PMDqahEe/TCbqu/hw7WEu",
-    "phone_number": null,
-    "account_image": "profile-blank-whitebg.png"
+    "account_id": 2,
+    "first_name": "admin",
+    "last_name": "test",
+    "email": "admin3@gmail.com",
+    "password": "$2b$10$a8AZVjTEx.EEjnRvXkz93.sx4dX7zDwQTchJWWawdLREmwvYWdvBm",
+    "phone_number": "916-867-5309",
+    "account_image": "logo.png",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsImlhdCI6MTY2OTkzNTE4MywiZXhwIjoxNjY5OTM2MDgzfQ.kLNTENaW46UvdBzndLrGAXIUu79TBEsTzDFZJgWfQL4",
+    "admin_status": 1
   }
 ]
