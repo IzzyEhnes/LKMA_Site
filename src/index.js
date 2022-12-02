@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from "axios";
 import { Navigate, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { Navigation } from './pages/components/Navigation';
@@ -16,14 +17,16 @@ import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TokenExpired from './pages/TokenExpired';
 import ChangeEmail from './pages/ChangeEmail';
-import Temp from './pages/Temp';
 import Forgot from './pages/Forgot';
 import Admin from './pages/Admin';
 import AuthProvider from './AuthContext';
 import * as serviceWorker from './serviceWorker';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 function WithoutAuth({ children }) {
-  var auth = localStorage.getItem("isAuth");
+  var auth = localStorage.getItem("token");
 
   if (auth) {
     return <Navigate to="/"/>;
@@ -32,7 +35,7 @@ function WithoutAuth({ children }) {
 }
 
 function RequireAuth({ children }) {
-  var auth = localStorage.getItem("isAuth");
+  var auth = localStorage.getItem("token");
 
   if (!auth) {
     return <Navigate to="/"/>;
@@ -41,22 +44,54 @@ function RequireAuth({ children }) {
 }
 
 function RequireStudentAuth({ children }) {
-  var auth = localStorage.getItem("isAuth");
-  var isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
+  var auth = localStorage.getItem("token");
+  var isAdmin;
 
-  if (!auth || isAdmin) {
-    return <Navigate to="/"/>;
+  const checkAdmin = async () => {
+    const tokenData = new FormData();
+    tokenData.append("jwt", localStorage.getItem("token"));
+
+    axios.post("http://localhost:3001/retrieveUserInfo", tokenData).then((response) => {
+      if (response.data.result[0] !== undefined) {
+        if (response.data.result[0].admin_status == 1) {
+          isAdmin = true;
+        } else {
+          isAdmin = false;
+        }
+
+        if (!auth || isAdmin) {
+          return <Navigate to="/"/>;
+        }
+      }
+    });
   }
+  checkAdmin();
   return children;
 }
 
 function RequireAdminAuth({ children }) {
-  var auth = localStorage.getItem("isAuth");
-  var isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
+  var auth = localStorage.getItem("token");
+  var isAdmin;
 
-  if (!auth || !isAdmin) {
-    return <Navigate to="/"/>;
+  const checkAdmin = async () => {
+    const tokenData = new FormData();
+    tokenData.append("jwt", localStorage.getItem("token"));
+
+    axios.post("http://localhost:3001/retrieveUserInfo", tokenData).then((response) => {
+      if (response.data.result[0] !== undefined) {
+        if (response.data.result[0].admin_status == 1) {
+          isAdmin = true;
+        } else {
+          isAdmin = false;
+        }
+
+        if (!auth || !isAdmin) {
+          return <Navigate to="/" />;
+        }
+      }
+    });
   }
+  checkAdmin();
   return children;
 }
 
@@ -76,7 +111,7 @@ ReactDOM.render(
           <Route path="/signup" element={
             <WithoutAuth>
               <SignUp />
-            </WithoutAuth>} 
+            </WithoutAuth>}
           />
           <Route path="/login" element={
             <WithoutAuth>
@@ -86,7 +121,7 @@ ReactDOM.render(
           <Route path="/profile" element={
             <RequireStudentAuth>
               <Profile />
-            </RequireStudentAuth>} 
+            </RequireStudentAuth>}
           />
           <Route path="/resetpassword" element={
             <RequireAuth>
@@ -98,7 +133,6 @@ ReactDOM.render(
               <ChangeEmail />
             </RequireAuth>} 
           />
-          {/*<Route path="/temp" element={<Temp />} />*/}
           <Route path="/forgot" element={
             <WithoutAuth>
               <Forgot />

@@ -10,13 +10,11 @@ import {useRef} from 'react';
 import data from "../../data/studentInfoData.json";
 
 var logOut = true;
-var storageData;
 var changeAdminInfo = false;
 var renderPage = "";
 var tempImage = "";
-var resetImage = false;
-var uploadImage = false;
-var storageDataFile;
+var phoneResult;
+var triggerOnce = false;
 
 export const adminLogIn = () => {
   logOut = false;
@@ -39,25 +37,133 @@ export const AdminComponent = (props) => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [profileEmail, setProfileEmail] = useState("");
-  const [render, setRender] = useState("");  
   const [imageFilePath, setImageFilePath] = useState("");
+  const [authStatus, setAuthStatus] = useState("");
+  const [render, setRender] = useState("");  
   const [students, setStudents] = useState(data);
-  const navigate = useNavigate();
-  const { setAuth } = useAuth();
-  const accessCode=useRef(null);
+  const accessCode = useRef(null);
   const newPhone = useRef(null);
 
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
+
+  var checkAuth;
+  var resData;
+  const jwt = localStorage.getItem("token");
+  const tokenData = new FormData();
+  tokenData.append('jwt', jwt);
+
+  useEffect(() => {   
+    try {
+      let details = {
+        jwt: localStorage.getItem("token")
+      };
+
+      if (!localStorage.getItem("token")) {
+        navigate("/");
+      } else {
+        tokenAuth();
+
+        async function tokenAuth() {
+          await axios.post("http://localhost:3001/refresh", {
+            withCredentials: true,
+          }).then((response) => {
+            if (response.data.message === "Refresh token exists. Sending new access token.") {
+              const newJWT = response.data.accessToken;
+              tokenData.append('newJWT', newJWT);
+
+              details = {
+                jwt: localStorage.getItem("token"),
+                newJWT: newJWT
+              };
+              setAuthStatus(response.data.auth);
+            } else {
+              localStorage.clear();
+              navigate("/login");
+            }
+          });
+  
+          await fetch("http://localhost:3001/updateJWT", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+  
+            body: JSON.stringify(details),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            resData = data.message;
+            if (resData === "Updated account's access token.") {
+              tokenData.set('jwt', details.newJWT);
+              localStorage.setItem("token", details.newJWT);
+              details = {
+                jwt: localStorage.getItem("token"),
+                newJWT: details.newJWT
+              };
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+          await fetch("http://localhost:3001/verifyJWT", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(details),
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            resData = data.message;
+            setAuthStatus(data.auth);
+            checkAuth = data.auth;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+          if (checkAuth) {
+            await axios.post("http://localhost:3001/retrieveUserInfo", tokenData).then((response) => {
+              if (response.data.result[0] !== undefined) {
+                if (response.data.result[0].admin_status == 0) {
+                  navigate("/profile");
+                } else {
+                  setFirstName(response.data.result[0].first_name);
+                  setLastName(response.data.result[0].last_name);
+                  setPhone(response.data.result[0].phone_number);
+                  setProfileEmail(response.data.result[0].email);
+    
+                  const profileImage = response.data.result[0].account_image;
+    
+                  if (profileImage == "profile-blank-whitebg.png") {
+                    setImageFilePath("img/" + response.data.result[0].account_image);
+                  } else {
+                    setImageFilePath(response.data.directoryPath + profileImage);
+                  }
+                }
+              }
+            });
+          } else {
+            localStorage.clear();
+            navigate("/login");
+          }
+        }
+      }
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log("There was a problem with server.");
+      } else {
+        console.log(err.response.data.message);
+      }
+    }
+  }, []);
+  
   useEffect(() => {
-    storageData = JSON.parse(localStorage.getItem("user"));
-    storageDataFile = JSON.parse(localStorage.getItem("filePath"));
     if (login) {
       setRender(true);
       setAuth(true);
-      setFirstName(inputFirstName);
-      setLastName(inputLastName);
-      setPhone(exportPhone);
-      setProfileEmail(exportEmail);
-      setImageFilePath(filePath);
     } else {
       setImageFilePath("\\img\\profile-blank-whitebg.png");
     }
@@ -67,106 +173,203 @@ export const AdminComponent = (props) => {
       setFirstName("N/A");
       setLastName("N/A");
       setProfileEmail("N/A");
+      setPhone("N/A");
+      setImageFilePath("\\img\\profile-blank-whitebg.png");
     }
-  }, [renderPage]);
+  }, [render]);
 
-  const resetImage = () => {
+  const closeSession = () => {
+    const jwt = localStorage.getItem("token");
     const formData = new FormData();
-    formData.append('email', storageData.email);
+    formData.append('jwt', jwt);
 
     try {
-      const res = axios.post("http://localhost:3001/retrieveImage", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+      axios.post("http://localhost:3001/endSession", formData).then((response) => {
+        localStorage.clear();
       });
-
-      const filePath = res.filePath;
-      setImageFilePath(filePath);
-      tempImage = filePath;
     } catch (err) {
       if (err.response.status === 500) {
-        console.log("There was a problem with server.");
+        console.log("There was a problem with closing the session.");
       } else {
         console.log(err.response.data.message);
       }
     }
   }
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const formData = new FormData();
+    var resData;
 
     if (tempImage != "") {
       formData.append('image', tempImage);
-      formData.append('email', storageData.email);
+      formData.append("jwt", localStorage.getItem("token"));
+       
+      let details = {
+        image: tempImage,
+        jwt: localStorage.getItem("token")
+      };
 
-      try {
-        axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
-          const filePath = response.data.filePath;
+      await fetch("http://localhost:3001/verifyJWT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        resData = data.message;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-          changeFilePath(filePath);
-          setImageFilePath(filePath);
-          tempImage = "";
+      if (resData == "Authorization Successful.") {
+        try {
+          await axios.post("http://localhost:3001/uploadImage", formData).then((response) => {
+            if (response.data.message === "Image was successfully uploaded.") {
+              const filePath = response.data.filePath;
 
-          window.localStorage.setItem("filePath", JSON.stringify(filePath));
-          storageDataFile = JSON.parse(localStorage.getItem("filePath"));
-          setRender(Math.random());
-        });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
+              setImageFilePath(filePath);
+              changeFilePath(filePath);
+              tempImage = "";
+            }
+          });
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log("There was a problem with server.");
+          } else {
+            console.log(err.response.data.message);
+          }
         }
+      }
+    }
+  }  
+
+  const changePhoneNum = async (e) => {
+    const result = e.target.value.replace(/[^0-9.]+/g, '');
+    const length = result.length;
+    
+    if (length == 0) {
+      phoneResult = "(No number entered)";
+    } else if (length <= 3) {
+      phoneResult = result;
+    } else if (length > 3 && length <= 6) {
+      phoneResult = result.substr(0, 3) + "-" + result.substr(3, length);
+    } else if (length > 6 && length < 12) {
+      phoneResult = result.substr(0, 3) + "-" + result.substr(3, 3) 
+        + "-" + result.substr(6, 4);
+    }
+    setPhone(phoneResult);
+  }
+
+  const phoneSubmit = async () => {
+    var resData;
+
+    if (validate()) {
+      const jwt = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append('jwt', jwt);
+
+      let details = {
+        jwt: localStorage.getItem("token")
+      };
+
+      await fetch("http://localhost:3001/verifyJWT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      })
+      .then((response) => response.json()) 
+      .then((data) => {
+        resData = data.message;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      if (resData == "Authorization Successful.") {
+        axios.post("http://localhost:3001/retrieveUserInfo", formData).then((response) => {
+          if (response.data.result[0] !== undefined) {
+            const email = response.data.result[0].email;
+            formData.append('email', email);
+            formData.append('phone', phoneResult);
+
+            try {
+              axios.post("http://localhost:3001/changePhone", formData).then((response) => {
+                if (response.data.message === "Changed Phone Successfully") {
+                  changePhone(response.data.result[0].phone_number);
+                }
+                navigate("/admin");
+              });
+            } catch (err) {
+              if (err.response.status === 500) {
+                console.log("There was a problem with server.");
+              } else {
+                console.log(err.response.data.message);
+              }
+            }
+          }
+        });
       }
     }
   }
 
+  function validate() {
+    const regex = new RegExp(/[^0-9.]+/g);
+    if(newPhone.current.value.length !== 10){
+      document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits (Include area code)";
+      return false;
+    }else if (!regex.test(newPhone.current.value)) {
+      document.getElementById("phoneError").innerHTML = "";
+      return true;
+    } else {
+      document.getElementById("phoneError").innerHTML = "Phone number must contain only numbers.";
+      return false;
+    }
+  }
+
   const handleSubmit = async (e) => {
-    alert("Success! The access code has been updated.")
     e.preventDefault();
-    console.log("test");
+    var resData;
+    const formData = new FormData();
+    formData.append("jwt", localStorage.getItem("token"));
+
     const { code } = e.target.elements;
     let details = {
       code: code.value,
+      jwt: localStorage.getItem("token")
     };
-    let response = await fetch("http://localhost:3001/changeAccessCode", {
+
+    await fetch("http://localhost:3001/verifyJWT", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(details),
+    })
+    .then((response) => response.json()) 
+    .then((data) => {
+      resData = data.message;
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  };
+      
+    if (resData == "Authorization Successful.") {
+        alert("Success! The access code has been updated.")
 
-  const phoneSubmit = () => {
-    if(validate()){
-      const formData = new FormData();
-      formData.append('email', storageData.email);
-      formData.append('phone', phone);
-
-      try {
-        axios.post("http://localhost:3001/changePhone", formData).then((response) => {
-          if (response.data.message === "Changed Phone Successfully") {
-            changePhone(response.data.result[0].phone_number);
-            const user = { email: storageData.email, firstName: storageData.firstName, 
-              lastName: storageData.lastName, phone: phone };
-            window.localStorage.setItem("user", JSON.stringify(user));
-
-            storageData = JSON.parse(localStorage.getItem("user"));
-          }
-          navigate("/admin");
-        });
-      } catch (err) {
-        if (err.response.status === 500) {
-          console.log("There was a problem with server.");
-        } else {
-          console.log(err.response.data.message);
-        }
-      }
+        let response = await fetch("http://localhost:3001/changeAccessCode", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      });
     }
-  }
-
+  };
 
   //Remove account by ID
   //Attempting to make a confirm dialog
@@ -177,20 +380,48 @@ export const AdminComponent = (props) => {
   const accountId = useRef(null);
 
   const accountSubmit = async (e) => {
-    //const accountId = { accountId: accountId};
     e.preventDefault();
+
+    var resData;
     const { accountId } = e.target.elements;
     let details = {
       accountId: accountId.value,
+      jwt: localStorage.getItem("token")
     };
-    alert("ID: " + accountId.value + " has been deleted");
-    let response = await fetch("http://localhost:3001/accountRemoval", {
+    
+    await fetch("http://localhost:3001/verifyJWT", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(details),
-    }, window.location.reload(false));
+    })
+    .then((response) => response.json()) 
+    .then((data) => {
+      resData = data.message;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+      
+    if (resData == "Authorization Successful.") {
+      alert("ID: " + accountId.value + " has been deleted");
+      let response = await fetch("http://localhost:3001/accountRemoval", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(details),
+      }, window.location.reload(false))
+      .then((response) => response.json()) 
+      .then((data) => {
+        resData = data.message;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      setRender(Math.random());
+    }
   };
 
   // Check for NO letters in Account ID
@@ -198,6 +429,7 @@ export const AdminComponent = (props) => {
   const handleChange = event => {
     const result = event.target.value.replace(/\D/g, '');
     setValue(result);
+
     //setId(result);
   };
   /*
@@ -212,23 +444,6 @@ export const AdminComponent = (props) => {
     const num = Number(value);
   }
 
-  function validate() {
-    const regex = new RegExp(/[^0-9.]+/g);
-    if(newPhone.current.value.length !== 10){
-      console.log("Phone number must be 10 digits (Include area code)");
-      document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits (Include area code)";
-      return false;
-    }else if (!regex.test(newPhone.current.value)) {
-      console.log("Phone Number Valid");
-      document.getElementById("phoneError").innerHTML = "";
-      return true;
-    } else {
-      console.log("Phone number most contain only numbers.");
-      document.getElementById("phoneError").innerHTML = "Phone number most contain only numbers.";
-      return false;
-    }
-  }
-
   return (
     <div id='admin' className='text-center'>
       <div className='container'>
@@ -237,107 +452,95 @@ export const AdminComponent = (props) => {
         </div>
         <div className='row'>
           <div className='row'>
-            {storageDataFile ? (
-              <img data-testid="profilePic" src={storageDataFile} />
-            ) : (<img data-testid="profilePic" src={imageFilePath} />)}
+            <img data-testid="profilePic" src={imageFilePath} />
             <h1 id="chosenImage"></h1>
           </div>
           <div className='row'>
             <div className="login-form">
               <label htmlFor="file-upload" className="custom-file">Choose Image</label>
-                <input data-testid="uploadFile" type="file" id="file-upload" 
+              <input data-testid="uploadFile" type="file" id="file-upload"
                 name="imageFile" accept="image/*" onChange={(e) => {
                   tempImage = e.target.files[0];
 
                   if (tempImage == undefined) {
-                    resetImage();
                     document.getElementById("chosenImage").innerHTML = "";
-                  }	else {
-                    document.getElementById("chosenImage").innerHTML 
+                  } else {
+                    document.getElementById("chosenImage").innerHTML
                       = tempImage.name;
-                  }							
-                }} />
-              <NavLink className="nav-link" to="/admin">
-                <input data-testid="uploadSubmit" type="submit" 
-                value="Upload Image" onClick={() => {
-                  if (tempImage != undefined) {
-                    uploadImage();
-                    document.getElementById("chosenImage").innerHTML = "";
                   }
                 }} />
+              <NavLink className="nav-link" to="/admin">
+                <input data-testid="uploadSubmit" type="submit"
+                  value="Upload Image" onClick={() => {
+                    if (tempImage != undefined) {
+                      uploadImage();
+                      document.getElementById("chosenImage").innerHTML = "";
+                    }
+                  }} />
               </NavLink>
             </div>
           </div>
           <div className="column-left">
-          <h3>First Name</h3>
-            {storageData ? (
-              <h1 data-testid="firstName">{storageData.firstName}</h1>
-            ) : (<h1 data-testid="firstName">{firstName}</h1>)}
+            <h3>First Name</h3>
+            <h1 data-testid="firstName">{firstName}</h1>
             <h3>Last Name</h3>
-            {storageData ? (
-              <h1 data-testid="lastName">{storageData.lastName}</h1>
-            ) : (<h1 data-testid="lastName">{lastName}</h1>)}
+            <h1 data-testid="lastName">{lastName}</h1>
             <h3>Email</h3>
-            {storageData ? (
-              <h1 data-testid="profileEmail">{storageData.email}</h1>
-            ) : (<h1 data-testid="profileEmail">{profileEmail}</h1>)}
+            <h1 data-testid="profileEmail">{profileEmail}</h1>
             <h3>Phone Number</h3>
-            {storageData ? (
-              storageData.phone && storageData.phone.length > 9 ? (
-                <h1>{storageData.phone.substr(0, 3)}-{storageData.phone.substr(3, 3)}-{storageData.phone.substr(6, 4)}</h1>
-              ) : (<h1>{phone}</h1>)
-            ) : (<h1>N/A</h1>)}
+            <h1>{phone}</h1>
             <NavLink className="nav-link red" to="/login">
               <button data-testid="logOut" className="ghost" id="logIn" onClick={() => {
                 logOut = true;
                 setRender(Math.random());
                 setAuth(false);
                 localStorage.clear();
+                closeSession();
               }}>Log out</button>
             </NavLink>
           </div>
           <div className="column">
-              <a className="row" href={props.data ? props.data.uploadLink : ""} target="_blank">
-                <button>Upload Assignment</button>
-              </a>
-              <a className="row" href={props.data ? props.data.downloadLink : ""} target="_blank">
-                <button>Download Assignment</button>
-              </a>
-              <NavLink className='row' to="/ChangeEmail">
-                <button>Change Email</button>
-              </NavLink> 
-              <NavLink className='row' to="/ResetPassword">
-                <button>Change Password</button>
-              </NavLink>
-              <div className="row text-input">
-              <div id="phoneError"></div>
-              <input ref={newPhone} className="text" type="text" minLength="10"
-                    placeholder="Enter new phone" onChange={(e) => {
-                      const result = e.target.value.replace(/[^0-9.]+/g, '');
-                      setPhone(result);
-                    }} required />
-              </div>
-              <div className="row">
-                <button onClick={phoneSubmit}>Click to Update Phone</button>
-              </div>
+            <a className="row" href={props.data ? props.data.uploadLink : ""} target="_blank">
+              <button>Upload Assignment</button>
+            </a>
+            <a className="row" href={props.data ? props.data.downloadLink : ""} target="_blank">
+              <button>Download Assignment</button>
+            </a>
+            <NavLink className='row' to="/ChangeEmail">
+              <button>Change Email</button>
+            </NavLink>
+            <NavLink className='row' to="/ResetPassword">
+              <button>Change Password</button>
+            </NavLink>
+            <div className="row text-input">
+              <div data-testid="phoneError" id="phoneError"></div>
+              <input ref={newPhone} className="text" type="text"
+                placeholder="Enter new phone" data-testid="phone" 
+                onChange={changePhoneNum} required />
+            </div>
+            <div className="row">
+              <button data-testid="updatePhone" onClick={phoneSubmit}>Click to Update Phone</button>
             </div>
           </div>
         </div>
-        <div className="access-code">
-          <div className="form-container">
+      </div>
+      
+      <div className="access-code">
+        <div className="form-container">
+          {authStatus ? (
             <form onSubmit={handleSubmit}>
-                  <h3>Change access code:</h3>
-                  <div className="text-input">
-                    <input ref={accessCode} id="code" type="text" placeholder="Enter new access code" required/>
-                  </div>
-                  <button type="submit">Submit</button>
-                  <div id="submitMessage"></div>
-            </form>
-          </div>
+              <h3>Change access code:</h3>
+              <div className="text-input">
+                <input ref={accessCode} id="code" type="text" placeholder="Enter new access code" required />
+              </div>
+              <button type="submit">Submit</button>
+              <div id="submitMessage"></div>
+            </form>) : (null)}
         </div>
-        <div className="container-table">
+      </div>
+      <div className="container-table">
         <div className='row'>
-          {/* MAKE TABLE HERE */}
+          {authStatus ? (
           <table>
             <thead>
               <tr>
@@ -361,31 +564,32 @@ export const AdminComponent = (props) => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>) : (null)}
         </div>
         {/* DB ACCOUNT DELETE */}
         <div className="delete-account">
           <div className="form-container">
-            <form onSubmit={accountSubmit} >
-                  <h3>Delete User Account by Entering ID:</h3>
-                  <div className="text-input">
-                    <input 
-                        ref={accountId} id="accountId" placeholder="Enter Account ID"
-                        type="text" 
-                        value={value}
-                        onChange={handleChange}
-                        required/>
-                  </div>
-                  <button 
-                     className="delete-button"
-                     type='submit'
-                  >Submit</button>
-                  <div id="submitMessage"></div>
-            </form>
+            {authStatus ? (
+              <form onSubmit={accountSubmit} >
+                <h3>Delete User Account by Entering ID:</h3>
+                <div className="text-input">
+                  <input
+                    ref={accountId} id="accountId" placeholder="Enter Account ID"
+                    type="text"
+                    value={value}
+                    onChange={handleChange}
+                    required />
+                </div>
+                <button
+                  className="delete-button"
+                  type='submit'
+                >Submit</button>
+                <div id="submitMessage"></div>
+              </form>) : (null)}
           </div>
         </div>{/* End DB Div */}
-        </div>
       </div>
+    </div>
   )
 }
 

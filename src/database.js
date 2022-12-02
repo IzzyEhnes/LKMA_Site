@@ -1,7 +1,10 @@
+const dotenv = require("dotenv");
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 //for uploading images
@@ -11,16 +14,19 @@ const fs = require("fs");
 const detect = require('detect-file');
 const fileUpload = require("express-fileupload");
 
+dotenv.config();
 const app = express();
 app.use(fileUpload());
-app.use(express.json());
+app.use(express.json());console.log
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cookieParser());
 
 // For sending Forgot Password emails
 const fromEmail = "noreply.leeskoreanmartialarts@gmail.com";
 const nodemailer = require("nodemailer");
 const crypto = require('crypto');
+const e = require("express");
 
 // goes with all imports
 // for writing sql query results to studentInfoData.json file
@@ -35,11 +41,12 @@ const connection = mysql.createConnection({
   user: "root",
   host: "localhost",
   //adapt password to your MySQL password
-  password: "root",
+  password: "LKMAWdevNoah",
   database: "lkmadb",
 });
 
 var hashPassword;
+var userID;
 
 app.post("/", (req, res) => {
   const email = req.body.email;
@@ -47,10 +54,12 @@ app.post("/", (req, res) => {
   const first_name = req.body.fname;
   const last_name = req.body.lname;
   const file_path = req.body.imageFile;
+  const phone = req.body.phone;
   const access_code = req.body.accCode;
+  const default_status = false;
   var validAccess = false;
-
-  //implement password hashing algorithm here before password enters database
+  var accessToken;
+  var refreshToken;
 
   if (email != "" && password != "") {
     connection.query("SELECT * FROM access_code WHERE access_code = ?",
@@ -78,22 +87,67 @@ app.post("/", (req, res) => {
                   bcrypt.hash(password, salt, function (err, hash) {
                     password = hash;
 
-                    connection.query("INSERT INTO account (first_name, last_name, email, password, account_image) VALUES (?,?,?,?,?)",
-                      [first_name, last_name, email, password, file_path], 
+                    connection.query("INSERT INTO account (first_name, last_name, email, password, phone_number, account_image, admin_status) VALUES (?,?,?,?,?,?,?)",
+                      [first_name, last_name, email, password, phone, file_path, default_status], 
                       (err, result) => {
                         if (err) {
                           console.log(err);
                         }
 
-                        if ((result.email != "" && result.password != "")) {
-                          res.status(200).json({
-                            message: "registration successful", result});
-                        } else {
-                          res.status(200).json({message: "no input", result});
-                        }
+                        connection.query("SELECT * FROM account WHERE email = ?",
+                          [email], (err, result) => {
+                            if (err) {
+                              console.log(err);
+                            }
+
+                            const userID = result[0].account_id;
+                            accessToken = jwt.sign({userID}, "LKMA_ACCESS_KEY", {
+                              expiresIn: 900,
+                            });
+                            refreshToken = jwt.sign({userID}, "LKMA_REFRESH_KEY", {
+                              expiresIn: 1209600,
+                            });
+            
+                            const accountData = result;
+                            connection.query("UPDATE account SET access_token = ? WHERE account_id = ?",
+                              [accessToken, userID], (err, result) => {
+                                if (err) {
+                                  console.log(err);
+                                }
+
+                                if ((accountData.email != "" && accountData.password != "")) {
+                                  res.status(202).cookie("refreshToken", refreshToken, {
+                                    path: "/",
+                                    expires: new Date(new Date().getTime() + 1209600 * 1000), //refresh token and cookie expiration: 2 weeks
+                                    httpOnly: true,
+                                    sameSite: "strict",
+                                    secure: true
+                                  });
+        
+                                  res.status(200).json({
+                                    message: "registration successful", 
+                                    accessToken: accessToken,
+                                    result: accountData
+                                  });
+                                } else {
+                                  res.status(200).json({message: "no input", result});
+                                }
+                              });
+                          });
                       });
                   });
-                })
+                });
+                const directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\' + email;
+  
+                fs.access(directoryPath, (error) => {
+                  if (error) {
+                    fs.mkdir(directoryPath, (error) => {
+                      if (error) {
+                        console.log(error);
+                      }
+                    });
+                  }
+                });
               }
             });
         } else {
@@ -135,20 +189,174 @@ app.post("/login", (req, res) => {
                   filePath = "img/users/" + email + "/" + profilePic;
                 }
                 
-                res.status(200).json({
-                  message: "You logged in", result,
-                  fileName: profilePic, filePath: filePath
+                userID = result[0].account_id;
+
+                const accessToken = jwt.sign({userID}, "LKMA_ACCESS_KEY", {
+                  expiresIn: 900,
                 });
+                const refreshToken = jwt.sign({userID}, "LKMA_REFRESH_KEY", {
+                  expiresIn: 1209600,
+                });
+
+                const userInfo = result;
+                connection.query("UPDATE account SET access_token = ? WHERE email = ?",
+                  [accessToken, email], (err, result) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.status(202).cookie("refreshToken", refreshToken, {
+                        path: "/",
+                        expires: new Date(new Date().getTime() + 1209600 * 1000), //refresh token and cookie expiration: 2 weeks
+                        httpOnly: true,
+                        sameSite: "strict",
+                        secure: true
+                      });
+
+                      res.status(200).json({
+                        auth: true,
+                        accessToken: accessToken,
+                        message: "You logged in",
+                        result: userInfo,
+                        fileName: profilePic,
+                        filePath: filePath
+                      });
+                    }
+                  });
               } else {
-                res.status(200).json({ message: "Wrong combination", result });
+                res.status(200).json({ 
+                  auth: false,
+                  message: "Wrong username/password combination", 
+                  result: result 
+                });
               }
             }
           });
         } else {
-          res.status(200).json({ message: "Wrong combination", result });
+          res.status(200).json({ 
+            auth: false,
+            message: "Wrong username/password combination", 
+            result: result 
+          });
         }
       });
   });
+});
+
+app.post("/refresh", (req, res) => {
+  if (req.cookies?.refreshToken) {
+    const refreshToken = req.cookies.refreshToken;
+
+    jwt.verify(refreshToken, "LKMA_REFRESH_KEY", (err, result) => {
+      if (err) {
+        res.status(200).json({
+          auth: false,
+          message: "Invalid refresh token. Unauthorized request to user info."
+        });
+      } else {
+        const accessToken = jwt.sign({ userID }, "LKMA_ACCESS_KEY", {
+          expiresIn: 900,
+        });
+
+        res.status(200).json({
+          auth: true,
+          accessToken: accessToken,
+          message: "Refresh token exists. Sending new access token."
+        });
+      }
+    });
+  } else {
+    res.status(200).json({
+      auth: false,
+      message: "No refresh token exists. Unauthorized request to user info."
+    });
+  }
+});
+
+app.post("/updateJWT", (req, res) => {
+  const jwt = req.body.jwt;
+  const newJWT = req.body.newJWT;
+
+  connection.query("UPDATE account SET access_token = ? WHERE access_token = ?",
+    [newJWT, jwt], (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).json({ message: "Updated account's access token.", result });
+      }
+    });
+});
+
+app.post("/verifyJWT", (req, res) => {
+  const token = req.body.jwt;
+  
+  if (!token) {
+    res.status(200).json({ 
+      auth: false, 
+      message: "JWT does not exist. Unauthorized request to user info." 
+    });
+  } else {    
+    jwt.verify(token, "LKMA_ACCESS_KEY", (err, result) => {
+      if (err) {
+        res.status(200).json({ 
+          auth: false, 
+          message: "Invalid JWT. Unauthorized request to user info." ,
+          token: token
+        });
+      } else {
+        req.userID = res.result;
+        res.status(200).json({ auth: true, message: "Authorization Successful." });
+      }
+    });
+  }
+});
+
+app.post("/retrieveUserInfo", (req, res) => {
+  const jwt = req.body.jwt;
+
+  connection.query("SELECT * FROM account WHERE access_token = ?",
+    [jwt], (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (result.length > 0) {
+          const email = result[0].email;
+          const directoryPath = "/img/users/" + email + "/";
+          res.status(200).json({ 
+            message: "Retrieved user information.", 
+            result: result,
+            directoryPath: directoryPath
+          });
+        }
+      }
+    });
+});
+
+app.post("/endSession", (req, res) => {
+  res.status(202).clearCookie("refreshToken");
+  const jwt = req.body.jwt;
+
+  connection.query("UPDATE account SET access_token = ? WHERE access_token = ?",
+    [null, jwt], (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).json({ message: "The login session was closed." });
+      }
+    });
+});
+
+app.post("/setAdmin", (req, res) => {
+  var adminStatus = req.body.admin;
+  const jwt = req.body.jwt;
+
+  connection.query("UPDATE account SET admin_status = ? WHERE access_token = ?",
+    [adminStatus, jwt], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("got here");
+      res.status(200).json({ message: "Successfully set admin status.", result });
+    });
 });
 
 app.post("/accessCode", (req, res) => {
@@ -177,7 +385,6 @@ app.post("/changeAccessCode", (req, res) => {
         console.log(err);
       }
     });
-
 });
 
 app.post("/changePhone", (req, res) => {
@@ -237,22 +444,18 @@ app.post("/admin", (req, res) => {
 
     result = JSON.stringify(result, null, 2);
     fs.writeFile('pages/data/studentInfoData.json', result, finished)
-    // console.log(result);
   });
 });
 
-/*
-app.post("/image", (req, res) => {
-    */
 app.post("/retrieveImage", (req, res) => {
-  const email = req.body.email;
+  const jwt = req.body.jwt;
 
-  connection.query("SELECT * FROM account WHERE email = ?",
-    [email], (err, result) => {
-      if (err) {
-        console.log("triggered error");
-        return "";
-      }
+  connection.query("SELECT * FROM account WHERE access_token = ?",
+  [jwt], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const email = result[0].email;
 
       if (result.length > 0) {
         const profilePic = result[0].account_image;
@@ -262,7 +465,25 @@ app.post("/retrieveImage", (req, res) => {
           fileName: profilePic, filePath: filePath
         });
       }
-    });
+    }
+  });
+});
+
+app.post("/updateImageFolder", async (req, res) => {
+  const email = req.body.email;
+  const newEmail = req.body.newEmail;
+  const directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\'
+    + email;
+  const newPath = path.join(__dirname, '..') + '\\public\\img\\users\\'
+    + newEmail;
+
+  fs.rename(directoryPath, newPath, (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.status(200).json({ message: "Directory name was updated." });
+    }
+  })
 });
 
 app.post("/uploadImage", async (req, res) => {
@@ -270,72 +491,85 @@ app.post("/uploadImage", async (req, res) => {
     return res.status(200).json({ message: "No files were uploaded." });
   }
 
-  const email = req.body.email;
-  const imageFile = req.files.image;
-  const directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\' + email;
+  var email;
+  const jwt = req.body.jwt;
 
-  fs.access(directoryPath, (error) => {
-    if (error) {
-      fs.mkdir(directoryPath, (error) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Directory was created.");
-        }
-      });
-    }
-
-    fs.access(directoryPath, (error) => {
-      const uploadPath = directoryPath + "\\" + imageFile.name;
-  
-      fs.readdir(directoryPath, async (error, images) => {
-        if (error) {
-          console.log(error);
-        } else {
-          for (const image of await images) {
-            fs.unlink(path.join(directoryPath, image), (error) => {
-              if (error) {
-                console.log(error);
-              }
-            });
-          }
-  
-          var checkImage = detect(uploadPath);
-          if (uploadPath != checkImage) {
-            await imageFile.mv(uploadPath, err => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("The image was successfully moved.")
-              }
-            });  
-          }
-        }
-      });
-    });
-  });
-
-  if (req.files === null) {
-    return res.status(200).json({ message: "No files were uploaded." });
-  }
-
-  const image = imageFile.name;
-  connection.query("UPDATE account SET account_image = ? WHERE email = ?",
-    [image, email], (err, result) => {
+  connection.query("SELECT * FROM account WHERE access_token = ?",
+    [jwt], (err, result) => {
       if (err) {
         console.log(err);
-      }
+      } else {
 
-      const newFilePath = '/img/users/' + email + "/" + image;
-      res.status(200).json({
-        message: "", result,
-        fileName: image, filePath: newFilePath
-      });
+        if (result.length > 0) {
+          email = result[0].email;  
+          const imageFile = req.files.image;
+          const directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\' + email;
+  
+          fs.access(directoryPath, (error) => {
+            if (error) {
+              fs.mkdir(directoryPath, (error) => {
+                if (error) {
+                  console.log(error);
+                }
+              });
+            }
+  
+            fs.access(directoryPath, (error) => {
+              const uploadPath = directoryPath + "\\" + imageFile.name;
+  
+              fs.readdir(directoryPath, async (error, images) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  for (const image of await images) {
+                    fs.unlink(path.join(directoryPath, image), (error) => {
+                      if (error) {
+                        console.log(error);
+                      }
+                    });
+                  }
+  
+                  var checkImage = detect(uploadPath);
+                  if (uploadPath != checkImage) {
+                    await imageFile.mv(uploadPath, err => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                }
+              });
+            });
+          });
+  
+          if (req.files === null) {
+            return res.status(200).json({ message: "No files were uploaded." });
+          }
+  
+          const image = imageFile.name;
+          connection.query("UPDATE account SET account_image = ? WHERE email = ?",
+            [image, email], (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+  
+              const newFilePath = '/img/users/' + email + "/" + image;
+              res.status(200).json({
+                message: "Image was successfully uploaded.", result,
+                fileName: image, filePath: newFilePath
+              });
+            });
+        } else {
+          res.status(200).json({
+            message: "Did not find any account with that jwt."
+          });
+        }
+      }
     });
 });
 
   //DB Method for Account Removal from Admin
-app.post("/accountRemoval", (req, res) => {
+app.post("/accountRemoval", async (req, res) => {
   var directoryPath;
   const accountId = req.body.accountId;
 
@@ -347,21 +581,23 @@ app.post("/accountRemoval", (req, res) => {
       }
 
       if (result.length > 0) {
-        directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\' 
+        directoryPath = path.join(__dirname, '..') + '\\public\\img\\users\\'
           + result[0].email;
-      }
-    });
 
-  connection.query("DELETE FROM account WHERE account_id = ?",
-    [accountId], (err, result) => {
-      if (err) {
-        console.log(err);
-      }
+        connection.query("DELETE FROM account WHERE account_id = ?",
+          [accountId], (err, result) => {
+            if (err) {
+              console.log(err);
+            }
 
-      //remove their image folder from the img directory
-      fs.rmSync(directoryPath, { recursive: true, force: true });
-      console.log("User's image folder was removed.")
-      res.status(200).json({ message: "User's image folder was removed." });
+            //remove their image folder from the img directory
+            fs.rmSync(directoryPath, { recursive: true, force: true });
+            console.log("User's image folder was removed.")
+            res.status(200).json({ message: "User's image folder was removed." });
+          });
+      } else {
+        res.status(200).json({ message: "An account with that ID does not exist is not valid.", err });
+      }
     });
 });
 

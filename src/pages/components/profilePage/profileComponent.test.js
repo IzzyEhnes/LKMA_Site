@@ -72,9 +72,67 @@ describe(ProfileComponent, () => {
         fireEvent.click(logOut);
         expect(firstName.textContent).toEqual("N/A");
         expect(lastName.textContent).toEqual("N/A");
-        expect(profileEmail.textContent).toEqual("Email: N/A");
+        expect(profileEmail.textContent).toEqual("N/A");
     });
-});  
+});
+
+describe(ProfileComponent, () => {
+    it("Should Render 'Enter new phone' input field & Update Phone Button", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const phone = getByTestId(container, "phone");
+        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const updatePhone = getByTestId(container, "updatePhone");
+
+        expect(phone).toBeVisible();
+        expect(phoneField).toBeVisible();
+        expect(updatePhone).toBeVisible();
+    });
+
+    it("Expect No Error when valid phone is given", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const updatePhone = getByTestId(container, "updatePhone");
+        const phoneError = screen.getByTestId("phoneError");
+        
+        fireEvent.change(phoneField, { target: { value: "9168675309"}})
+        fireEvent.click(updatePhone);
+        expect(phoneError.textContent).toBe("");
+    });
+
+    it("Expect Error when phone < 10 digits is given", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const updatePhone = getByTestId(container, "updatePhone");
+        const phoneError = screen.getByTestId("phoneError");
+        
+        fireEvent.change(phoneField, { target: { value: "21"}})
+        fireEvent.click(updatePhone);
+        expect(phoneError.textContent).toBe("Phone number must be 10 digits (Include area code)");
+    });
+
+    it("Expect Error when phone > 10 digits is given", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const updatePhone = getByTestId(container, "updatePhone");
+        const phoneError = screen.getByTestId("phoneError");
+        
+        fireEvent.change(phoneField, { target: { value: "11223344556677889900"}})
+        fireEvent.click(updatePhone);
+        expect(phoneError.textContent).toBe("Phone number must be 10 digits (Include area code)");
+    });
+
+    it("Expect Error when phone has invalid digits (non-numerical)", () => {
+        const { container } = render(<Router><ProfileComponent/></Router>);
+        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        screen.getByPlaceholderText("Enter new phone");
+        const updatePhone = getByTestId(container, "updatePhone");
+        const phoneError = screen.getByTestId("phoneError");
+        
+        fireEvent.change(phoneField, { target: { value: "abc8675309"}})
+        fireEvent.click(updatePhone);
+        expect(phoneError.textContent).toBe("Phone number must contain only numbers.");
+    });
+}); 
 
 
 //edge cases to test for:

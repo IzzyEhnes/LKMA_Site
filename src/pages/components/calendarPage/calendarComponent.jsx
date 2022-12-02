@@ -8,7 +8,20 @@ export const CalendarComponent = (props) => {
                 </div>
 
                 <div className="calendar-cotainer">
-                    <div className='upcoming-events'>
+                    <div className="calendars">
+                        <div className='weekly-calendar'>
+                            <h3>
+                                Weekly Calendar
+                                <br></br>
+                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="100%" height="20%" frameBorder="0" scrolling="no"/>
+                            </h3>
+                            <h4>
+                                Monthly Calendar
+                                <br></br>
+                                <iframe src="https://calendar.google.com/calendar/embed?src=leeskoreanmartialarts@gmail.com&ctz=America%2FLos_Angeles" width="100%" height="40%" frameBorder="0" scrolling="no"></iframe>
+                            </h4>
+                        </div>
+                        <div className='upcoming-events'>
                             <h2>Upcoming Events</h2>
                                 {props.data
 
@@ -20,24 +33,9 @@ export const CalendarComponent = (props) => {
                                     </div>
                                 ))
                                 : 'Loading...'}
-                    </div>
-                    <div className="calendars">
-                        <div className='weekly-calendar'>
-                            <h3>
-                                Weekly Calendar
-                                <br></br>
-                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="700" height="500" frameBorder="0" scrolling="no"/>
-                            </h3>
-                        </div>
-
-                        <div className='monthly-calendar'>
-                            <h4>
-                                Monthly Calendar
-                                <br></br>
-                                <iframe src="https://calendar.google.com/calendar/embed?src=leeskoreanmartialarts@gmail.com&ctz=America%2FLos_Angeles" width="700" height="500" frameBorder="0" scrolling="no"></iframe>
-                            </h4>
                         </div>
                     </div>
+                            
                 </div>
             </div>
         </div>
