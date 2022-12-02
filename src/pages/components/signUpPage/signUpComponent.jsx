@@ -257,6 +257,8 @@ export const SignUpComponent = (props) => {
     } else if (checkLowercase(inputPassword.current.value)) {
       // console.log("Password must contain at least one uppercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
+    } else if (!checkLowercase(inputPassword.current.value) & !checkUppercase(inputPassword.current.value)){
+      document.getElementById("passwordError").innerHTML = "Password must contain both uppercase and lowercase letters"
     }
 
     if (inputPasswordConfirm.current.value === "") {
