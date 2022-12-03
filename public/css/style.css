@@ -1496,6 +1496,10 @@ td {
   color: red; 
 }
 
+#accessCodeError{
+  color: red;
+}
+
 #submitMessage{
   color:black;
   padding: 5%;

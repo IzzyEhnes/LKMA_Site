@@ -257,6 +257,8 @@ export const SignUpComponent = (props) => {
     } else if (checkLowercase(inputPassword.current.value)) {
       // console.log("Password must contain at least one uppercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
+    } else if (!checkLowercase(inputPassword.current.value) & !checkUppercase(inputPassword.current.value)){
+      document.getElementById("passwordError").innerHTML = "Password must contain both uppercase and lowercase letters"
     }
 
     if (inputPasswordConfirm.current.value === "") {
@@ -274,8 +276,8 @@ export const SignUpComponent = (props) => {
       //Doing nothing as error already given by another error message
       document.getElementById("matchingError").innerHTML = ""
     } else {
-      // console.log("Password and conformation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and conformation password do not match"
+      console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
     }
 
     if(inputAccessCode.current.value === "") {
