@@ -1,0 +1,1 @@
+const adapter = require('axios/lib/adapters/http');

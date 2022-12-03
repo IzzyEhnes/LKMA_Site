@@ -262,8 +262,8 @@ export const LoginComponent = (props) => {
             <div className="form-container sign-in-container">
               <form>
                 <h1>Sign in</h1>
-                <div id="emailError"></div>
-                <div id="passwordError"></div>
+                <div data-testid="emailError" id="emailError"></div>
+                <div data-testid="passwordError" id="passwordError"></div>
                 <input ref={inputEmail} data-testid="inputEmail" id="email"
                   type="email" placeholder="Enter your email"
                   className="emailInput" onChange={(e) => {
