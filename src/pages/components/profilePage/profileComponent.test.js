@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, getByTestId } from "@testing-library/react";
+import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ProfileComponent } from "./profileComponent";
 
