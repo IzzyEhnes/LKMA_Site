@@ -426,6 +426,7 @@ header .intro-text {
 #location .twitter {
   position: relative;
   margin-left: -50px;
+  padding-top: -15px;
 }
 #location .facebook {
   margin-left: 30px;
@@ -433,6 +434,7 @@ header .intro-text {
 }
 #location .google-map {
   border: 0;
+  margin-top: -50;
 }
 #location p {
   line-height: 24px;
@@ -2499,7 +2501,7 @@ td {
   }
 }
 
-@media (max-width: 968px) {
+@media (max-width: 992px) {
   #location p {
     text-align: left;
   }
@@ -2515,6 +2517,9 @@ td {
   }
   #location .twitter {
     padding-left: 160px;
+  }
+  #location .google-map {
+    margin-top: 0;
   }
   #location img {
     margin-top: -50px;
