@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, getByTestId } from "@testing-library/react";
+import { render, screen, fireEvent, getByTestId, getByPlaceholderText } from "@testing-library/react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ProfileComponent } from "./profileComponent";
 
@@ -43,7 +43,7 @@ describe(ProfileComponent, () => {
     it("Should Render 'Enter new phone' input field & Update Phone Button", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);
         const phone = getByTestId(container, "phone");
-        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const phoneField = getByPlaceholderText(container, "Enter new phone");
         const updatePhone = getByTestId(container, "updatePhone");
 
         expect(phone).toBeVisible();
@@ -53,7 +53,7 @@ describe(ProfileComponent, () => {
 
     it("Expect No Error when valid phone is given", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);
-        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const phoneField = getByPlaceholderText(container, "Enter new phone");
         const updatePhone = getByTestId(container, "updatePhone");
         const phoneError = screen.getByTestId("phoneError");
         
@@ -64,7 +64,7 @@ describe(ProfileComponent, () => {
 
     it("Expect Error when phone < 10 digits is given", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);
-        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        const phoneField = getByPlaceholderText(container, "Enter new phone");
         const updatePhone = getByTestId(container, "updatePhone");
         const phoneError = screen.getByTestId("phoneError");
         
@@ -75,7 +75,8 @@ describe(ProfileComponent, () => {
 
     it("Expect Error when phone > 10 digits is given", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);
-        const phoneField = screen.getByPlaceholderText("Enter new phone");
+        getByPlaceholderText(container, "Enter new phone")
+        const phoneField = getByPlaceholderText(container, "Enter new phone");
         const updatePhone = getByTestId(container, "updatePhone");
         const phoneError = screen.getByTestId("phoneError");
         
@@ -86,8 +87,8 @@ describe(ProfileComponent, () => {
 
     it("Expect Error when phone has invalid digits (non-numerical)", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);
-        const phoneField = screen.getByPlaceholderText("Enter new phone");
-        screen.getByPlaceholderText("Enter new phone");
+        const phoneField = getByPlaceholderText(container, "Enter new phone");
+        getByPlaceholderText(container, "Enter new phone");
         const updatePhone = getByTestId(container, "updatePhone");
         const phoneError = screen.getByTestId("phoneError");
         
