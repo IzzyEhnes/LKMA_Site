@@ -226,7 +226,7 @@ export const LoginComponent = (props) => {
         if (err.response.status === 500) {
           console.log("There was a problem with server.");
         } else {
-          console.log(err.response.data.message);
+          console.log(err.response.message);
         }
       }     
     } else {
