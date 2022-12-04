@@ -3,7 +3,6 @@ import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ProfileComponent } from "./profileComponent";
 
-
 describe(ProfileComponent, () => {
     it("profile page's profile pic should be initialized to blank profile image", () => {
         const { container } = render(<Router><ProfileComponent/></Router>);

@@ -6,7 +6,6 @@ import { ProfileComponent } from "../profilePage/profileComponent";
 
 const mockLogin = jest.fn();
 
-
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: () => mockLogin,
