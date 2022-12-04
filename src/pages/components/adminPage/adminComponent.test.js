@@ -61,7 +61,16 @@ describe(AdminComponent, () => {
 }); 
 
 describe(AdminComponent, () => {
-    it("admin page's name and email data are initialized to 'N/A'", () => {
+    it("admin page's profile pic should be initialized to blank profile image", () => {
+        const { container } = render(<Router><AdminComponent/></Router>);
+        const profilePic = getByTestId(container, "profilePic");
+        const blankPic = "/img/profile-blank-whitebg.png";
+
+        expect(profilePic).toBeInTheDocument;
+        expect(profilePic.src).toContain(blankPic);
+    });
+
+    it("admin page's name and email data are initialized to 'undefined'", () => {
         const { container } = render(<Router><AdminComponent/></Router>);
         const firstName = getAllByTestId(container, "firstName");
         const lastName = getAllByTestId(container, "lastName");
@@ -74,7 +83,7 @@ describe(AdminComponent, () => {
 });
 
 describe(AdminComponent, () => {
-    it("Logout button should set profile name and email data to 'N/A'", () => {
+    it("Logout button should set profile name and email data to 'undefined'", () => {
         const { container } = render(<Router><AdminComponent/></Router>);
         const firstName = getAllByTestId(container, "firstName");
         const lastName = getAllByTestId(container, "lastName");
