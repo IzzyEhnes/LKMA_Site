@@ -762,44 +762,44 @@ app.post("/forgot", (req, res) => {
         var generatedPassword = "Pa" + crypto.randomBytes(6).toString('hex');
 
           bcrypt.genSalt(10, (err, salt) => {
-          	bcrypt.hash(generatedPassword, salt, function (err, hash) {
+            bcrypt.hash(generatedPassword, salt, function (err, hash) {
               hashedGeneratedPassword = hash;
 
-							connection.query("UPDATE account SET password = ? WHERE email = ?",
-							[hashedGeneratedPassword, email], (err, result) => {
-								if (err) {
-									console.log(err);
-								}
+              connection.query("UPDATE account SET password = ? WHERE email = ?",
+              [hashedGeneratedPassword, email], (err, result) => {
+                if (err) {
+                  console.log(err);
+                }
 
-								else {
-								
-									var mailOptions = {
-										from: fromEmail,
-										to: email,
-										subject: 'Password Reset Request - Lee\'s Korean Martial Arts',
-										html: "<p>Hello,<br><br>Somebody requested a new password for the Lee's Korean Martial Arts</strong> account associated with " + email + ".<br><br>Your new password is: <strong>" + generatedPassword + "</strong><br><br>This password was automatically generated, and it is recommended that you reset your password immediately after logging in.<br><br>You can access your account by using this password here: <a href=\"http://localhost:3000/login\">http://localhost:3000/login</a><br><br>Regards,<br><br><strong>Lee's Korean Marial Arts</strong><br><br>2801 Zinfandel Drive, Rancho Cordova, CA, 95670<br>(916) 368-8824<br>leeskoreanmartialarts@gmail.com</p>"
-									};
-								
-									// for internal use (console output)
-									passwordResetEmail.sendMail(mailOptions, function (error, info) {
-										if (error) {
-											res.json({ status: "Error: " + error });
-												console.log(error);
-										} else {
-											res.json({ status: "Message Sent" });
-											console.log('Email sent: ' + info.response);
-										}
-									});
-								}
-							});
-						});
-				});
+                else {
+                
+                  var mailOptions = {
+                    from: fromEmail,
+                    to: email,
+                    subject: 'Password Reset Request - Lee\'s Korean Martial Arts',
+                    html: "<p>Hello,<br><br>Somebody requested a new password for the Lee's Korean Martial Arts</strong> account associated with " + email + ".<br><br>Your new password is: <strong>" + generatedPassword + "</strong><br><br>This password was automatically generated, and it is recommended that you reset your password immediately after logging in.<br><br>You can access your account by using this password here: <a href=\"http://localhost:3000/login\">http://localhost:3000/login</a><br><br>Regards,<br><br><strong>Lee's Korean Marial Arts</strong><br><br>2801 Zinfandel Drive, Rancho Cordova, CA, 95670<br>(916) 368-8824<br>leeskoreanmartialarts@gmail.com</p>"
+                  };
+                
+                  // for internal use (console output)
+                  passwordResetEmail.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                      res.json({ status: "Error: " + error });
+                        console.log(error);
+                    } else {
+                      res.json({ status: "Message Sent" });
+                      console.log('Email sent: ' + info.response);
+                    }
+                  });
+                }
+              });
+            });
+        });
 
-				res.status(200)
-			}
+        res.status(200)
+      }
 
       else {
         res.status(200);
       }
-		});
+    });
 });
