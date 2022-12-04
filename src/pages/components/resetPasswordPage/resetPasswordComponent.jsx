@@ -7,6 +7,7 @@ import { exportEmail, email } from "../loginPage/loginComponent";
 import { changeAdminInfo } from "../adminPage/adminComponent";
 
 var validPassword = false;
+var validConfirm = false;
 
 function checkUppercase(str) {
   for (var i = 0; i < str.length; i++) {
@@ -92,47 +93,105 @@ export const ResetPasswordComponent = (props) => {
     }
   };
 
-  function validate() {
-    validPassword = false;
+
+  function functions(){
+      validatePass()
+      validateConfirmPass()
+      confirm()
+  }
+
+  function validatePass() {
+      validPassword = false;
+
+    //PASS LEFT BLANK
     if (inputPassword.current.value === "") {
-      console.log("No password provided")
+      // console.log("No password provided") 
       document.getElementById("passwordError").innerHTML = "Please provide a password"
-    } else if (inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)) {
-      console.log("Valid Password")
-      document.getElementById("passwordError").innerHTML = ""
-    } else if (inputPassword.current.value.length > 7 && !checkUppercase(inputPassword.current.value) && !checkLowercase(inputPassword.current.value)) {
-      console.log("Password must contain letters")
-      document.getElementById("passwordError").innerHTML = "Password must contain letters"
-    } else if (inputPassword.current.value.length < 8) {
-      console.log("Password must be 8 characters or longer in length")
+
+    //PASS LESS THAN 8
+    }  else if (inputPassword.current.value.length < 8) {
+      // console.log("Password must be 8 characters or longer in length")
       document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
-    } else if (checkUppercase(inputPassword.current.value)) {
-      console.log("Password must contain at least one lowercase letter")
-      document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
-    } else if (checkLowercase(inputPassword.current.value)) {
-      console.log("Password must contain at least one uppercase letter")
+
+    //PASS NEEDS UPPERCASE
+    } else if (!checkUppercase(inputPassword.current.value)) {
+      // console.log("Password must contain at least one uppercase letter")
       document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
-    }
-    if (inputPasswordConfirm.current.value === "") {
-      console.log("Confirmation password not provided")
-      document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
-    } else {
-      document.getElementById("passwordConfirmError").innerHTML = ""
-    }
 
-    if (inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
-      console.log("Passwords match")
-      document.getElementById("matchingError").innerHTML = ""
+    //PASS NEEDS LOWERCASE
+    } else if (!checkLowercase(inputPassword.current.value)) {
+       //console.log("Password must contain at least one lowercase letter")
+      document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
+
+    //PASS GREATER THAN 7, UPPERCASE, LOWERCASE = VALID PASSWORD
+    } else if (inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)) {
+       //console.log("Valid Password")
       validPassword = true;
+      document.getElementById("passwordError").innerHTML = "Valid Password"
 
-    } else if (inputPassword.current.value === "" || inputPasswordConfirm.current.value === "") {
-      //Doing nothing as error already given by another error message
-      document.getElementById("matchingError").innerHTML = ""
+    //This shouldnt happen but if it does something went wrong.
     } else {
-      console.log("Password and confirmation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
+        document.getElementById("passwordError").innerHTML = "An Error Occured Please Contact Administrator: Password Box"
     }
   }
+
+  function validateConfirmPass() {
+      validConfirm = false;
+
+    //CONFIRM LEFT BLANK
+    if (inputPasswordConfirm.current.value === "") {
+       //console.log("Confirmation password not provided")
+      document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
+
+    //IF EITHER ARE BLANK = FAIL
+    } else if (inputPassword.current.value === "" || inputPasswordConfirm.current.value === "") {
+      //Doing nothing as error already given by another error message
+      document.getElementById("passwordConfirmError").innerHTML = ""
+      document.getElementById("matchingError").innerHTML = "Password or Confirm Are Empty"
+
+    //IF THEY DO NOT MATCH = FAIL
+    } else if (inputPassword.current.value !== inputPasswordConfirm.current.value) {
+      //console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //CONFIRM LESS THAN 8
+    } else if (inputPasswordConfirm.current.value.length < 8) {
+      // console.log("Password must be 8 characters or longer in length")
+      // Doing nothing since they must be more than 7 Char.
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS NEEDS UPPERCASE
+    } else if (!checkUppercase(inputPasswordConfirm.current.value)) {
+      // console.log("Password must contain at least one lowercase letter")
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS NEEDS LOWERCASE
+    } else if (!checkLowercase(inputPasswordConfirm.current.value)) {
+      // console.log("Password must contain at least one uppercase letter")
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS GREATER THAN 7, UPPERCASE, LOWERCASE = VALID PASSWORD
+    } else if (inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
+      // console.log("Passwords match")
+      validConfirm = true;
+      document.getElementById("matchingError").innerHTML = "Passwords Match"
+      document.getElementById("passwordConfirmError").innerHTML = ""
+      
+    //This shouldnt happen unless something goes wrong
+    } else {
+        document.getElementById("passwordConfirmError").innerHTML = "An Error Occured Please Contact Administrator - Confirm Password"
+    }
+    //alert(inputPasswordConfirm.current.value + inputPassword.current.value);
+  }
+
+  function confirm(){
+      if (validPassword && validConfirm) {
+        alert("Your password was changed successfully");
+        changeProfilePassword();
+    }
+
+}
 
   return (
     <div id='reset-password' className='text-center'>
@@ -142,17 +201,27 @@ export const ResetPasswordComponent = (props) => {
             <div className="form-container submit-container">
               <form action="#">
                 <h1>Reset Password</h1>
-                <div id="passwordError"></div>
-                <div id="passwordConfirmError"></div>
-                <div id="matchingError"></div>
-                <input ref={inputPassword} id="password" type="password"
-                  placeholder="Password" minLength="8" required />
-                <input ref={inputPasswordConfirm} id="PasswordConfirm" type="password"
-                  placeholder="Confirm Password" minLength="8" onChange={(e) => {
-                    setNewPassword(e.target.value);
-                    validate();
-                  }} required />
-                <button type="button" onClick={changeProfilePassword}>Submit</button>
+                <div data-testid="passwordError"        id="passwordError"></div>
+                <div data-testid="passwordConfirmError" id="passwordConfirmError"></div>
+                <div data-testid="matchingError"        id="matchingError"></div>
+                <input ref={inputPassword} 
+                id="password" 
+                type="password"
+                placeholder="Password" 
+                minLength="8" 
+                data-testid="password" 
+                required />
+                <input ref={inputPasswordConfirm} 
+                name="passwordConfirm"
+                data-testid="passwordConfirm" 
+                id="passwordConfirm" 
+                type="password"
+                placeholder="Confirm Password" 
+                minLength="8" 
+                onChange={(e) => {setNewPassword(e.target.value);}} 
+                required />
+                <button type="button" data-testid="passwordSubmit" 
+                    onClick={functions} >Submit</button>
               </form>
             </div>
             <div className="overlay-container">

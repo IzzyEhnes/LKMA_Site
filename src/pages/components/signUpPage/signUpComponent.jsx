@@ -202,6 +202,9 @@ export const SignUpComponent = (props) => {
 
   function functions() {
     validate();
+    validatePass();
+    validateConfirmPass();
+    validated();
   }
 
   function validate() {
@@ -241,45 +244,6 @@ export const SignUpComponent = (props) => {
       document.getElementById("emailError").innerHTML = "Please enter a valid email"
     }
 
-    if (inputPassword.current.value === "") {
-      // console.log("No password provided")
-      document.getElementById("passwordError").innerHTML = "Please provide a password"
-    } else if (inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)) {
-      // console.log("Valid Password")
-      validPassword = true;
-      document.getElementById("passwordError").innerHTML = ""
-    } else if (inputPassword.current.value.length < 8) {
-      // console.log("Password must be 8 characters or longer in length")
-      document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
-    } else if (checkUppercase(inputPassword.current.value)) {
-      // console.log("Password must contain at least one lowercase letter")
-      document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
-    } else if (checkLowercase(inputPassword.current.value)) {
-      // console.log("Password must contain at least one uppercase letter")
-      document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
-    } else if (!checkLowercase(inputPassword.current.value) & !checkUppercase(inputPassword.current.value)){
-      document.getElementById("passwordError").innerHTML = "Password must contain both uppercase and lowercase letters"
-    }
-
-    if (inputPasswordConfirm.current.value === "") {
-      // console.log("Confirmation password not provided")
-      document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
-    } else {
-      document.getElementById("passwordConfirmError").innerHTML = ""
-    }
-
-    if (inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
-      // console.log("Passwords match")
-      validConfirm = true;
-      document.getElementById("matchingError").innerHTML = ""
-    } else if (inputPassword.current.value === "" || inputPasswordConfirm.current.value === "") {
-      //Doing nothing as error already given by another error message
-      document.getElementById("matchingError").innerHTML = ""
-    } else {
-      console.log("Password and confirmation password do not match")
-      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
-    }
-
     if(inputAccessCode.current.value === "") {
       // console.log("No access code provided")
       document.getElementById("accessCodeError").innerHTML = "Please provide an access code"
@@ -292,11 +256,106 @@ export const SignUpComponent = (props) => {
       document.getElementById("accessCodeError").innerHTML = "Access Code Incorrect"
     }
 
+  }
+
+  function validatePass() {
+      validPassword = false;
+
+    //PASS LEFT BLANK
+    if (inputPassword.current.value === "") {
+       //console.log("No password provided") 
+      document.getElementById("passwordError").innerHTML = "Please provide a password"
+
+    //PASS LESS THAN 8
+    }  else if (inputPassword.current.value.length < 8) {
+       //console.log("Password must be 8 characters or longer in length")
+      document.getElementById("passwordError").innerHTML = "Password must be 8 characters or greater in length"
+      document.getElementById("matchingError").innerHTML = ""
+
+    //PASS NEEDS UPPERCASE
+    } else if (!checkUppercase(inputPassword.current.value)) {
+       //console.log("Password must contain at least one uppercase letter")
+      document.getElementById("passwordError").innerHTML = "Password must contain at least one uppercase letter"
+      document.getElementById("matchingError").innerHTML = ""
+
+    //PASS NEEDS LOWERCASE
+    } else if (!checkLowercase(inputPassword.current.value)) {
+       //console.log("Password must contain at least one lowercase letter")
+      document.getElementById("passwordError").innerHTML = "Password must contain at least one lowercase letter"
+      document.getElementById("matchingError").innerHTML = ""
+
+    //PASS GREATER THAN 7, UPPERCASE, LOWERCASE = VALID PASSWORD
+    } else if (inputPassword.current.value.length > 7 && checkUppercase(inputPassword.current.value) && checkLowercase(inputPassword.current.value)) {
+       //console.log("Valid Password")
+      validPassword = true;
+      document.getElementById("passwordError").innerHTML = "Valid Password"
+
+    //This shouldnt happen but if it does something went wrong.
+    } else {
+        document.getElementById("passwordError").innerHTML = "An Error Occured Please Contact Admin: Password Box"
+    }
+  }
+
+  function validateConfirmPass() {
+      validConfirm = false;
+    
+    //CONFIRM LEFT BLANK
+    if (inputPasswordConfirm.current.value === "") {
+       //console.log("Confirmation password not provided")
+      document.getElementById("passwordConfirmError").innerHTML = "No confirmation password provided"
+
+    //IF EITHER ARE BLANK = FAIL
+    } else if (inputPassword.current.value === "" || inputPasswordConfirm.current.value === "") {
+      //Doing nothing as error already given by another error message
+      document.getElementById("passwordConfirmError").innerHTML = ""
+      document.getElementById("matchingError").innerHTML = "Password or Confirm Are Empty"
+
+    //IF THEY DO NOT MATCH = FAIL
+    } else if (inputPassword.current.value !== inputPasswordConfirm.current.value) {
+      //console.log("Password and confirmation password do not match")
+      document.getElementById("matchingError").innerHTML = "Password and confirmation password do not match"
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //CONFIRM LESS THAN 8
+    } else if (inputPasswordConfirm.current.value.length < 8) {
+      // console.log("Password must be 8 characters or longer in length")
+      // Doing nothing since they must be more than 7 Char.
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS NEEDS UPPERCASE
+    } else if (!checkUppercase(inputPasswordConfirm.current.value)) {
+      // console.log("Password must contain at least one lowercase letter")
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS NEEDS LOWERCASE
+    } else if (!checkLowercase(inputPasswordConfirm.current.value)) {
+      // console.log("Password must contain at least one uppercase letter")
+      document.getElementById("passwordConfirmError").innerHTML = ""
+
+    //PASS GREATER THAN 7, UPPERCASE, LOWERCASE = VALID PASSWORD
+    } else if (inputPassword.current.value === inputPasswordConfirm.current.value && inputPassword.current.value !== "") {
+      // console.log("Passwords match")
+      validConfirm = true;
+      document.getElementById("matchingError").innerHTML = "Passwords Match"
+      document.getElementById("passwordConfirmError").innerHTML = ""
+      
+    //This shouldnt happen unless something goes wrong
+    } else {
+        document.getElementById("passwordConfirmError").innerHTML = "An Error Occured Please Contact Admin - Confirm Password"
+    }
+    
+  }
+
+  function validated(){
     if (validFirstName && validLastName && validEmail && validPassword &&
       validConfirm && validAccessCode) {
       HandleClick();
     }
+
   }
+
+
+
 
   return (
     <div id='sign-up' className='text-center'>
