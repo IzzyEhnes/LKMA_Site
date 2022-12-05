@@ -15,43 +15,55 @@ California State University, Sacramento Computer Science Senior Project
 </p>
 
 ##
-Lee's Korean Martial Arts wants us to create a website that show what services they offer, their location and current schedule, and what values they have.  Additionally, the website should offer users the ability to sign-up for an account in order to view their current curriculum and upload completed documents.  Users should be able to see family members curriculum as well.
+Lee's Korean Martial Arts wants us to create a website that show what services they offer, their location and current schedule, and what values they have.  Additionally, the website should offer users the ability to sign-up for an account in order to download assignments and upload completed assignments.
 ##
 
 ## Project Timeline
-In this first semester, we focused on building some of the Front-End Pages & Navbar:
+In the first semester (Spring 2022), we focused on building some of the Front-End Pages & Navbar:
 - Home Page
 - About Page
 - FAQ Page
 - Programs Page
 
-In Fall 2022, during CSC 191, our timeline looks like this:
+In the second semester (Fall 2022), we finished the following front-end components:
 - Create Contact/Location Page
 - Create Calendar Page using Google Calendar API
 - Create Gallery Page
 - Create Profile Page
 
-These last few Front-End Pages will likely be created quickly, thus we will quickly turn focus toward implementing a database for users to sign-up, log-in, and eventually view their profiles
-- Build Database to store hashed usernames & passwords, in addition to other information
+Then we moved on to focus on back-end implementation for sign-up, log-in, and profiles
+- Build Database to store emails & hashed passwords, in addition to other information
 - Work to integrate Database with Front-End Pages
-- Create Family Profile Views
-- Once User Profiles are implemented and working, we will add functionality for users to upload files
+- Functionality for users to upload files
 
-If time permits and if possible, we wish to integrate MyStudio, a membership management service
-
-## Work So Far
-Here is a glance at some of the pages we have created so far:
+## Pictures
+Here is a glance at some of the pages we have created:
 
 Navbar:
-![Navbar](https://user-images.githubusercontent.com/72421134/167499375-c158b35b-7c68-4863-bbcb-288a0bc74800.png)
+![Navbar](https://user-images.githubusercontent.com/72421134/205546397-1ec547df-8ec5-4714-b0e0-7f3bbbf73790.png)
 Part of Home Page:
-![Part of Home Page](https://user-images.githubusercontent.com/72421134/167499553-86301bae-bf2a-4bda-8c1b-34dcf6c38a33.png)
+![Part of Home Page](https://user-images.githubusercontent.com/72421134/205546493-69ebb8f0-0cce-492d-a455-09618dba7b03.png)
 Part of About Page:
-![screenshot_abt](https://user-images.githubusercontent.com/44451361/168258988-602a4868-2479-406c-8adc-56941871c67f.png)
+![Part of About Page](https://user-images.githubusercontent.com/72421134/205546895-5195b2a0-857b-44a7-90ba-d20f0d698113.png)
 Part of FAQ Page:
-![Part of FAQ Page](https://user-images.githubusercontent.com/72421134/167499943-1dd7b0e0-2a1f-443e-a893-4bb7cb1ad63c.png)
+![Part of FAQ Page](https://user-images.githubusercontent.com/72421134/205546989-06d760ff-914d-45f0-997a-6472e774f29b.png)
 Part of Programs Page:
-![Part of Programs Page](https://user-images.githubusercontent.com/72421134/167500199-61adbe80-dc04-4170-95e4-111e962c40ec.png)
+![Part of Programs Page](https://user-images.githubusercontent.com/72421134/205547040-b033b2a0-4584-4a7b-992e-eab938f3f223.png)
+Gallery Page:
+![Gallery Page](https://user-images.githubusercontent.com/72421134/205547222-a997f051-2dee-4dec-b3af-e8acc345ab32.png)
+Part of Calendar Page:
+![Part of Calendar Page](https://user-images.githubusercontent.com/72421134/205547334-2d29a782-8eed-49d8-8b8e-5bff49dcf594.png)
+Part of Contact Page:
+![Part of Contact Page](https://user-images.githubusercontent.com/72421134/205547369-b64f1e37-2973-4b55-b30a-b11efec45fa2.png)
+Sign-Up Page:
+![Sign-Up Page](https://user-images.githubusercontent.com/72421134/205547677-21e8914d-d84b-4cc4-8269-aa2d628475da.png)
+Log-In Page:
+![Log-In Page](https://user-images.githubusercontent.com/72421134/205547724-a4459c71-78c0-4c9d-92f1-40d506e6f223.png)
+Profile Page:
+![Profile Page](https://user-images.githubusercontent.com/72421134/205547883-f10c716b-ec90-46ae-a19f-4e682a79a31e.png)
+Admin Page Functions:
+![Admin Page Functions](https://user-images.githubusercontent.com/72421134/205548385-1f185e53-24a6-4dbd-9f30-d5a5add23a61.png)
+
 
 ## Developer Instructions
 Install [Node.js](https://nodejs.org/en/)
