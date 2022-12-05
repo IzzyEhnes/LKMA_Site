@@ -76,7 +76,22 @@ yarn start
 ```
 
 ## Testing
-N/A so far.  To begin in CSC 191
+Testing in CSC 191 consisted of us going through each feature that required some sort of user interaction as well as individual unit testing. This ensured that the website was as bug free as possible when given to the client to maintain. The features that we visually tested include the following:
+- Sign Up Validation
+- Login Validation
+- Forgot Password Validation
+- Gallery Page
+- Student Profile Page
+- Admin Profile Page
+
+The unit tests that we conducted would test each component individually to make sure the proper response was given. If the correct response was returned the test would pass. The components that we unit tested for include:
+- Profile Component
+- Admin Component
+- Change Email Component
+- Sign Up Component
+- Login Component
+- Reset Password Component.
+
 
 ## Deployment
 N/A so far.  To begin in CSC 191
