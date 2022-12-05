@@ -127,7 +127,7 @@
       "ref": "/contact",
       "icon": "fa fa-comments-o",
       "title": "Contact Us",
-      "text": "Contact us for more information regarding our school or programs!"
+      "text": "Contact us for any informational needs!"
     },
     {
       "ref": "/programs",  
@@ -136,16 +136,16 @@
       "text": "Check out our catalog of programs for all ages!"
     },
     {
+      "ref": "/login",
+      "icon": "fa fa-magic",
+      "title": "Student",
+      "text": "Are you a student? Click here to login!"
+    },
+    {
       "ref": "/calendar",
       "icon": "fa fa-group",
       "title": "Schedule",
-      "text": "The current schedule for our school."
-    },
-    {
-      "ref": "/login",
-      "icon": "fa fa-magic",
-      "title": "Student Portal",
-      "text": "Are you a student? Click here to log in to your profile!"
+      "text": "Our most up to date school schedule!"
     }
   ],
   "Instructors": [

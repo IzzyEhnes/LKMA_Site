@@ -11,12 +11,13 @@ export const Header = (props) => {
                   <span></span>
                 </h1>
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
-                <a className="btn btn-custom btn-lg intro-button" href={props.data ? props.data.introClassLink : ""} target="_blank">
+                <div className="btn btn-custom btn-lg intro-button" href={props.data ? props.data.introClassLink : ""} target="_blank">
                   Sign Up For Intro Class
-                </a>
-                <a className=" btn-custom btn-lg intro-button" href={props.data ? props.data.infoRequestLink : ""} target="_blank">
+                </div>
+ 
+                <div className="btn btn-custom btn-lg intro-button" href={props.data ? props.data.infoRequestLink : ""} target="_blank">
                   Want More Information?
-                </a>
+                </div>
               </div>
             </div>
           </div>
