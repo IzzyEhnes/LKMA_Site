@@ -1,3 +1,24 @@
+const Schedule_Image = ({ title, largeImage, smallImage }) => {
+    return (
+      <div className='gallery-item'>
+        <div className='hover-bg'>
+          {' '}
+          <a
+            href={largeImage}
+            title={title}
+            data-lightbox-gallery='gallery1'
+          >
+            <img
+              src={smallImage}
+              className='img-responsive'
+              alt={title}
+            />{' '}
+          </a>{' '}
+        </div>
+      </div>
+    )
+  }
+
 export const CalendarComponent = (props) => {
     return (
         <div id = 'calendar' className='text-center'>
@@ -13,7 +34,7 @@ export const CalendarComponent = (props) => {
                             <h3>
                                 Weekly Calendar
                                 <br></br>
-                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="100%" height="30%" frameBorder="0" scrolling="no"/>
+                                <Schedule_Image title="Schedule" largeImage="img/schedule/LKMA_Schedule-Rancho.png" smallImage="img/schedule/LKMA_Schedule-Rancho.png"/>
                             </h3>
                             <h4>
                                 Monthly Calendar

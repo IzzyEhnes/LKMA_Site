@@ -1,17 +1,27 @@
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   #features {
-    padding: 20px;
-    width: 111%;
+    width: 100%;
   }
   #about,
   #services,
   #team,
   #contact,
   #footer {
-    width: 111%;
+    width: 100%;
   }
 
   #gallery {
-    width: 110%;
+    width: 100%;
+  }
+  #location iframe{
+    width: 90vw;
+    height: 90vw;
+  }
+}
+
+@media screen and (min-width: 501px) {
+  #location iframe{
+    width: 450;
+    height: 450;
   }
 }
