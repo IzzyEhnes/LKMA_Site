@@ -258,6 +258,7 @@ a:focus,
 .intro-button {
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 header .intro-text {
@@ -274,13 +275,13 @@ header .intro-text {
 /* Features Section Buttons */
 #features i.fa {
   font-size: 38px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   transition: all 0.5s;
   color: #fff;
   width: 100px;
   height: 100px;
   padding: 30px 0;
-  border-radius: 50%;
+  border-radius: 100%;
   background: linear-gradient(to right, #CD2E3A 0%, #ca6373 100%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
@@ -795,27 +796,27 @@ header .intro-text {
 }
 
 #calendar .calendars {
-  display: flex;
+  display: inline-block;
 }
 
 
 #calendar .weekly-calendar {
   background-color: rgb(63, 63, 63);
-  width: 68%;
+  width: 100%;
   margin-right: 2%;
   margin-bottom: 2%;
 }
 
 #calendar .monthly-calendar {
   background-color: rgb(63, 63, 63);
-  width: 68%;
+  width: 100%;
   margin-right: 2%;
 }
 
 #calendar .upcoming-events {
   background-color: rgb(63, 63, 63);
   grid-column: 2;
-  width: 31%;
+  width: 100%;
   text-align: center;
   overflow: hidden;
 }
@@ -825,6 +826,7 @@ header .intro-text {
   margin: 3%;
   padding: 4%;
   width: 94%;
+
   text-align: center;
 }
 
@@ -835,6 +837,7 @@ header .intro-text {
 }
 
 #calendar .upcoming-event-date {
+
   padding: 1%;
   margin: 1%;
   text-align: center;

@@ -13,12 +13,12 @@ export const CalendarComponent = (props) => {
                             <h3>
                                 Weekly Calendar
                                 <br></br>
-                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="100%" height="20%" frameBorder="0" scrolling="no"/>
+                                <img src="img/schedule/LKMA_Schedule-Rancho.png" className="scheduleWeeklyIMG" width="100%" height="30%" frameBorder="0" scrolling="no"/>
                             </h3>
                             <h4>
                                 Monthly Calendar
                                 <br></br>
-                                <iframe src="https://calendar.google.com/calendar/embed?src=leeskoreanmartialarts@gmail.com&ctz=America%2FLos_Angeles" width="100%" height="40%" frameBorder="0" scrolling="no"></iframe>
+                                <iframe src="https://calendar.google.com/calendar/embed?src=leeskoreanmartialarts@gmail.com&ctz=America%2FLos_Angeles" width="100%" height="30%" frameBorder="0" scrolling="no"></iframe>
                             </h4>
                         </div>
                         <div className='upcoming-events'>
