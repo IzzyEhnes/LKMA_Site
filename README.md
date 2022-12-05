@@ -104,6 +104,10 @@ The unit tests that we conducted would test each component individually to make 
 - Login Component
 - Reset Password Component.
 
+In order to run tests, follow the developer instructions above, then instead of using 'npm start', run:
+```bash
+npm run test
+```
 
 ## Deployment
 N/A so far.  To begin in CSC 191
