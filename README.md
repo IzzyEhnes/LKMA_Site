@@ -110,4 +110,16 @@ npm run test
 ```
 
 ## Deployment
-N/A so far.  To begin in CSC 191
+To deploy the project, the following steps were completed:
+### Front-end deployment
+1. In a terminal, navigate to the project's root directory
+2. Run `yarn install` to install the updated dependencies
+3. Run `yarn build` (or alternatively `npm install` or `npm build`). This creates a new directory in the project, called build, with the project's build files
+4. Login to GoDaddy, and access the cPanel admin page
+5. Click the "File Manager" icon in cPanel, select the "public_html" folder, and then "Upload"
+6. Upload the contents of the build folder (but not the build folder itself) that was created in step 3
+7. Update the .htaccess file to add redirects
+
+### Back-end deployment
+1. Add new file, app.js, to public_html folder in cPanel. This contains the server logic.
+2. In a cPanel terminal session (or remote SSH session), run `node app.js &` to run a standalone server in the background
