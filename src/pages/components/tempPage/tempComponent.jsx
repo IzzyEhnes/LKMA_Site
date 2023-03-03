@@ -23,7 +23,7 @@ export const TempComponent = (props) => {
 
     const register = () => {
         const data = {email: emailReg, password: passwordReg};
-        axios.post("http://localhost:3001/", data).then((response) => {
+        axios.post("http://ec2-35-92-130-216.us-west-2.compute.amazonaws.com:4000/", data).then((response) => {
         setRegStatus(response.data.message); 
         console.log(response.data);
         }); 
@@ -37,7 +37,7 @@ export const TempComponent = (props) => {
         formData.append('password', password);
 
         try {
-            axios.post("http://localhost:3001/login", formData).then((response) => {
+            axios.post("http://ec2-35-92-130-216.us-west-2.compute.amazonaws.com:4000/login", formData).then((response) => {
                 if (response.data.message !== "Wrong combination") {
                     setLoginStatus("Email: " + response.data.result[0].email);
         
@@ -60,14 +60,14 @@ export const TempComponent = (props) => {
 
     const changePassword = () => {
         const data = {email: email, password: password};
-        axios.post("http://localhost:3001/password", data).then((response) => {
+        axios.post("http://ec2-35-92-130-216.us-west-2.compute.amazonaws.com:4000/password", data).then((response) => {
         console.log(response.data);
         }); 
     };
 
     const changeEmail = () => {
         const data = {email: email, password: password};
-        axios.post("http://localhost:3001/email", data).then((response) => {
+        axios.post("http://ec2-35-92-130-216.us-west-2.compute.amazonaws.com:4000/email", data).then((response) => {
         console.log(response.data);
         }); 
     };
@@ -79,7 +79,7 @@ export const TempComponent = (props) => {
         formData.append('email', email);
         
         try {
-            const res = await axios.post("http://localhost:3001/image", formData, {
+            const res = await axios.post("http://ec2-35-92-130-216.us-west-2.compute.amazonaws.com:4000/image", formData, {
                 headers: {
                     "Content-Type": "mulitpart/form-data"
                 }
